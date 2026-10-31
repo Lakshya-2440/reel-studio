@@ -502,7 +502,7 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             >
               <Play className="w-3.5 h-3.5 text-accent fill-accent group-hover:scale-110 transition-transform" />
               <span>Watch Launch Video</span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent/10 text-accent font-bold">1:12</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent/10 text-accent font-bold">1:08</span>
             </button>
 
             <a
