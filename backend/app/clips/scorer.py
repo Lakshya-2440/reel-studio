@@ -107,7 +107,7 @@ def fetch_active_voice_rules(project_id: str, db: Any = None) -> List[Dict[str, 
                 SELECT vr.id, vr.rule_text, vr.category
                 FROM voice_rules vr
                 JOIN voice_profiles vp ON vr.profile_id = vp.id
-                WHERE vp.project_id = :pid AND vr.is_active = 1
+                WHERE vp.project_id = :pid AND vr.is_active = TRUE
                 """
             )
             rows = db.execute(query, {"pid": project_id}).fetchall()

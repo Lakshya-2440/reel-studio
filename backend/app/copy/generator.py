@@ -154,7 +154,7 @@ class PlatformCopyEngine:
                     SELECT r.id, r.rule_text, r.confidence, r.category
                     FROM voice_rules r
                     JOIN voice_profiles p ON r.profile_id = p.id
-                    WHERE p.project_id = :pid AND r.is_active = 1
+                    WHERE p.project_id = :pid AND r.is_active = TRUE
                     ORDER BY r.confidence DESC
                     LIMIT 8
                 """),

@@ -670,6 +670,20 @@ class VoiceCleaner:
                     task="voice_interpret",
                 )
                 if isinstance(result, dict):
+                    # Standardize platform in entities to lowercase
+                    if "entities" in result and isinstance(result["entities"], dict):
+                        if "platform" in result["entities"] and result["entities"]["platform"]:
+                            result["entities"]["platform"] = str(result["entities"]["platform"]).lower()
+
+                    # Ensure clean_text has sentence casing and period
+                    if "clean_text" in result and result["clean_text"]:
+                        ct = str(result["clean_text"]).strip()
+                        if ct:
+                            ct = ct[0].upper() + ct[1:]
+                            if not ct.endswith(('.', '!', '?')):
+                                ct += '.'
+                            result["clean_text"] = ct
+
                     # Augment with raw_dictation
                     result["raw_dictation"] = raw_text_clean
                     # If when is present, ensure IST timezone offset

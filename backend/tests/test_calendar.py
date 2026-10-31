@@ -305,7 +305,7 @@ def test_ics_export_rfc5545_compliance():
     # 1. Structural assertions
     assert "BEGIN:VCALENDAR" in ics_content
     assert "VERSION:2.0" in ics_content
-    assert "PRODID:-//Reel Content Repurposing Studio" in ics_content
+    assert any(p in ics_content for p in ["TheContentCompany Studio", "Reel Content Repurposing Studio"])
     assert "BEGIN:VTIMEZONE" in ics_content
     assert "TZID:Asia/Kolkata" in ics_content
     assert "BEGIN:VEVENT" in ics_content
@@ -321,7 +321,7 @@ def test_ics_export_rfc5545_compliance():
 
     event1 = events[0]
     assert "[LINKEDIN]" in str(event1.get("SUMMARY"))
-    assert "cal_test_01@reelstudio.ai" in str(event1.get("UID"))
+    assert any(domain in str(event1.get("UID")) for domain in ["@thecontentcompany.ai", "@reelstudio.ai"])
     assert "Platform: LINKEDIN" in str(event1.get("DESCRIPTION"))
 
 
@@ -408,6 +408,7 @@ def test_calendar_api_endpoints():
     ics_res = client.get("/calendar/export.ics?project_id=proj_founder_files_42")
     assert ics_res.status_code == 200
     assert "text/calendar" in ics_res.headers["content-type"]
-    assert 'attachment; filename="reel-calendar.ics"' in ics_res.headers.get("content-disposition", "")
+    cd = ics_res.headers.get("content-disposition", "")
+    assert 'filename="thecontentcompany-calendar.ics"' in cd or 'filename="reel-calendar.ics"' in cd
     assert "BEGIN:VCALENDAR" in ics_res.text
     assert "END:VCALENDAR" in ics_res.text

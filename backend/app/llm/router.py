@@ -67,7 +67,7 @@ class LLMRouter:
             or "BAAI/bge-small-en-v1.5"
         )
         self.gemini_model = (
-            gemini_model or os.getenv("GEMINI_MODEL") or "gemini-2.0-flash"
+            gemini_model or os.getenv("GEMINI_MODEL") or "gemini-2.5-flash"
         )
 
         # Primary OpenAI-compatible endpoint

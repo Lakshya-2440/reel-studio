@@ -148,7 +148,7 @@ def process_variant_edit(
         db.execute(
             text("""
                 UPDATE platform_variants
-                SET is_edited = 1, final_text = :final_txt, caption = :final_txt
+                SET is_edited = TRUE, final_text = :final_txt, caption = :final_txt
                 WHERE id = :vid
             """),
             {"final_txt": creator_final, "vid": variant_id},
@@ -207,7 +207,7 @@ def process_variant_edit(
                 db.execute(
                     text("""
                         INSERT INTO voice_rules (id, profile_id, rule_text, confidence, category, is_active)
-                        VALUES (:id, :pid, :rtext, :conf, :cat, 1)
+                        VALUES (:id, :pid, :rtext, :conf, :cat, TRUE)
                     """),
                     {
                         "id": rule_id,

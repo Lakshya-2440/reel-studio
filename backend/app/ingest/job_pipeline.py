@@ -149,7 +149,7 @@ def save_ingestion_results(
                     text(
                         """
                         INSERT INTO transcript_segments (id, transcript_id, start_time, end_time, speaker, text, embedding)
-                        VALUES (:id, :transcript_id, :start_time, :end_time, :speaker, :text, :embedding::vector);
+                        VALUES (:id, :transcript_id, :start_time, :end_time, :speaker, :text, CAST(:embedding AS vector));
                         """
                     ),
                     {

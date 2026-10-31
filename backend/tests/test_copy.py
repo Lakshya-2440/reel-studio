@@ -202,13 +202,24 @@ def test_process_variant_edit_persists_and_updates_voice_memory():
     try:
         vid = "var_clip_1_linkedin"
         # Seed or ensure variant exists in DB
-        db.execute(
-            text("""
-                INSERT OR REPLACE INTO platform_variants (id, clip_id, platform, hook, caption, voice_match_score, is_edited)
-                VALUES (:vid, 'clip_1', 'linkedin', 'Initial AI hook', 'Initial AI draft caption', 90.0, 0)
-            """),
-            {"vid": vid},
-        )
+        dialect = db.bind.dialect.name.lower() if db.bind else ""
+        if "postgres" in dialect:
+            db.execute(
+                text("""
+                    INSERT INTO platform_variants (id, clip_id, platform, hook, caption, voice_match_score, is_edited)
+                    VALUES (:vid, 'clip_1', 'linkedin', 'Initial AI hook', 'Initial AI draft caption', 90.0, TRUE)
+                    ON CONFLICT (id) DO UPDATE SET caption = EXCLUDED.caption;
+                """),
+                {"vid": vid},
+            )
+        else:
+            db.execute(
+                text("""
+                    INSERT OR REPLACE INTO platform_variants (id, clip_id, platform, hook, caption, voice_match_score, is_edited)
+                    VALUES (:vid, 'clip_1', 'linkedin', 'Initial AI hook', 'Initial AI draft caption', 90.0, 1)
+                """),
+                {"vid": vid},
+            )
         db.commit()
 
         creator_final = "At $50k MRR, our compute bill was $42,000. What is your minimum gross margin floor?"

@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     HF_CHAT_MODEL: str = "Qwen/Qwen2.5-72B-Instruct"
     HF_ASR_MODEL: str = "openai/whisper-large-v3"
     HF_EMBED_MODEL: str = "BAAI/bge-small-en-v1.5"
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: str = "gemini-2.5-flash"
 
     # CORS
     ALLOWED_ORIGINS: Union[List[str], str] = [
