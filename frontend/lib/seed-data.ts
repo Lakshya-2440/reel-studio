@@ -1,4 +1,4 @@
-// Reel Studio — Master Seed Data for The Founder Files Ep. 42
+// TheContentCompany Studio — Master Seed Data for The Founder Files Ep. 42
 // Y-Combinator Startup Aesthetic & Exact Traceability for Reqs 1, 2, 3
 
 export interface ClipScoreBreakdown {

@@ -227,14 +227,14 @@ export default function CalendarPage() {
         id: s.id,
         title: s.clipTitle,
         platform: s.platformName,
-        description: `Reel Content Post\nPlatform: ${s.platformName}\nHook: "${s.hookLine}"\nAI Rationale: ${s.rationale}\nScheduled in IST (Asia/Kolkata UTC+05:30)`,
+        description: `TheContentCompany Post\nPlatform: ${s.platformName}\nHook: "${s.hookLine}"\nAI Rationale: ${s.rationale}\nScheduled in IST (Asia/Kolkata UTC+05:30)`,
         startTime: isNaN(d.getTime()) ? new Date() : d,
         durationMinutes: 30,
       };
     });
 
     const icsString = generateIcs(calendarEvents);
-    downloadIcsFile("reel-content-schedule-ist.ics", icsString);
+    downloadIcsFile("thecontentcompany-schedule-ist.ics", icsString);
   };
 
   const filteredSlots = slots.filter((slot) => {

@@ -26,10 +26,10 @@ export function generateIcs(events: CalendarEvent[]): string {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Reel Studio//Content Calendar//EN",
+    "PRODID:-//TheContentCompany Studio//Content Calendar//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    "X-WR-CALNAME:Reel Studio Schedule (IST)",
+    "X-WR-CALNAME:TheContentCompany Schedule (IST)",
     "X-WR-TIMEZONE:Asia/Kolkata",
   ];
 
@@ -40,7 +40,7 @@ export function generateIcs(events: CalendarEvent[]): string {
 
     lines.push(
       "BEGIN:VEVENT",
-      `UID:${ev.id}@reelstudio.app`,
+      `UID:${ev.id}@thecontentcompany.app`,
       `DTSTAMP:${formatUtcDate(new Date())}`,
       `DTSTART:${startStr}`,
       `DTEND:${endStr}`,

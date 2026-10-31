@@ -18,7 +18,7 @@ export function VoiceStudioModal({
   const samplePresets = [
     {
       label: "Schedule Week",
-      raw: "Hey Reel um schedule the first three clips across next week, uh actually make that Tuesday and Thursday, on LinkedIn in the morning around 9:30 AM IST and Reels in the evening.",
+      raw: "Hey TheContentCompany um schedule the first three clips across next week, uh actually make that Tuesday and Thursday, on LinkedIn in the morning around 9:30 AM IST and Reels in the evening.",
       fillers: ["um", "uh actually", "around"],
       strikethrough: "across next week",
       correction: "Tuesday and Thursday at 09:30 IST & 19:30 IST",

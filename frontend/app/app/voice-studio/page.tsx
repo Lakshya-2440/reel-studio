@@ -59,7 +59,7 @@ export default function VoiceStudioPage() {
       category: "scheduling",
       categoryLabel: "Calendar",
       description: "Dictate complex IST schedule constraints using conversational speech with mid-sentence corrections.",
-      raw: "Hey Reel um schedule the first three clips across next week, uh actually make that Tuesday and Thursday, on LinkedIn in the morning around 9:30 AM IST and Reels in the evening.",
+      raw: "Hey TheContentCompany um schedule the first three clips across next week, uh actually make that Tuesday and Thursday, on LinkedIn in the morning around 9:30 AM IST and Reels in the evening.",
       fillers: ["um", "uh actually", "around"],
       corrections: {
         original: "across next week",
@@ -167,7 +167,7 @@ export default function VoiceStudioPage() {
       category: "copy",
       categoryLabel: "Copy Engine",
       description: "Dictate real-time stylistic pivots for platform copy hooks.",
-      raw: "Hey Reel, regenerate the hook for clip 2 on X, like make it sound way more contrarian, uh almost like an angry operator who just audited their cloud invoice.",
+      raw: "Hey TheContentCompany, regenerate the hook for clip 2 on X, like make it sound way more contrarian, uh almost like an angry operator who just audited their cloud invoice.",
       fillers: ["like", "uh", "almost like"],
       corrections: {
         original: "way more contrarian",
@@ -196,7 +196,7 @@ export default function VoiceStudioPage() {
   const currentScenario = sampleScenarios[activeScenarioIdx];
 
   const handleExecuteAction = () => {
-    setExecutedToast(`Executed ${currentScenario.intent}: Action synchronized across Reel studio state!`);
+    setExecutedToast(`Executed ${currentScenario.intent}: Action synchronized across TheContentCompany studio state!`);
     setTimeout(() => setExecutedToast(null), 4000);
   };
 

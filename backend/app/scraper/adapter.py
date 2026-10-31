@@ -173,7 +173,7 @@ def get_demo_creator_profile() -> CreatorProfile:
             handle="alex_founder",
             name="Alex Rivera",
             title="Founder & Host @ The Founder Files",
-            bio="Building Reel (YC S24). Tech, AI agents, podcast soundbites.",
+            bio="Building TheContentCompany. Tech, AI agents, podcast soundbites.",
             follower_count=48500,
         )
     try:
@@ -315,7 +315,7 @@ def parse_pasted_posts(text: str, platform: str = "custom") -> List[ScrapedPost]
         post = ScrapedPost(
             id=f"pasted-post-{idx+1:02d}-{uuid.uuid4().hex[:6]}",
             platform=norm_plat,
-            post_url=f"https://reel.studio/creator/pasted-post-{idx+1}",
+            post_url=f"https://thecontentcompany.ai/creator/pasted-post-{idx+1}",
             text=cleaned_body,
             image_urls=images,
             likes=max(120, 850 - (idx * 35)),

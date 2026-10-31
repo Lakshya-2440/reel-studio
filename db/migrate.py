@@ -16,9 +16,12 @@ from typing import List, Tuple, Optional
 # Load .env if present
 try:
     from dotenv import load_dotenv
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-    if env_path.exists():
-        load_dotenv(env_path)
+    root_env = Path(__file__).resolve().parent.parent / ".env"
+    backend_env = Path(__file__).resolve().parent.parent / "backend" / ".env"
+    if root_env.exists():
+        load_dotenv(root_env)
+    elif backend_env.exists():
+        load_dotenv(backend_env)
 except ImportError:
     pass
 

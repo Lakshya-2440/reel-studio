@@ -390,7 +390,7 @@ export default function BrandKitPage() {
               </span>
             </div>
             <p className="text-xs text-secondary mt-0.5">
-              Demonstrates how the extracted palette themes social graphics (NOT the Reel app UI itself).
+              Demonstrates how the extracted palette themes social graphics (NOT TheContentCompany app UI itself).
             </p>
           </div>
 
@@ -555,7 +555,7 @@ export default function BrandKitPage() {
 
             <div className="space-y-3 text-xs">
               <p className="text-secondary font-sans">
-                If LinkedIn or Instagram rate-limits scrapers, paste your best 5-10 recent posts below. Reel will extract tone, vocabulary, and color palette automatically.
+                If LinkedIn or Instagram rate-limits scrapers, paste your best 5-10 recent posts below. TheContentCompany will extract tone, vocabulary, and color palette automatically.
               </p>
 
               <textarea

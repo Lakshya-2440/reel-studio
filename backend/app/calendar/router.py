@@ -49,7 +49,7 @@ def _row_to_response(row: Any) -> CalendarItemResponse:
     norm_plt = normalize_platform_name(platform)
     title = clip_title or "Untitled Post"
     sched_str = str(sched_for) if sched_for else datetime.now(timezone.utc).isoformat()
-    reason_str = slot_reason or "Scheduled via Reel Content Calendar"
+    reason_str = slot_reason or "Scheduled via TheContentCompany Calendar"
 
     # Split hashtags if string
     hashtags = []
@@ -373,15 +373,15 @@ async def export_calendar_ics(
 
     ics_content = generate_ics_calendar(
         items=items,
-        calendar_name=f"Reel Schedule — {project_id}",
-        calendar_description="Reel Content Studio schedule optimized for IST audience peaks",
+        calendar_name=f"TheContentCompany Schedule — {project_id}",
+        calendar_description="TheContentCompany Studio schedule optimized for IST audience peaks",
     )
 
     return Response(
         content=ics_content,
         media_type="text/calendar",
         headers={
-            "Content-Disposition": 'attachment; filename="reel-calendar.ics"',
+            "Content-Disposition": 'attachment; filename="thecontentcompany-calendar.ics"',
             "Cache-Control": "no-cache",
         },
     )

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TheContentCompanyLogo } from "@/components/brand/logo";
 import {
   ArrowLeft,
   ArrowRight,
@@ -118,13 +119,17 @@ export default function HowItWorksPage() {
       {/* Header */}
       <header className="border-b border-border bg-surface sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="hover:opacity-90 transition-opacity">
+              <TheContentCompanyLogo size={28} subtitle="Capability Map" />
+            </Link>
+            <div className="hidden sm:block h-4 w-[1px] bg-border" />
             <Link
               href="/"
               className="text-secondary hover:text-primary transition-colors flex items-center gap-1.5 text-xs font-mono"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Home</span>
+              <span>Back</span>
             </Link>
           </div>
 
@@ -188,7 +193,7 @@ export default function HowItWorksPage() {
                       <span className="text-secondary">{item.problem}</span>
                     </div>
                     <div>
-                      <span className="font-semibold text-primary">Reel Architecture: </span>
+                      <span className="font-semibold text-primary">TheContentCompany Architecture: </span>
                       <span className="text-secondary">{item.solution}</span>
                     </div>
                     <div className="pt-2 border-t border-border/60">
@@ -220,10 +225,10 @@ export default function HowItWorksPage() {
             <span>Continuous Feedback Loop Architecture</span>
           </div>
           <h2 className="text-lg font-bold text-primary mb-2">
-            Why Reel is Not Another Wrapper
+            Why TheContentCompany is Not Another Wrapper
           </h2>
           <p className="text-xs text-secondary leading-relaxed">
-            Traditional AI content tools treat every generation as a stateless prompt. Reel builds a closed-loop system:
+            Traditional AI content tools treat every generation as a stateless prompt. TheContentCompany builds a closed-loop system:
             <strong> Ingestion</strong> creates semantic anchors → <strong>Scoring</strong> ranks with deterministic signals → 
             <strong> Platform Copy</strong> outputs strict platform specs → <strong>Voice Memory</strong> learns from user edits via diff analysis → 
             <strong> Calendar</strong> plans in IST peak hours → <strong>Performance Loop</strong> closes the cycle by altering feature priors.

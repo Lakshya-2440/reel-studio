@@ -16,8 +16,15 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Reel Studio — Content Repurposing with Brand Voice Memory",
-  description: "One podcast in. A week of posts out. It remembers how you write.",
+  title: "TheContentCompany — Content Repurposing with Brand Voice Memory",
+  description: "One podcast in. A week of posts out. TheContentCompany remembers how you write.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

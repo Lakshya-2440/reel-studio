@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "reel-backend"
+    PROJECT_NAME: str = "the-content-company-backend"
     VERSION: str = "0.1.0"
     API_PREFIX: str = ""
     ENVIRONMENT: str = "development"

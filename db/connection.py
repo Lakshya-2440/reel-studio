@@ -12,9 +12,12 @@ from sqlalchemy.orm import sessionmaker, Session
 # Load .env if present
 try:
     from dotenv import load_dotenv
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-    if env_path.exists():
-        load_dotenv(env_path)
+    root_env = Path(__file__).resolve().parent.parent / ".env"
+    backend_env = Path(__file__).resolve().parent.parent / "backend" / ".env"
+    if root_env.exists():
+        load_dotenv(root_env)
+    elif backend_env.exists():
+        load_dotenv(backend_env)
 except ImportError:
     pass
 
@@ -24,10 +27,16 @@ SQLITE_PATH = Path(__file__).resolve().parent / "reel.db"
 def get_engine():
     raw_url = os.getenv("DATABASE_URL", "").strip()
 
-    if raw_url and (raw_url.startswith("postgresql://") or raw_url.startswith("postgres://")):
+    if raw_url and (raw_url.startswith("postgresql://") or raw_url.startswith("postgres://") or raw_url.startswith("postgresql+")):
         # Normalise postgres:// -> postgresql:// for SQLAlchemy
         if raw_url.startswith("postgres://"):
             raw_url = raw_url.replace("postgres://", "postgresql://", 1)
+        if raw_url.startswith("postgresql://") and not raw_url.startswith("postgresql+"):
+            try:
+                import psycopg
+                raw_url = raw_url.replace("postgresql://", "postgresql+psycopg://", 1)
+            except ImportError:
+                pass
         try:
             engine = create_engine(raw_url, pool_pre_ping=True)
             # Test connection

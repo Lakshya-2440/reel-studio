@@ -234,7 +234,7 @@ Drop your thoughts below! Agree? 👇✨ #Startups #Motivation #AI`,
         ],
       },
       on: {
-        title: "MEMORY ON (REEL V4 PROFILE)",
+        title: "MEMORY ON (THECONTENTCOMPANY V4 PROFILE)",
         matchScore: 98,
         badgeColor: "text-success border-success/30 bg-success/5",
         text: `At $50k MRR, our compute bill was $42,000. 
@@ -277,7 +277,7 @@ Make sure to bookmark this and share it with your entrepreneurial network! 📌 
         ],
       },
       on: {
-        title: "MEMORY ON (REEL V4 PROFILE)",
+        title: "MEMORY ON (THECONTENTCOMPANY V4 PROFILE)",
         matchScore: 96,
         badgeColor: "text-success border-success/30 bg-success/5",
         text: `If your gross margin is under 70%, you didn't build software.
@@ -497,7 +497,7 @@ Stop giving away compute at cost. What is your current gross margin?`,
                 <div className="flex items-center justify-between text-xs font-mono pb-2 border-b border-success/30">
                   <span className="text-success font-bold flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    MEMORY ON (REEL V4 PROFILE)
+                    MEMORY ON (THECONTENTCOMPANY V4 PROFILE)
                   </span>
                   <span className="text-success font-bold px-2 py-0.5 rounded bg-success/15 border border-success/30">
                     Voice Match: {currentComparison.on.matchScore}%

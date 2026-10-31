@@ -60,7 +60,7 @@ class EditAnalyst:
                 {
                     "role": "system",
                     "content": (
-                        "You are Reel's Edit Analyst. You inspect creator revisions to AI drafts "
+                        "You are TheContentCompany's Edit Analyst. You inspect creator revisions to AI drafts "
                         "and extract precise, actionable style rules that govern tone, formatting, "
                         "length, hook structure, and banned vocabulary. Output must be actionable."
                     ),

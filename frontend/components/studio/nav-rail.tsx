@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { TheContentCompanyLogo } from "@/components/brand/logo";
 import {
   UploadCloud,
   Scissors,
@@ -84,15 +85,13 @@ export function NavRail() {
     <aside className="w-60 border-r border-border bg-surface flex flex-col justify-between shrink-0 h-screen sticky top-0">
       <div>
         {/* App Logo & Project Header */}
-        <div className="h-14 border-b border-border flex items-center px-4 gap-2.5">
-          <div className="w-7 h-7 rounded bg-primary text-surface flex items-center justify-center font-bold text-xs">
-            R
-          </div>
-          <div className="flex flex-col">
-            <span className="font-semibold text-sm tracking-tight text-primary">Reel Studio</span>
-            <span className="text-[10px] font-mono text-tertiary">Product Space Hackathon</span>
-          </div>
-        </div>
+        <Link
+          href="/"
+          className="h-14 border-b border-border flex items-center px-3.5 gap-2.5 hover:bg-surface-subtle transition-colors"
+          title="Back to Landing Page"
+        >
+          <TheContentCompanyLogo size={28} subtitle="Studio · Wispr Flow" />
+        </Link>
 
         {/* Navigation Section */}
         <div className="p-3">

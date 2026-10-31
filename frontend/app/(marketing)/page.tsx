@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { TheContentCompanyLogo } from "@/components/brand/logo";
 import {
   ArrowRight,
   Play,
@@ -56,7 +57,7 @@ export default function MarketingHomePage() {
       title: "Brand Voice Memory",
       summary: "Diff engine extracts enduring rules from your edits.",
       detail:
-        "Every time you refine a sentence, Reel classifies the edit type, assigns confidence, and avoids repeating past patterns.",
+        "Every time you refine a sentence, TheContentCompany classifies the edit type, assigns confidence, and avoids repeating past patterns.",
       route: "/app/voice-memory",
       tag: "Req 4",
     },
@@ -106,15 +107,7 @@ export default function MarketingHomePage() {
       {/* Top Banner / Nav */}
       <header className="border-b border-border bg-surface sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-primary text-surface flex items-center justify-center font-bold text-sm tracking-tighter">
-              R
-            </div>
-            <div className="flex items-baseline gap-2">
-              <span className="font-semibold text-base tracking-tight">Reel</span>
-              <span className="text-xs text-tertiary font-mono">v1.0 · Product Space</span>
-            </div>
-          </div>
+          <TheContentCompanyLogo size={32} subtitle="v1.0 · Product Space" />
 
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link
@@ -161,7 +154,7 @@ export default function MarketingHomePage() {
           </h1>
 
           <p className="text-lg text-secondary leading-relaxed mb-8 max-w-2xl">
-            Reel turns 60-minute conversations into high-retention clips, platform-tailored
+            TheContentCompany turns 60-minute conversations into high-retention clips, platform-tailored
             copy, and IST-optimized schedules. When you edit a word, its diff engine extracts
             durable brand voice rules so every future draft sounds more like you.
           </p>
@@ -313,7 +306,7 @@ export default function MarketingHomePage() {
             Product Architecture
           </div>
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-primary">
-            How Reel Works: The End-to-End Loop
+            How TheContentCompany Works: The End-to-End Loop
           </h2>
           <p className="text-sm text-secondary mt-1">
             Built to satisfy all 6 core hackathon capabilities with deterministic rigor.
@@ -415,7 +408,7 @@ export default function MarketingHomePage() {
       <footer className="border-t border-border bg-surface py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-tertiary">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-primary">Reel</span>
+            <span className="font-bold tracking-tight text-primary">TheContent<span className="text-accent font-semibold">Company</span></span>
             <span>· Built for Product Space x Wispr Flow Agentic AI Hackathon</span>
           </div>
           <div className="flex items-center gap-4 font-mono">

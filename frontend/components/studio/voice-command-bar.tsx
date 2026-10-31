@@ -97,7 +97,7 @@ export function VoiceCommandBar({
             type="text"
             value={command}
             onChange={(e) => setCommand(e.target.value)}
-            placeholder="Talk to Reel: 'Schedule top 3 clips for next week' or 'Rule: ban buzzwords' (Wispr Flow active)"
+            placeholder="Talk to TheContentCompany: 'Schedule top 3 clips for next week' or 'Rule: ban buzzwords' (Wispr Flow active)"
             className="flex-1 bg-transparent border-0 text-xs text-primary placeholder:text-tertiary focus:outline-none font-sans"
           />
 

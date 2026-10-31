@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: reel-backend
+    name: the-content-company-backend
     runtime: docker
     dockerfilePath: backend/Dockerfile
     dockerContext: backend
@@ -18,7 +18,7 @@ services:
       - key: GEMINI_API_KEY
         sync: false
       - key: ALLOWED_ORIGINS
-        value: "http://localhost:3000,http://127.0.0.1:3000,https://*.vercel.app"
+        value: "http://localhost:3000,http://127.0.0.1:3000,https://thecontentcompany.vercel.app,https://*.vercel.app"
       - key: HF_CHAT_MODEL
         value: "Qwen/Qwen2.5-72B-Instruct"
       - key: HF_ASR_MODEL
