@@ -252,7 +252,7 @@ export function FeedPreviewCard({
           </div>
         </div>
 
-        {/* Pinned Comment Box (Req 3 YouTube Shorts requirement) */}
+        {/* Pinned Comment Box (YouTube Shorts requirement) */}
         <div className="p-3 bg-canvas border border-border rounded space-y-1">
           <div className="flex items-center gap-1 text-[10px] font-mono text-tertiary">
             <Pin className="w-3 h-3 text-red-500" />

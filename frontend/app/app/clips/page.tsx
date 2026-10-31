@@ -71,7 +71,7 @@ export default function ClipsPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-accent-subtle text-accent border border-accent/20">
-              Req 2
+              Engine 02
             </span>
             <span className="text-xs font-mono text-tertiary">Clip Selection Engine</span>
           </div>

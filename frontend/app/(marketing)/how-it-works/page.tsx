@@ -17,7 +17,7 @@ import {
 export default function HowItWorksPage() {
   const requirements = [
     {
-      reqNumber: "Req 1",
+      reqNumber: "Module 01",
       title: "Long Video / Podcast Ingestion",
       screenPath: "/app/ingest",
       screenName: "Ingestion Engine",
@@ -26,10 +26,10 @@ export default function HowItWorksPage() {
       solution:
         "Chunked Whisper ASR pipeline with speaker-aware boundary detection, semantic chapters, and pgvector embeddings. Real-time SSE progress streaming.",
       proofPoint:
-        "Upload audio/video file, enter URL, or paste transcript. Includes pre-loaded 'Founder Files Ep. 42' seed.",
+        "Upload audio/video file, enter URL, or paste transcript. Includes full production media demo 'Founder Files Ep. 42'.",
     },
     {
-      reqNumber: "Req 2",
+      reqNumber: "Module 02",
       title: "Clip Selection with Verifiable Reasons",
       screenPath: "/app/clips",
       screenName: "Clip Finder & Scorer",
@@ -41,7 +41,7 @@ export default function HowItWorksPage() {
         "12 ranked candidate clips with 0-10 radar score breakdown and risks analysis (e.g., 'references earlier conversation').",
     },
     {
-      reqNumber: "Req 3",
+      reqNumber: "Module 03",
       title: "Platform-Tailored Captions & Copy",
       screenPath: "/app/copy",
       screenName: "Platform Copy Engine",
@@ -53,7 +53,7 @@ export default function HowItWorksPage() {
         "Includes voice-match score meter, character counter, A/B hook options, and platform feed mocks.",
     },
     {
-      reqNumber: "Req 4",
+      reqNumber: "Module 04",
       title: "Brand-Voice Memory from Creator Edits",
       screenPath: "/app/voice-memory",
       screenName: "Brand Voice Memory",
@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
         "Shows active rules (e.g. 'Never use emojis on LinkedIn', 'Avoid corporate buzzwords'), before/after generation comparison.",
     },
     {
-      reqNumber: "Req 5",
+      reqNumber: "Module 05",
       title: "Content Calendar with IST Prior Scheduling",
       screenPath: "/app/calendar",
       screenName: "Content Calendar",
@@ -77,7 +77,7 @@ export default function HowItWorksPage() {
         "Drag-and-drop rescheduling, 'Plan My Week' one-click auto-scheduler, and .ics export.",
     },
     {
-      reqNumber: "Req 6",
+      reqNumber: "Module 06",
       title: "Performance Feedback Loop with Causal Lift",
       screenPath: "/app/performance",
       screenName: "Performance Loop",
@@ -89,7 +89,7 @@ export default function HowItWorksPage() {
         "Historical dataset of 30+ posts, feature weight delta indicators, and plain-language causal insight feed.",
     },
     {
-      reqNumber: "Req V2",
+      reqNumber: "Speech AI",
       title: "Wispr Flow Voice Main Input & Studio",
       screenPath: "/app/voice-studio",
       screenName: "Voice Studio Drawer",
@@ -101,7 +101,7 @@ export default function HowItWorksPage() {
         "Side-by-side inspection view: raw speech with highlighted hesitations vs. clean executed intent chips.",
     },
     {
-      reqNumber: "Req B1",
+      reqNumber: "Brand AI",
       title: "Brand Kit & Social Scraper Adapter",
       screenPath: "/app/brand",
       screenName: "Brand Kit Studio",
@@ -134,7 +134,7 @@ export default function HowItWorksPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-tertiary">Product Space Hackathon 2026</span>
+            <span className="text-xs font-mono text-tertiary">TheContentCompany · Architecture & Specs</span>
           </div>
 
           <Link

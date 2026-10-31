@@ -226,9 +226,9 @@ export default function VoiceStudioPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-accent-subtle text-accent border border-accent/20">
-              Req V2
+              Speech AI
             </span>
-            <span className="text-xs font-mono text-tertiary">Wispr Flow Voice Studio · Primary Input</span>
+            <span className="text-xs font-mono text-tertiary">Wispr Flow Voice Studio · Natural Speech Input</span>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-primary mt-1">
             Wispr Voice Intake & Structured Intent Studio

@@ -251,7 +251,7 @@ export default function CalendarPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-accent-subtle text-accent border border-accent/20">
-              Req 5
+              Calendar 05
             </span>
             <span className="text-xs font-mono text-tertiary">Content Calendar & Slot Allocator</span>
           </div>
@@ -574,7 +574,7 @@ export default function CalendarPage() {
             <span>1-Click Week Optimizer</span>
           </div>
           <p className="text-xs text-secondary leading-relaxed font-sans">
-            Pulls highest-ranked clips from Ep. 42 (Req 2) and platform copy variants (Req 3) and assigns optimal times automatically.
+            Pulls highest-ranked candidate clips and platform copy variants, scheduling optimal posting windows automatically.
           </p>
           <div className="pt-2 border-t border-border text-[11px] font-mono text-tertiary">
             Status: {isAutoFilled ? "Week Fully Scheduled (7/7 Slots)" : "Ready for Auto-Fill"}

@@ -54,7 +54,7 @@ export function CopyEditor({
   };
 
   const handleSaveAndLearn = () => {
-    // Generate simulated diff rule extraction (Req 4 connection)
+    // Generate simulated diff rule extraction (Voice Memory connection)
     const ruleLearned =
       caption !== initialCaption
         ? "Prefers concise active verbs and tighter line breaks in body text."
@@ -184,7 +184,7 @@ export function CopyEditor({
         </div>
       </div>
 
-      {/* Save to Voice Memory CTA Button (Req 4 Proof!) */}
+      {/* Save to Voice Memory CTA Button */}
       <div className="pt-2 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="text-[11px] text-secondary">
           Clicking save analyzes word diffs and registers new style rules in Neon.
@@ -205,7 +205,7 @@ export function CopyEditor({
         <div className="p-3 bg-accent-subtle/70 border border-accent/30 rounded text-xs space-y-1.5 animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="flex items-center gap-1.5 font-bold text-accent">
             <CheckCircle2 className="w-4 h-4" />
-            <span>Voice Memory Learned from Your Edit! (Req 4 Pipeline)</span>
+            <span>Brand Voice Memory Learned from Your Edit!</span>
           </div>
           <p className="text-secondary font-mono text-[11px]">
             {learningFeedback.diffSnippet}

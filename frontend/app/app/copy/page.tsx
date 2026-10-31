@@ -104,15 +104,15 @@ function CopyPageContent() {
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-accent-subtle text-accent border border-accent/20">
-              Req 3
+              Copy Engine 03
             </span>
-            <span className="text-xs font-mono text-tertiary">Platform Copy Engine</span>
+            <span className="text-xs font-mono text-tertiary">Platform Formats</span>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-primary mt-1">
             Platform-Tailored Copy & Realistic Feed Previews
           </h1>
           <p className="text-xs text-secondary mt-0.5">
-            5 distinct channel formats adhering strictly to `platforms.yaml` character cutoffs and voice rules.
+            5 distinct channel formats adhering strictly to character cutoffs and voice rules.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ function CopyPageContent() {
             className="px-3.5 py-1.5 bg-surface hover:bg-surface-subtle text-primary border border-border text-xs font-semibold rounded transition-colors flex items-center gap-1.5 shadow-xs"
           >
             <Brain className="w-3.5 h-3.5 text-accent" />
-            <span>Voice Memory (Req 4)</span>
+            <span>Brand Voice Memory</span>
           </Link>
           <Link
             href="/app/calendar"

@@ -22,7 +22,7 @@ export function TopBar({ onOpenVoiceStudio }: TopBarProps) {
   const projects = [
     "The Founder Files — Ep. 42",
     "SaaS Scaling Decoded — Ep. 18",
-    "Product Space Live: Agentic AI",
+    "Modern B2B Growth — Ep. 09",
   ];
 
   const handleResetDemo = () => {

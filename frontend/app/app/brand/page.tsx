@@ -147,7 +147,7 @@ export default function BrandKitPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-accent-subtle text-accent border border-accent/20">
-              Req B1
+              Brand AI
             </span>
             <span className="text-xs font-mono text-tertiary">Brand Kit & Scraper Extraction</span>
           </div>
