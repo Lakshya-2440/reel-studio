@@ -38,8 +38,8 @@ app.add_middleware(
 async def root():
     """Root entrypoint with service metadata and documentation links."""
     return {
-        "service": "reel-backend",
-        "description": "Reel — Content Repurposing Studio with Brand Memory",
+        "service": "the-content-company-backend",
+        "description": "TheContentCompany — Content Repurposing Studio with Brand Memory",
         "version": settings.VERSION,
         "docs": "/docs",
         "health": "/health",
@@ -52,7 +52,7 @@ async def direct_health_check():
     """Top-level health check returning required signature."""
     return {
         "status": "ok",
-        "service": "reel-backend",
+        "service": "the-content-company-backend",
         "version": settings.VERSION,
         "environment": settings.ENVIRONMENT,
         "timestamp": datetime.now(timezone.utc).isoformat(),

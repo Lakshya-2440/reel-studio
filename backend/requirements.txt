@@ -12,5 +12,6 @@ asyncpg>=0.29.0
 pgvector>=0.3.2
 colorthief>=0.2.1
 pillow>=10.4.0
+numpy>=1.26.0
 scrapling>=0.5
 python-dotenv>=1.0.1
