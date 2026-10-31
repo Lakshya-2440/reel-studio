@@ -174,9 +174,9 @@ def calculate_engagement_score(
     std = prof["std_rate"]
     z = (effective_rate - baseline) / std
     
-    # Sigmoid-style transformation centered at 60 (average good post)
-    # z=0 -> 60, z=+2 -> 90, z=+3 -> 96, z=-2 -> 25
-    scaled_score = 60.0 + (z * 15.0)
+    # Sigmoid normalization curve centered at ~55-60 (average good post)
+    # Never saturates prematurely; viral outlier content asymptotically reaches 95-98
+    scaled_score = 10.0 + (88.0 / (1.0 + math.exp(-0.55 * z)))
     final_score = round(max(5.0, min(99.0, scaled_score)), 1)
 
     return {

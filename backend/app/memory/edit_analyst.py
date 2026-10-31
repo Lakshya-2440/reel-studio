@@ -74,9 +74,13 @@ class EditAnalyst:
                 task="edit_analysis",
             )
 
-            if isinstance(result_dict, dict) and result_dict.get("rule_text"):
+            if (
+                isinstance(result_dict, dict)
+                and result_dict.get("rule_text")
+                and not result_dict.get("rule_text", "").startswith("Fallback ")
+            ):
                 # Ensure evidence fields are properly backfilled from diff if empty
-                if not result_dict.get("evidence_citation"):
+                if not result_dict.get("evidence_citation") or "Fallback" in str(result_dict.get("evidence_citation")):
                     result_dict["evidence_citation"] = diff.evidence_citation
                 if not result_dict.get("evidence_diff"):
                     result_dict["evidence_diff"] = diff.evidence_diff

@@ -82,7 +82,7 @@ async def interpret_voice_intake(
     raw_text = (payload.text or payload.raw_text or "").strip()
     if not raw_text:
         raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail="Speech input cannot be empty.",
         )
 

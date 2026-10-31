@@ -139,8 +139,8 @@ def save_ingestion_results(
         )
 
         # Insert Segments
-        for seg in segments:
-            seg_id = seg.get("id") or f"seg_{uuid.uuid4().hex[:8]}"
+        for idx, seg in enumerate(segments):
+            seg_id = f"seg_{transcript_id}_{idx + 1}_{uuid.uuid4().hex[:6]}"
             vec = seg.get("embedding", [0.0] * 384)
             formatted_vec = _format_vector(vec, dialect)
 
@@ -182,8 +182,8 @@ def save_ingestion_results(
                 )
 
         # Insert Chapters
-        for ch in chapters:
-            ch_id = ch.get("id") or f"chap_{uuid.uuid4().hex[:8]}"
+        for idx, ch in enumerate(chapters):
+            ch_id = f"chap_{transcript_id}_{idx + 1}_{uuid.uuid4().hex[:6]}"
             conn.execute(
                 text(
                     """

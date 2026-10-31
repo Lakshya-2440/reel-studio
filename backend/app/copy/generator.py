@@ -95,20 +95,29 @@ class PlatformCopyEngine:
         try:
             row = db.execute(
                 text("""
-                    SELECT id, project_id, title, hook_line, summary, quote, transcript_segment_id
+                    SELECT id, project_id, title, hook_line, evidence_quote, reasons
                     FROM clips WHERE id = :cid
                 """),
                 {"cid": clip_id},
             ).fetchone()
 
             if row:
+                reasons_val = row[5]
+                summary_text = ""
+                if reasons_val:
+                    try:
+                        reasons_list = json.loads(reasons_val) if isinstance(reasons_val, str) else reasons_val
+                        summary_text = " ".join(reasons_list[:2]) if isinstance(reasons_list, list) else str(reasons_val)
+                    except Exception:
+                        summary_text = str(reasons_val)
+
                 return {
                     "id": row[0],
                     "project_id": row[1] or "demo-project",
                     "title": row[2] or f"Clip {clip_id}",
                     "hook_line": row[3] or "The most counter-intuitive founder lesson",
-                    "summary": row[4] or "Why founders must rethink pricing and unit economics in the AI era.",
-                    "quote": row[5] or "We were subsidizing enterprise pilots on personal credit cards.",
+                    "quote": row[4] or "We were subsidizing enterprise pilots on personal credit cards.",
+                    "summary": summary_text or "Why founders must rethink pricing and unit economics in the AI era.",
                 }
         except Exception as e:
             logger.warning(f"DB lookup for clip {clip_id} failed: {e}. Using deterministic clip profile.")
@@ -314,8 +323,17 @@ class PlatformCopyEngine:
         """Assembles a valid SinglePlatformCopy ensuring platform constraints and voice match scores."""
         var_id = f"var_{clip_id}_{short_key}"
 
-        # If LLM provided draft, use it; otherwise use rule-based synthesis
-        if draft:
+        # Check if LLM draft is a generic schema fallback
+        is_dummy_fallback = (
+            draft is not None
+            and (
+                draft.caption == "Stop leaving money on the table. Here are 3 pricing levers you can pull today."
+                or draft.hook_a == "Why 90% of SaaS founders are underpricing their product."
+            )
+        )
+
+        # If LLM provided genuine draft, use it; otherwise use rule-based synthesis
+        if draft and not is_dummy_fallback:
             hook_a = draft.hook_a.strip()
             hook_b = draft.hook_b.strip()
             caption = draft.caption.strip()
@@ -557,7 +575,7 @@ class PlatformCopyEngine:
                     db.execute(
                         text("""
                             UPDATE platform_variants
-                            SET hook = :hook, caption = :caption, cta = :cta,
+                            SET hook = :hook, caption = :caption, hashtags = :hashtags, cta = :cta,
                                 on_screen_text = :on_screen, voice_match_score = :vscore
                             WHERE id = :vid
                         """),
@@ -565,6 +583,7 @@ class PlatformCopyEngine:
                             "vid": vid,
                             "hook": hook,
                             "caption": caption,
+                            "hashtags": hashtags_str,
                             "cta": cta,
                             "on_screen": on_screen,
                             "vscore": vscore,
@@ -573,8 +592,8 @@ class PlatformCopyEngine:
                 else:
                     db.execute(
                         text("""
-                            INSERT INTO platform_variants (id, clip_id, platform, hook, caption, cta, on_screen_text, voice_match_score, is_edited)
-                            VALUES (:vid, :cid, :platform, :hook, :caption, :cta, :on_screen, :vscore, 0)
+                            INSERT INTO platform_variants (id, clip_id, platform, hook, caption, hashtags, cta, on_screen_text, voice_match_score, is_edited)
+                            VALUES (:vid, :cid, :platform, :hook, :caption, :hashtags, :cta, :on_screen, :vscore, 0)
                         """),
                         {
                             "vid": vid,
@@ -582,6 +601,7 @@ class PlatformCopyEngine:
                             "platform": p,
                             "hook": hook,
                             "caption": caption,
+                            "hashtags": hashtags_str,
                             "cta": cta,
                             "on_screen": on_screen,
                             "vscore": vscore,

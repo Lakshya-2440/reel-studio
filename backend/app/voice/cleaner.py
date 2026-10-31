@@ -562,8 +562,19 @@ class VoiceCleaner:
         )
         if m_clip:
             clip_ref_raw = m_clip.group(0).strip()
-            # Clean up leading prepositions
-            clip_ref = re.sub(r"^(?:on|at|for|the)\s+", "", clip_ref_raw, flags=re.IGNORECASE).strip()
+            # Clean up leading verbs and prepositions
+            clip_ref = clip_ref_raw
+            while True:
+                new_ref = re.sub(
+                    r"^(?:on|at|for|the|schedule|post|make|log|edit)\s+",
+                    "",
+                    clip_ref,
+                    flags=re.IGNORECASE,
+                ).strip()
+                if new_ref == clip_ref:
+                    break
+                clip_ref = new_ref
+
             entities["clip_ref"] = clip_ref
 
             resolved = self.fuzzy_resolve_clip(clip_ref)

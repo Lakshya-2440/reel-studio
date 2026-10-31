@@ -3,10 +3,14 @@ from fastapi import APIRouter
 from app.api.health import router as health_router
 from app.api.jobs import router as jobs_router
 from app.api.stubs import router as stubs_router
+from app.brand.router import router as brand_router
+from app.calendar.router import router as calendar_router
 from app.clips.router import router as clips_router
 from app.copy.router import router as copy_router
 from app.ingest.router import router as ingest_router
+from app.memory.router import router as memory_router
 from app.performance.router import router as performance_router
+from app.voice.router import router as voice_router
 
 api_router = APIRouter()
 
@@ -25,8 +29,20 @@ api_router.include_router(clips_router)
 # Mount Platform Copy Engine (Req 3)
 api_router.include_router(copy_router)
 
+# Mount Brand Voice Memory & Edit Learning Engine (Req 4)
+api_router.include_router(memory_router)
+
+# Mount Content Calendar Engine (Req 5)
+api_router.include_router(calendar_router)
+
 # Mount Performance Feedback Loop (Req 6)
 api_router.include_router(performance_router)
+
+# Mount Voice Intake & Cleanup Engine (Wispr Flow)
+api_router.include_router(voice_router)
+
+# Mount Brand Kit Generator (Req B1 / Scraper & Brand Kit)
+api_router.include_router(brand_router)
 
 # Mount LLM debug router (from llm-router module) if available
 try:
