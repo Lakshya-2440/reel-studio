@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   ChevronDown,
   RotateCcw,
-  Cpu,
   Mic,
   ExternalLink,
   Check,
@@ -74,16 +73,8 @@ export function TopBar({ onOpenVoiceStudio }: TopBarProps) {
         </span>
       </div>
 
-      {/* Right: Model Status Chip, Reset Demo, Voice Studio trigger */}
+      {/* Right: Reset Demo, Voice Studio trigger */}
       <div className="flex items-center gap-3">
-        {/* Model status chip */}
-        <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded border border-border bg-surface-subtle text-[11px] font-mono text-secondary">
-          <Cpu className="w-3 h-3 text-accent" />
-          <span>Model:</span>
-          <span className="font-semibold text-primary">HF Inference</span>
-          <span className="text-tertiary">· Fallback ready (Gemini)</span>
-        </div>
-
         {/* Voice Studio quick button */}
         <button
           onClick={onOpenVoiceStudio}

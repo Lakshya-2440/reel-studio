@@ -500,13 +500,6 @@ When you front-load the unexpected truth, retention stays above 80% through the 
 
           <nav className="hidden lg:flex items-center gap-8 text-sm">
             <a
-              href="#launch-film"
-              className="text-secondary hover:text-primary transition-colors font-medium flex items-center gap-1.5"
-            >
-              <Play className="w-3 h-3 text-accent fill-accent" />
-              <span>Launch Film</span>
-            </a>
-            <a
               href="#growth-timeline"
               className="text-secondary hover:text-primary transition-colors font-medium"
             >
@@ -573,33 +566,16 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             TheContentCompany ingests raw founder recordings, ranks high-retention clips across 8 psychological signals, generates platform-native copy, and continuously learns your exact voice from every edit.
           </p>
 
-          {/* Primary CTA Buttons */}
+          {/* Primary CTA Button */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
             <Link
               href="/app/clips"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-semibold text-white bg-accent hover:bg-accent-hover rounded-md transition-all shadow-md hover:shadow-lg transform active:scale-[0.99]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white bg-accent hover:bg-accent-hover rounded-md transition-all shadow-md hover:shadow-lg transform active:scale-[0.99]"
             >
               <Zap className="w-4 h-4 fill-white" />
               <span>Launch Content Studio</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-
-            <a
-              href="#launch-film"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-primary bg-surface hover:bg-surface-subtle border border-accent/40 rounded-md transition-all shadow-sm hover:border-accent group"
-            >
-              <Play className="w-3.5 h-3.5 text-accent fill-accent group-hover:scale-110 transition-transform" />
-              <span>Watch Launch Film</span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent/10 text-accent font-bold">1:08</span>
-            </a>
-
-            <a
-              href="#growth-timeline"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-secondary hover:text-primary bg-surface hover:bg-surface-subtle border border-border rounded-md transition-colors shadow-sm"
-            >
-              <TrendingUp className="w-3.5 h-3.5 text-accent" />
-              <span>How We Do It</span>
-            </a>
           </div>
 
           {/* Key Value Proof Metrics */}
