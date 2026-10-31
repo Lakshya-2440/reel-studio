@@ -23,7 +23,7 @@
 | 4 | Brand-voice memory from edits | Voice Memory | `voice-memory-agent` / `frontend-screens-b` | Edit caption -> diff extraction -> rule created with diff evidence -> applied to future generations | ✅ Complete (Req 4) | `app/memory` (diff_engine.py, edit_analyst.py, profile_manager.py, router.py), GET /voice/profile, GET /voice/rules, PATCH /voice/rules/{id}, POST /voice/compare, POST /voice/learn, 12/12 pytest passing |
 | 5 | Content calendar | Calendar | `calendar-agent` / `frontend-screens-b` | Month/week views, drag-drop, AI slot suggestions in IST, voice scheduling, .ics export | ✅ Complete (UI & Backend) | `/app/calendar` (Week/Month views, platform badges, AI IST slots, Plan My Week optimizer, working RFC 5545 .ics generator, voice scheduling, scheduler.py backend) |
 | 6 | Performance feedback loop | Performance Loop | `performance-agent` | Log metrics (voice/manual/CSV) -> compute feature lift -> update suggestion weights -> visible causal re-rank | ✅ Complete (Req 6) | `app/performance` (schemas, analyzer, csv_parser, router), 19/19 pytest passing |
-| V1 | Build by voice | Voice Build Log | `docs-agent` | `VOICE_LOG.md` tracking dictated specs | ⏳ In Progress | File initialized |
+| V1 | Build by voice | Voice Build Log | `docs-agent` | `VOICE_LOG.md` tracking dictated specs | ✅ Complete | `VOICE_LOG.md` with 8 timestamped dictation entries, Wispr Flow raw vs clean specs |
 | V2 | Voice main input (Wispr Flow) | Voice Intake & Studio | `voice-intake-agent` | Messy speech with fillers & self-corrections -> clean structured intent; raw vs clean in UI | ✅ Complete (Req V2) | `app/voice` (schemas, cleaner, router), `POST /voice/interpret`, IST +05:30 offset, 8/8 pytest passing |
 | B1 | Scrape IG/LinkedIn brand kit | Brand Kit Adapter | `brand-agent` / `scraper-adapter` | Scraped posts -> voice profile + palette extraction + visual identity card | ✅ Complete (Brand & Scraper) | Palette extractor (PIL K-means 5 swatches), Voice profiler v1, Visual identity + Google fonts, POST /brand/scrape, GET /brand/kit, 10/10 pytest passing |
 
@@ -202,15 +202,16 @@ erDiagram
 ## 8. Deployment Information
 
 - **Frontend (Vercel):**
-  - Project: `reel-studio`
-  - Production URL: *(TBD upon first deploy)*
+  - Project: `reel-studio` (or `frontend`)
+  - Production URL: `https://frontend-one-pearl-50.vercel.app` (Live & Verified HTTP 200)
+- **GitHub Repository (Public):**
+  - URL: `https://github.com/Lakshya-2440/reel-studio`
 - **Backend (Render):**
+  - Blueprint: `render.yaml` (free plan, Dockerfile with ffmpeg, /health probe)
   - Service: `reel-backend`
-  - URL: *(TBD upon first deploy)*
 - **Database (Neon):**
-  - Project ID: *(TBD upon provisioning)*
-  - Branch: `main` (production), `dev` (feature branches)
-  - Vector Extension: `CREATE EXTENSION IF NOT EXISTS vector;`
+  - Schema: `db/schema.sql` (21 tables with pgvector `vector(384)`)
+  - Dual-Target: Neon Postgres + zero-config SQLite (`db/reel.db`) fallback with full demo seed dataset populated.
 
 ---
 
