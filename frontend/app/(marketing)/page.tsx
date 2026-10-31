@@ -17,6 +17,7 @@ import {
   Mic,
   ChevronRight,
   Volume2,
+  VolumeX,
   Share2,
   FileText,
   Flame,
@@ -46,6 +47,13 @@ export default function MarketingHomePage() {
   const [activePlatformTab, setActivePlatformTab] = useState<"linkedin" | "shorts" | "x" | "reels">("linkedin");
   const [copiedPlatform, setCopiedPlatform] = useState(false);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+  // Dedicated Launch Video Section State & Intersection Observers
+  const videoSectionRef = useRef<HTMLDivElement>(null);
+  const videoPlayerRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [videoScrollProgress, setVideoScrollProgress] = useState(0);
 
   // Interactive Voice Diff Simulator State
   const [userEditedText, setUserEditedText] = useState(
@@ -94,6 +102,79 @@ export default function MarketingHomePage() {
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
+
+  // Launch Video: Auto-play when scrolled past hero, auto-pause when scrolled past video
+  useEffect(() => {
+    const section = videoSectionRef.current;
+    const video = videoPlayerRef.current;
+    if (!section || !video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.22) {
+          const promise = video.play();
+          if (promise !== undefined) {
+            promise
+              .then(() => setIsVideoPlaying(true))
+              .catch(() => {
+                // If browser blocks unmuted playback, mute and play
+                video.muted = true;
+                setIsVideoMuted(true);
+                video
+                  .play()
+                  .then(() => setIsVideoPlaying(true))
+                  .catch(() => {});
+              });
+          }
+        } else {
+          // Scrolled past or out of view
+          video.pause();
+          setIsVideoPlaying(false);
+        }
+      },
+      {
+        threshold: [0, 0.22, 0.5, 0.8],
+        rootMargin: "-20px 0px -20px 0px",
+      }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // Launch Video: Parallax scroll depth tracking
+  useEffect(() => {
+    const handleVideoScroll = () => {
+      if (!videoSectionRef.current) return;
+      const rect = videoSectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
+      setVideoScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleVideoScroll, { passive: true });
+    handleVideoScroll();
+    return () => window.removeEventListener("scroll", handleVideoScroll);
+  }, []);
+
+  const toggleVideoPlay = () => {
+    const video = videoPlayerRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play().then(() => setIsVideoPlaying(true)).catch(() => {});
+    } else {
+      video.pause();
+      setIsVideoPlaying(false);
+    }
+  };
+
+  const toggleVideoMute = () => {
+    const video = videoPlayerRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsVideoMuted(video.muted);
+  };
 
   // IntersectionObserver to smoothly slide stage boxes in from left & right
   useEffect(() => {
@@ -419,6 +500,13 @@ When you front-load the unexpected truth, retention stays above 80% through the 
 
           <nav className="hidden lg:flex items-center gap-8 text-sm">
             <a
+              href="#launch-film"
+              className="text-secondary hover:text-primary transition-colors font-medium flex items-center gap-1.5"
+            >
+              <Play className="w-3 h-3 text-accent fill-accent" />
+              <span>Launch Film</span>
+            </a>
+            <a
               href="#growth-timeline"
               className="text-secondary hover:text-primary transition-colors font-medium"
             >
@@ -496,14 +584,14 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <button
-              onClick={() => setIsVideoOpen(true)}
+            <a
+              href="#launch-film"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-primary bg-surface hover:bg-surface-subtle border border-accent/40 rounded-md transition-all shadow-sm hover:border-accent group"
             >
               <Play className="w-3.5 h-3.5 text-accent fill-accent group-hover:scale-110 transition-transform" />
-              <span>Watch Launch Video</span>
+              <span>Watch Launch Film</span>
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent/10 text-accent font-bold">1:08</span>
-            </button>
+            </a>
 
             <a
               href="#growth-timeline"
@@ -531,6 +619,167 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             <div className="p-4 rounded-lg bg-surface border border-border text-left">
               <div className="text-2xl font-bold font-mono text-primary">Smart IST</div>
               <div className="text-xs text-secondary mt-1">Peak-hour cadence scheduling</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: CINEMATIC LAUNCH FILM (PARALLAX + SCROLL AUTO-PLAY / AUTO-PAUSE) */}
+      <section
+        id="launch-film"
+        ref={videoSectionRef}
+        className="py-24 px-6 max-w-7xl mx-auto border-t border-border relative overflow-hidden"
+      >
+        {/* Dynamic Warm Radial Glow behind video */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-accent/8 rounded-full blur-[140px] pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-xs font-mono text-accent mb-4 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="font-semibold uppercase tracking-wider">Official 68s Launch Film</span>
+            <span className="text-accent/40">·</span>
+            <span>Thunderstruck Soundtrack</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-primary leading-tight">
+            See The Flywheel In Full Motion
+          </h2>
+          <p className="text-secondary text-sm sm:text-base mt-4 leading-relaxed max-w-2xl mx-auto">
+            Scroll past to watch the studio ingest raw episodes, score 8-signal retention hooks, generate platform-native copy, and continuously train voice memory in real-time.
+          </p>
+        </div>
+
+        {/* Parallax Container with Parallel Side Badges */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Floating Parallel Left Badge (Desktops) */}
+          <div
+            className="hidden xl:flex absolute -left-28 top-16 z-20 flex-col gap-2 p-4 rounded-xl bg-surface/90 backdrop-blur-md border border-border/80 shadow-xl transition-transform duration-300 pointer-events-none"
+            style={{
+              transform: `translateY(${(videoScrollProgress - 0.5) * -60}px)`,
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-success" />
+              <span className="text-xs font-mono font-bold text-primary">Whisper Large-v3</span>
+            </div>
+            <p className="text-[11px] text-secondary leading-snug">
+              148 segments chunked &<br />vectorized with pgvector
+            </p>
+          </div>
+
+          {/* Floating Parallel Right Badge (Desktops) */}
+          <div
+            className="hidden xl:flex absolute -right-28 bottom-20 z-20 flex-col gap-2 p-4 rounded-xl bg-surface/90 backdrop-blur-md border border-border/80 shadow-xl transition-transform duration-300 pointer-events-none"
+            style={{
+              transform: `translateY(${(videoScrollProgress - 0.5) * 60}px)`,
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <Flame className="w-3.5 h-3.5 text-accent" />
+              <span className="text-xs font-mono font-bold text-primary">Continuous Voice Memory</span>
+            </div>
+            <p className="text-[11px] text-secondary leading-snug">
+              Neural diff learns creator edits<br />across 5 platform channels
+            </p>
+          </div>
+
+          {/* Video Player macOS Studio Frame */}
+          <div
+            className="group relative rounded-2xl border border-border bg-[#0D0D11] shadow-[0_20px_70px_rgba(0,0,0,0.55),0_0_30px_rgba(255,122,48,0.12)] overflow-hidden transition-all duration-500 will-change-transform"
+            style={{
+              transform: `perspective(1000px) scale(${0.96 + Math.min(videoScrollProgress, 0.5) * 0.08})`,
+            }}
+          >
+            {/* Window Title Bar */}
+            <div className="flex items-center justify-between px-4 py-3 bg-[#15151C] border-b border-border/80">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+                <span className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                <span className="w-3 h-3 rounded-full bg-[#27C93F]" />
+                <span className="ml-3 font-mono text-[11px] text-tertiary hidden sm:inline">
+                  thecontentcompany_launch.mp4 · 1080p 30fps · 1:08
+                </span>
+              </div>
+
+              {/* Status Indicator & Sound Toggle */}
+              <div className="flex items-center gap-2.5">
+                <span
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold transition-colors ${
+                    isVideoPlaying
+                      ? "bg-success/10 text-success border border-success/30"
+                      : "bg-surface text-secondary border border-border"
+                  }`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      isVideoPlaying ? "bg-success animate-pulse" : "bg-tertiary"
+                    }`}
+                  />
+                  <span>{isVideoPlaying ? "Auto-Playing on Scroll" : "Paused on Scroll"}</span>
+                </span>
+
+                <button
+                  onClick={toggleVideoMute}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+                    isVideoMuted
+                      ? "bg-accent hover:bg-accent-hover text-white shadow-md animate-pulse"
+                      : "bg-surface-subtle hover:bg-surface text-primary border border-border"
+                  }`}
+                  title={isVideoMuted ? "Click to Unmute Thunderstruck Audio" : "Mute Video"}
+                >
+                  {isVideoMuted ? (
+                    <>
+                      <VolumeX className="w-3.5 h-3.5" />
+                      <span>Unmute Audio</span>
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-3.5 h-3.5 text-accent" />
+                      <span>Sound Active</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Video Element Viewport */}
+            <div className="relative aspect-video w-full bg-black flex items-center justify-center">
+              <video
+                ref={videoPlayerRef}
+                src="/videos/launch_video.mp4"
+                playsInline
+                muted={isVideoMuted}
+                loop
+                preload="metadata"
+                className="w-full h-full object-contain cursor-pointer"
+                onClick={toggleVideoPlay}
+                onPlay={() => setIsVideoPlaying(true)}
+                onPause={() => setIsVideoPlaying(false)}
+              />
+
+              {/* Large Overlay Play/Pause Button on Hover / Paused */}
+              {!isVideoPlaying && (
+                <button
+                  onClick={toggleVideoPlay}
+                  className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-accent/90 hover:bg-accent text-white flex items-center justify-center shadow-2xl backdrop-blur-sm transition-transform hover:scale-110 active:scale-95"
+                  aria-label="Play Launch Video"
+                >
+                  <Play className="w-7 h-7 fill-white ml-1" />
+                </button>
+              )}
+
+              {/* Unmute floating banner if muted & playing */}
+              {isVideoPlaying && isVideoMuted && (
+                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
+                  <button
+                    onClick={toggleVideoMute}
+                    className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/80 hover:bg-black text-white text-xs font-semibold backdrop-blur-md border border-accent/40 shadow-xl hover:border-accent hover:scale-105 transition-all"
+                  >
+                    <VolumeX className="w-4 h-4 text-accent" />
+                    <span>Click to Unmute Thunderstruck Audio (AC/DC + Voiceover)</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
