@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { TheContentCompanyLogo } from "@/components/brand/logo";
 import {
   ArrowRight,
   Play,
   Pause,
+  X,
   Sparkles,
   CheckCircle2,
   Sliders,
@@ -31,16 +32,20 @@ import {
   ArrowUpRight,
   Radio,
   Eye,
-  Sparkle,
+  SlidersHorizontal,
+  RefreshCw,
+  Coins,
+  Users,
+  Compass,
 } from "lucide-react";
 
 export default function MarketingHomePage() {
   // Live Simulator States
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioProgress, setAudioProgress] = useState(38);
+  const [audioProgress, setAudioProgress] = useState(42);
   const [activePlatformTab, setActivePlatformTab] = useState<"linkedin" | "shorts" | "x" | "reels">("linkedin");
   const [copiedPlatform, setCopiedPlatform] = useState(false);
-  const [activeGrowthStage, setActiveGrowthStage] = useState(0);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   // Interactive Voice Diff Simulator State
   const [userEditedText, setUserEditedText] = useState(
@@ -48,6 +53,36 @@ export default function MarketingHomePage() {
   );
   const [isDiffAnalyzed, setIsDiffAnalyzed] = useState(false);
   const [isAnalyzingDiff, setIsAnalyzingDiff] = useState(false);
+
+  // Parallax Scroll Tracking for Timeline with Ultra-Smooth LERP Physics
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const curveRef = useRef<SVGPathElement>(null);
+  const curveGlowRef = useRef<SVGPathElement>(null);
+  const sparkGroupRef = useRef<SVGGElement>(null);
+  const curveLengthRef = useRef<number>(0);
+  const progressFillRef = useRef<HTMLDivElement>(null);
+  const progressTextRef = useRef<HTMLSpanElement>(null);
+  const stageLabelRef = useRef<HTMLSpanElement>(null);
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+
+  // Scroll Slide-in Visibility Tracking for the 6 Stages
+  const [visibleStages, setVisibleStages] = useState<boolean[]>([false, false, false, false, false, false]);
+  const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Interactive Stage Mini-Components State
+  // Stage 1: Ingest Speaker Filter
+  const [selectedSpeaker, setSelectedSpeaker] = useState<"all" | "s1" | "s2">("all");
+  // Stage 2: Signal Weight Interactive Sliders
+  const [contrarianWeight, setContrarianWeight] = useState(9.6);
+  const [densityWeight, setDensityWeight] = useState(9.2);
+  const [resonanceWeight, setResonanceWeight] = useState(9.4);
+  // Stage 4: Interactive Diff Toggle
+  const [diffMode, setDiffMode] = useState<"before" | "after" | "diff">("diff");
+  // Stage 5: Interactive IST Slot Selection
+  const [selectedSlot, setSelectedSlot] = useState<number>(0);
+  // Stage 6: Interactive ROI Calculator Slider
+  const [monthlyEpisodes, setMonthlyEpisodes] = useState<number>(4);
 
   // Simulated audio playback effect
   useEffect(() => {
@@ -59,6 +94,141 @@ export default function MarketingHomePage() {
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
+
+  // IntersectionObserver to smoothly slide stage boxes in from left & right
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    stageRefs.current.forEach((el, index) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setVisibleStages((prev) => {
+              if (prev[index]) return prev;
+              const next = [...prev];
+              next[index] = true;
+              return next;
+            });
+          }
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+    };
+  }, []);
+
+  // Ultra-Smooth 60/120fps LERP Animation Loop for Curvy Timeline Spine
+  useEffect(() => {
+    let animationFrameId: number;
+    let isRunning = true;
+
+    // Cache total SVG curve length once
+    if (curveRef.current) {
+      curveLengthRef.current = curveRef.current.getTotalLength();
+      curveRef.current.style.strokeDasharray = `${curveLengthRef.current}`;
+      curveRef.current.style.strokeDashoffset = `${curveLengthRef.current}`;
+    }
+    if (curveGlowRef.current) {
+      const len = curveGlowRef.current.getTotalLength();
+      curveGlowRef.current.style.strokeDasharray = `${len}`;
+      curveGlowRef.current.style.strokeDashoffset = `${len}`;
+    }
+
+    const handleScroll = () => {
+      if (!timelineRef.current) return;
+      const rect = timelineRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = rect.height;
+      // Start when timeline top hits viewport center, complete before bottom exits
+      const startOffset = windowHeight * 0.55;
+      const totalScrollable = sectionHeight - windowHeight * 0.3;
+      const rawProgress = (startOffset - rect.top) / totalScrollable;
+      targetProgressRef.current = Math.max(0, Math.min(1, rawProgress));
+    };
+
+    const smoothUpdateLoop = () => {
+      if (!isRunning) return;
+
+      // Silky smooth physical dampening (LERP factor 0.12)
+      const diff = targetProgressRef.current - currentProgressRef.current;
+      if (Math.abs(diff) > 0.0001) {
+        currentProgressRef.current += diff * 0.12;
+      } else {
+        currentProgressRef.current = targetProgressRef.current;
+      }
+
+      const p = currentProgressRef.current;
+
+      // 1. Hardware-accelerated curvy SVG laser trail drawing
+      if (curveRef.current && curveGlowRef.current) {
+        const len = curveLengthRef.current || curveRef.current.getTotalLength();
+        curveLengthRef.current = len;
+        const offset = len * (1 - p);
+        curveRef.current.style.strokeDashoffset = `${offset}`;
+        curveGlowRef.current.style.strokeDashoffset = `${offset}`;
+
+        // 2. Traveling Spark Head rides accurately along curve point (pt.x, pt.y)
+        if (sparkGroupRef.current) {
+          const clampedP = Math.min(1, Math.max(0, p));
+          const pt = curveRef.current.getPointAtLength(len * clampedP);
+          sparkGroupRef.current.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+          sparkGroupRef.current.style.opacity = p > 0.005 ? "1" : "0.2";
+        }
+      }
+
+      // 3. Update overall progress bar & counter & live phase name
+      if (progressFillRef.current) {
+        progressFillRef.current.style.width = `${Math.round(p * 100)}%`;
+      }
+      if (progressTextRef.current) {
+        progressTextRef.current.innerText = `${Math.round(p * 100)}%`;
+      }
+      if (stageLabelRef.current) {
+        const stageNames = [
+          "Stage 01 · Ingest",
+          "Stage 02 · 8-Signal Scoring",
+          "Stage 03 · Repurposing",
+          "Stage 04 · Voice Memory",
+          "Stage 05 · IST Cadence",
+          "Stage 06 · Growth Loop",
+        ];
+        const currentStageIdx = Math.min(5, Math.floor(p * 6));
+        stageLabelRef.current.innerText = stageNames[currentStageIdx];
+      }
+
+      // 4. Milestone node rings bloom in warm yellow-orange as laser reaches each stage
+      for (let i = 0; i <= 5; i++) {
+        const nodeEl = document.getElementById(`spine-milestone-${i}`);
+        if (nodeEl) {
+          const milestoneThreshold = i / 5;
+          if (p >= milestoneThreshold - 0.03) {
+            nodeEl.classList.add("scale-125", "bg-accent", "border-white", "shadow-[0_0_16px_#FFAE33]");
+            nodeEl.classList.remove("bg-canvas", "border-border");
+          } else {
+            nodeEl.classList.remove("scale-125", "bg-accent", "border-white", "shadow-[0_0_16px_#FFAE33]");
+            nodeEl.classList.add("bg-canvas", "border-border");
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(smoothUpdateLoop);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    animationFrameId = requestAnimationFrame(smoothUpdateLoop);
+
+    return () => {
+      isRunning = false;
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleCopyPlatformText = (text: string) => {
     if (navigator?.clipboard?.writeText) {
@@ -76,7 +246,12 @@ export default function MarketingHomePage() {
     }, 600);
   };
 
-  // 6 Stages of Business Growth
+  // Calculated composite virality score based on sliders
+  const compositeViralityScore = (
+    (contrarianWeight * 0.4 + densityWeight * 0.3 + resonanceWeight * 0.3)
+  ).toFixed(1);
+
+  // 6 Stages of Business Growth with Custom Rich Widgets
   const growthTimeline = [
     {
       stage: "01",
@@ -94,7 +269,6 @@ export default function MarketingHomePage() {
         "Speaker diarization with natural turn-taking",
         "Semantic chunking preserving full context",
       ],
-      previewSnippet: "founder_files_ep42_raw.mp4 · 54m 12s · 2 Speakers identified",
     },
     {
       stage: "02",
@@ -112,7 +286,6 @@ export default function MarketingHomePage() {
         "Verifiable quote extraction with evidence anchor",
         "Zero missing punchlines or cut-off arguments",
       ],
-      previewSnippet: "Clip #04: 'Why Enterprise Sales Decks Kill Seed Startups' (9.4/10)",
     },
     {
       stage: "03",
@@ -130,7 +303,6 @@ export default function MarketingHomePage() {
         "Shorts scripts with visual director notes [00:00-00:05]",
         "280-character strict X thread opener calibration",
       ],
-      previewSnippet: "LinkedIn Post + YouTube Shorts + X Thread + Reels + Newsletter",
     },
     {
       stage: "04",
@@ -148,7 +320,6 @@ export default function MarketingHomePage() {
         "Vocabulary ban-lists and preferred syntax anchors",
         "Zero prompt engineering required from the user",
       ],
-      previewSnippet: "Rule #08: Never use 'game-changer' → Use 'tactical edge' (98% conf)",
     },
     {
       stage: "05",
@@ -166,7 +337,6 @@ export default function MarketingHomePage() {
         "Anti-collision topic spacing between consecutive posts",
         "One-click sync to Google Calendar & Apple iCal (.ics)",
       ],
-      previewSnippet: "Slot 1: Mon 08:30 AM IST (LinkedIn) · Slot 2: Tue 06:15 PM IST (Shorts)",
     },
     {
       stage: "06",
@@ -184,7 +354,6 @@ export default function MarketingHomePage() {
         "Voice-memo logging for zero-friction metric entry",
         "Continuous self-improving content flywheel",
       ],
-      previewSnippet: "Episode 42 generated 184k impressions & 14 inbound founder demos",
     },
   ];
 
@@ -253,7 +422,7 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               href="#growth-timeline"
               className="text-secondary hover:text-primary transition-colors font-medium"
             >
-              Growth Timeline
+              How We Do It
             </a>
             <a
               href="#interactive-engine"
@@ -276,11 +445,6 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-subtle border border-border text-[11px] font-mono text-secondary">
-              <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-              <span>Studio Engine Live</span>
-            </div>
-
             <Link
               href="/app/clips"
               className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-primary hover:bg-black rounded-md transition-all duration-200 shadow-sm hover:shadow"
@@ -332,12 +496,21 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <a
-              href="#interactive-engine"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-primary bg-surface hover:bg-surface-subtle border border-border rounded-md transition-colors shadow-sm"
+            <button
+              onClick={() => setIsVideoOpen(true)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-primary bg-surface hover:bg-surface-subtle border border-accent/40 rounded-md transition-all shadow-sm hover:border-accent group"
             >
-              <Play className="w-3.5 h-3.5 text-accent fill-accent" />
-              <span>Try Live Simulator</span>
+              <Play className="w-3.5 h-3.5 text-accent fill-accent group-hover:scale-110 transition-transform" />
+              <span>Watch Launch Video</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent/10 text-accent font-bold">1:12</span>
+            </button>
+
+            <a
+              href="#growth-timeline"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-secondary hover:text-primary bg-surface hover:bg-surface-subtle border border-border rounded-md transition-colors shadow-sm"
+            >
+              <TrendingUp className="w-3.5 h-3.5 text-accent" />
+              <span>How We Do It</span>
             </a>
           </div>
 
@@ -363,8 +536,751 @@ When you front-load the unexpected truth, retention stays above 80% through the 
         </div>
       </section>
 
+      {/* SECTION: SCROLL PARALLAX VISUAL TIMELINE WITH GLOWING CURVED SPINE */}
+      <section
+        id="growth-timeline"
+        ref={timelineRef}
+        className="py-28 px-6 max-w-7xl mx-auto border-t border-border relative"
+      >
+        {/* Floating Ambient Glows */}
+        <div className="absolute top-1/4 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-primary leading-tight">
+            How TheContentCompany Scales Your Business
+          </h2>
+          <p className="text-secondary text-sm sm:text-base mt-4 leading-relaxed">
+            Scroll down to watch the continuous authority line illuminate each stage. Interact with the live modules to see how founders save 24+ hours every month while generating inbound pipeline.
+          </p>
+        </div>
+
+        {/* Sleek Glassmorphic Sticky Progress HUD (Docked at top-16 right below navbar) */}
+        <div className="sticky top-16 z-40 py-3 mb-12 -mx-6 px-6 bg-canvas/90 backdrop-blur-md border-y border-border/80 shadow-sm transition-all">
+          <div className="max-w-5xl mx-auto flex items-center justify-between gap-4 text-xs font-mono">
+            {/* Left: Active Stage Live Indicator */}
+            <div className="flex items-center gap-2 min-w-[170px]">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-tertiary hidden sm:inline">Active Phase:</span>
+              <span ref={stageLabelRef} className="font-bold text-primary truncate">
+                Stage 01 · Ingest
+              </span>
+            </div>
+
+            {/* Center: Glowing Yellow-Orange Progress Track */}
+            <div className="flex items-center gap-3 flex-1 max-w-md justify-center">
+              <div className="w-full h-2 bg-surface border border-border rounded-full overflow-hidden shadow-inner">
+                <div
+                  ref={progressFillRef}
+                  className="h-full bg-gradient-to-r from-[#FFAE33] via-[#FF7A30] to-[#F26522] rounded-full shadow-[0_0_8px_#FF7A30] will-change-[width]"
+                  style={{ width: "0%" }}
+                />
+              </div>
+              <span ref={progressTextRef} className="font-bold text-accent min-w-[36px] text-right">
+                0%
+              </span>
+            </div>
+
+            {/* Right: Growth Path Counter */}
+            <div className="hidden md:flex items-center gap-2 text-tertiary text-[11px]">
+              <span>6-Stage Flywheel</span>
+            </div>
+          </div>
+        </div>
+
+        {/* PARALLAX TIMELINE CONTAINER */}
+        <div className="relative">
+          {/* THE GLOWING CURVY TIMELINE SPINE (Desktop Center, Mobile Left) */}
+          <div className="absolute left-6 md:left-1/2 top-4 bottom-12 -translate-x-1/2 w-20 sm:w-28 pointer-events-none z-0">
+            {/* Curvy SVG Background Track & Yellow-Orange Laser Beam */}
+            <svg
+              className="w-full h-full overflow-visible"
+              viewBox="0 0 100 1200"
+              preserveAspectRatio="none"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                {/* Pure Warm Yellow-Orange Laser Gradient */}
+                <linearGradient id="warm-laser-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#FFAE33" />
+                  <stop offset="50%" stopColor="#FF7A30" />
+                  <stop offset="100%" stopColor="#F26522" />
+                </linearGradient>
+
+                {/* Soft Ambient Neon Glow Filter */}
+                <filter id="laser-glow-soft" x="-50%" y="-10%" width="200%" height="120%">
+                  <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#FFAE33" floodOpacity="0.8" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="14" floodColor="#F26522" floodOpacity="0.5" />
+                </filter>
+
+                <filter id="spark-laser-glow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#FFAE33" floodOpacity="0.9" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="16" floodColor="#F26522" floodOpacity="0.7" />
+                </filter>
+              </defs>
+
+              {/* 1. Inactive Curvy Dotted Guide Line */}
+              <path
+                d="M 50 0 C 85 120, 85 120, 50 240 C 15 360, 15 360, 50 480 C 85 600, 85 600, 50 720 C 15 840, 15 840, 50 960 C 85 1080, 85 1080, 50 1200"
+                stroke="#E5E3DC"
+                strokeWidth="3"
+                strokeDasharray="6 6"
+                fill="none"
+              />
+
+              {/* 2. Soft Ambient Neon Glow Curvy Trail */}
+              <path
+                ref={curveGlowRef}
+                d="M 50 0 C 85 120, 85 120, 50 240 C 15 360, 15 360, 50 480 C 85 600, 85 600, 50 720 C 15 840, 15 840, 50 960 C 85 1080, 85 1080, 50 1200"
+                stroke="url(#warm-laser-grad)"
+                strokeWidth="9"
+                strokeLinecap="round"
+                fill="none"
+                filter="url(#laser-glow-soft)"
+                style={{ strokeDasharray: 2000, strokeDashoffset: 2000 }}
+              />
+
+              {/* 3. Bold High-Contrast Yellow-Orange Laser Trail Core */}
+              <path
+                ref={curveRef}
+                d="M 50 0 C 85 120, 85 120, 50 240 C 15 360, 15 360, 50 480 C 85 600, 85 600, 50 720 C 15 840, 15 840, 50 960 C 85 1080, 85 1080, 50 1200"
+                stroke="url(#warm-laser-grad)"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+                fill="none"
+                style={{ strokeDasharray: 2000, strokeDashoffset: 2000 }}
+              />
+
+              {/* 4. Traveling Spark Head (Rides mathematically on top of the curvy wave) */}
+              <g ref={sparkGroupRef} opacity="0" filter="url(#spark-laser-glow)">
+                <circle r="14" fill="#FFAE33" opacity="0.35" className="animate-ping" />
+                <circle r="9" fill="#F26522" stroke="#FFF" strokeWidth="2.5" />
+                <circle r="4" fill="#FFF" />
+              </g>
+            </svg>
+
+            {/* Stage Milestone Waypoints along the spine */}
+            {[0, 1, 2, 3, 4, 5].map((idx) => (
+              <div
+                key={idx}
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10 pointer-events-none"
+                style={{ top: `${(idx / 5) * 96 + 2}%` }}
+              >
+                <div
+                  id={`spine-milestone-${idx}`}
+                  className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-canvas border-2 border-border transition-all duration-300 flex items-center justify-center shadow-sm"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-surface" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* STAGE CARDS (Smooth Left & Right Slide-in on Scroll) */}
+          <div className="space-y-24 sm:space-y-36 relative z-10">
+            {/* STAGE 01: Zero-Friction Ingest */}
+            <div
+              ref={(el) => {
+                stageRefs.current[0] = el;
+              }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pl-12 md:pl-0"
+            >
+              {/* Left Side: Slides from Left */}
+              <div
+                className={`space-y-4 md:pr-12 md:text-right order-2 md:order-1 transition-all duration-700 ease-out transform ${
+                  visibleStages[0] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                }`}
+              >
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
+                  <span className="text-accent font-bold">STAGE 01</span>
+                  <span>·</span>
+                  <span>Minute 0</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  Zero-Friction Ingest
+                </h3>
+                <p className="text-sm sm:text-base text-secondary leading-relaxed">
+                  Drop any 30-90 min interview or podcast. Whisper ASR extracts sub-word timestamps and speaker boundaries with zero transcription latency.
+                </p>
+                <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
+                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
+                  Replaces $3,500/mo manual video editor fees · 6.2 hours saved per recording.
+                </div>
+              </div>
+
+              {/* Right Side: Slides from Right */}
+              <div
+                className={`order-1 md:order-2 md:pl-12 transition-all duration-700 ease-out transform ${
+                  visibleStages[0] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                }`}
+              >
+                <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
+                  <div className="flex items-center justify-between border-b border-border pb-3 mb-4 text-xs font-mono">
+                    <span className="font-semibold text-primary flex items-center gap-2">
+                      <Mic className="w-4 h-4 text-accent" />
+                      <span>Ingest Engine Demo</span>
+                    </span>
+                    <span className="text-tertiary">ep_42_audio.mp3</span>
+                  </div>
+
+                  {/* Interactive Speaker Filter Controls */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-[11px] font-mono text-tertiary">Filter Audio:</span>
+                    <button
+                      onClick={() => setSelectedSpeaker("all")}
+                      className={`px-2 py-0.5 rounded text-[11px] font-mono font-medium transition-colors ${
+                        selectedSpeaker === "all"
+                          ? "bg-accent text-white"
+                          : "bg-surface-subtle text-secondary hover:text-primary"
+                      }`}
+                    >
+                      All Speakers
+                    </button>
+                    <button
+                      onClick={() => setSelectedSpeaker("s1")}
+                      className={`px-2 py-0.5 rounded text-[11px] font-mono font-medium transition-colors ${
+                        selectedSpeaker === "s1"
+                          ? "bg-accent text-white"
+                          : "bg-surface-subtle text-secondary hover:text-primary"
+                      }`}
+                    >
+                      Speaker 1 (Founder)
+                    </button>
+                    <button
+                      onClick={() => setSelectedSpeaker("s2")}
+                      className={`px-2 py-0.5 rounded text-[11px] font-mono font-medium transition-colors ${
+                        selectedSpeaker === "s2"
+                          ? "bg-accent text-white"
+                          : "bg-surface-subtle text-secondary hover:text-primary"
+                      }`}
+                    >
+                      Speaker 2 (Co-Host)
+                    </button>
+                  </div>
+
+                  {/* Waveform Visualization */}
+                  <div className="p-3 bg-canvas border border-border rounded-lg space-y-2">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-secondary">
+                      <span>Diarized Timeline [00:00 - 02:30]</span>
+                      <span className="text-accent font-bold">Whisper V3 Alignment</span>
+                    </div>
+                    <div className="h-8 flex items-center gap-1">
+                      {[60, 90, 45, 80, 100, 75, 40, 85, 95, 30, 70, 85, 90, 60, 40, 80, 100, 70, 50, 90, 80, 40].map((h, i) => {
+                        const isS1 = i % 2 === 0;
+                        const isDimmed =
+                          (selectedSpeaker === "s1" && !isS1) ||
+                          (selectedSpeaker === "s2" && isS1);
+                        return (
+                          <div
+                            key={i}
+                            className={`flex-1 rounded-full transition-all duration-200 ${
+                              isDimmed
+                                ? "bg-border opacity-30"
+                                : isS1
+                                ? "bg-accent"
+                                : "bg-primary"
+                            }`}
+                            style={{ height: `${h}%` }}
+                          />
+                        );
+                      })}
+                    </div>
+                    <div className="text-[10px] text-tertiary flex items-center justify-between pt-1">
+                      <span>Orange: Speaker 1 (68% talking time)</span>
+                      <span>Dark: Speaker 2 (32% talking time)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* STAGE 02: 8-Signal Viral Extraction */}
+            <div
+              ref={(el) => {
+                stageRefs.current[1] = el;
+              }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pl-12 md:pl-0"
+            >
+              {/* Left Side: Slides from Left */}
+              <div
+                className={`order-1 md:pr-12 transition-all duration-700 ease-out transform ${
+                  visibleStages[1] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                }`}
+              >
+                <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
+                  <div className="flex items-center justify-between border-b border-border pb-3 mb-4 text-xs font-mono">
+                    <span className="font-semibold text-primary flex items-center gap-2">
+                      <SlidersHorizontal className="w-4 h-4 text-accent" />
+                      <span>Interactive Virality Weight Matrix</span>
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-accent text-white font-bold">
+                      {compositeViralityScore} / 10
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] text-secondary mb-3">
+                    Adjust psychological signal weights to see how the mathematical ranking reacts:
+                  </p>
+
+                  {/* Live Sliders */}
+                  <div className="space-y-3">
+                    <div>
+                      <div className="flex justify-between text-xs font-mono mb-1">
+                        <span className="text-secondary">Contrarian Hook Lift</span>
+                        <span className="text-accent font-bold">{contrarianWeight}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="5.0"
+                        max="10.0"
+                        step="0.1"
+                        value={contrarianWeight}
+                        onChange={(e) => setContrarianWeight(parseFloat(e.target.value))}
+                        className="w-full accent-accent h-1.5 bg-surface-subtle rounded-lg cursor-pointer"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between text-xs font-mono mb-1">
+                        <span className="text-secondary">Information Density</span>
+                        <span className="text-accent font-bold">{densityWeight}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="5.0"
+                        max="10.0"
+                        step="0.1"
+                        value={densityWeight}
+                        onChange={(e) => setDensityWeight(parseFloat(e.target.value))}
+                        className="w-full accent-accent h-1.5 bg-surface-subtle rounded-lg cursor-pointer"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between text-xs font-mono mb-1">
+                        <span className="text-secondary">Emotional Resonance</span>
+                        <span className="text-accent font-bold">{resonanceWeight}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="5.0"
+                        max="10.0"
+                        step="0.1"
+                        value={resonanceWeight}
+                        onChange={(e) => setResonanceWeight(parseFloat(e.target.value))}
+                        className="w-full accent-accent h-1.5 bg-surface-subtle rounded-lg cursor-pointer"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 p-2.5 bg-surface-subtle rounded border border-border text-[11px] text-secondary flex items-center justify-between font-mono">
+                    <span>Ranked Output:</span>
+                    <span className="text-primary font-semibold">Clip #04 qualifies for Top 5% Distribution</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Slides from Right */}
+              <div
+                className={`space-y-4 md:pl-12 order-2 transition-all duration-700 ease-out transform ${
+                  visibleStages[1] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                }`}
+              >
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
+                  <span className="text-accent font-bold">STAGE 02</span>
+                  <span>·</span>
+                  <span>Minute 2</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  8-Signal Viral Extraction
+                </h3>
+                <p className="text-sm sm:text-base text-secondary leading-relaxed">
+                  No arbitrary silence cuts. The engine scans for contrarian claims, concrete takeaways, and emotional hooks with mathematical confidence.
+                </p>
+                <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
+                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
+                  3.8x increase in audience completion & retention vs standard clips.
+                </div>
+              </div>
+            </div>
+
+            {/* STAGE 03: Platform-Native Repurposing */}
+            <div
+              ref={(el) => {
+                stageRefs.current[2] = el;
+              }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pl-12 md:pl-0"
+            >
+              {/* Left Side: Slides from Left */}
+              <div
+                className={`space-y-4 md:pr-12 md:text-right order-2 md:order-1 transition-all duration-700 ease-out transform ${
+                  visibleStages[2] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                }`}
+              >
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
+                  <span className="text-accent font-bold">STAGE 03</span>
+                  <span>·</span>
+                  <span>Minute 5</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  Platform-Native Repurposing
+                </h3>
+                <p className="text-sm sm:text-base text-secondary leading-relaxed">
+                  One conversation creates 5 distinct algorithmic formats: LinkedIn thought leadership, YouTube Shorts script with visual pacing, and high-retention X threads.
+                </p>
+                <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
+                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
+                  5x content footprint without hiring a multi-person social media team.
+                </div>
+              </div>
+
+              {/* Right Side: Slides from Right */}
+              <div
+                className={`order-1 md:order-2 md:pl-12 transition-all duration-700 ease-out transform ${
+                  visibleStages[2] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                }`}
+              >
+                <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
+                  <div className="flex items-center justify-between border-b border-border pb-3 mb-3">
+                    <span className="text-xs font-mono font-semibold text-primary">
+                      Multi-Platform Output Switcher
+                    </span>
+                    <span className="text-[10px] font-mono text-accent">Auto-Budgeted</span>
+                  </div>
+
+                  {/* Platform Pills */}
+                  <div className="flex items-center gap-1.5 mb-3">
+                    {(["linkedin", "shorts", "x"] as const).map((plat) => (
+                      <button
+                        key={plat}
+                        onClick={() => setActivePlatformTab(plat)}
+                        className={`px-2.5 py-1 rounded text-xs font-semibold transition-all ${
+                          activePlatformTab === plat
+                            ? "bg-primary text-white"
+                            : "bg-surface-subtle text-secondary hover:text-primary"
+                        }`}
+                      >
+                        {plat === "linkedin" ? "LinkedIn Post" : plat === "shorts" ? "YT Shorts" : "X Thread"}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Formatted Preview Box */}
+                  <div className="p-3.5 bg-surface-subtle border border-border rounded-lg text-xs font-sans space-y-2">
+                    <div className="font-mono text-[10px] text-tertiary flex items-center justify-between border-b border-border/50 pb-1.5">
+                      <span>{platformContent[activePlatformTab].tag}</span>
+                      <span>{platformContent[activePlatformTab].chars}</span>
+                    </div>
+                    <div className="font-semibold text-primary">
+                      {platformContent[activePlatformTab].hook}
+                    </div>
+                    <div className="text-secondary text-[11px] line-clamp-3 leading-relaxed">
+                      {platformContent[activePlatformTab].body}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* STAGE 04: Continuous Voice Memory */}
+            <div
+              ref={(el) => {
+                stageRefs.current[3] = el;
+              }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pl-12 md:pl-0"
+            >
+              {/* Left Side: Slides from Left */}
+              <div
+                className={`order-1 md:pr-12 transition-all duration-700 ease-out transform ${
+                  visibleStages[3] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                }`}
+              >
+                <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
+                  <div className="flex items-center justify-between border-b border-border pb-3 mb-3">
+                    <span className="text-xs font-mono font-semibold text-primary flex items-center gap-2">
+                      <History className="w-4 h-4 text-accent" />
+                      <span>Neural Diff Rule Extractor</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-success flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Active Memory</span>
+                    </span>
+                  </div>
+
+                  {/* Diff View Selector */}
+                  <div className="flex items-center gap-1.5 mb-3 text-xs font-mono">
+                    <button
+                      onClick={() => setDiffMode("before")}
+                      className={`px-2 py-0.5 rounded ${
+                        diffMode === "before"
+                          ? "bg-destructive/20 text-destructive font-bold"
+                          : "text-secondary hover:text-primary"
+                      }`}
+                    >
+                      Raw LLM Draft
+                    </button>
+                    <button
+                      onClick={() => setDiffMode("after")}
+                      className={`px-2 py-0.5 rounded ${
+                        diffMode === "after"
+                          ? "bg-success/20 text-success font-bold"
+                          : "text-secondary hover:text-primary"
+                      }`}
+                    >
+                      Founder Polish
+                    </button>
+                    <button
+                      onClick={() => setDiffMode("diff")}
+                      className={`px-2 py-0.5 rounded ${
+                        diffMode === "diff"
+                          ? "bg-accent text-white font-bold"
+                          : "text-secondary hover:text-primary"
+                      }`}
+                    >
+                      Diff View
+                    </button>
+                  </div>
+
+                  {/* Diff Content Box */}
+                  <div className="p-3 bg-canvas border border-border rounded-lg text-xs font-mono leading-relaxed">
+                    {diffMode === "before" && (
+                      <p className="text-secondary">
+                        In this game-changing video, we basically reveal how top founders scale fast without burning capital...
+                      </p>
+                    )}
+                    {diffMode === "after" && (
+                      <p className="text-primary">
+                        In Ep. 42, we broke down why top founders ignore vanity metrics and focus on 90-day retention cohorts...
+                      </p>
+                    )}
+                    {diffMode === "diff" && (
+                      <p className="space-x-1">
+                        <span>In</span>
+                        <span className="line-through bg-destructive/20 text-destructive px-1 rounded">
+                          this game-changing video, we basically reveal how
+                        </span>
+                        <span className="bg-success/20 text-success px-1 rounded font-semibold">
+                          Ep. 42, we broke down why
+                        </span>
+                        <span>top founders</span>
+                        <span className="line-through bg-destructive/20 text-destructive px-1 rounded">
+                          scale fast without burning capital...
+                        </span>
+                        <span className="bg-success/20 text-success px-1 rounded font-semibold">
+                          ignore vanity metrics and focus on 90-day retention cohorts...
+                        </span>
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="mt-3 p-2 bg-surface-subtle border border-border rounded text-[10px] font-mono text-tertiary">
+                    Rule Extracted: Ban hype words (&quot;game-changing&quot;) → Permanent Weight: +0.92
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Slides from Right */}
+              <div
+                className={`space-y-4 md:pl-12 order-2 transition-all duration-700 ease-out transform ${
+                  visibleStages[3] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                }`}
+              >
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
+                  <span className="text-accent font-bold">STAGE 04</span>
+                  <span>·</span>
+                  <span>Minute 10</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  Continuous Voice Memory
+                </h3>
+                <p className="text-sm sm:text-base text-secondary leading-relaxed">
+                  Every edit permanently trains your private voice vector. The model adopts your unique vocabulary and stops repeating generic buzzwords.
+                </p>
+                <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
+                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
+                  0% tone drift. 98.4% brand consistency across all company channels.
+                </div>
+              </div>
+            </div>
+
+            {/* STAGE 05: Deterministic IST Scheduling */}
+            <div
+              ref={(el) => {
+                stageRefs.current[4] = el;
+              }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pl-12 md:pl-0"
+            >
+              {/* Left Side: Slides from Left */}
+              <div
+                className={`space-y-4 md:pr-12 md:text-right order-2 md:order-1 transition-all duration-700 ease-out transform ${
+                  visibleStages[4] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                }`}
+              >
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
+                  <span className="text-accent font-bold">STAGE 05</span>
+                  <span>·</span>
+                  <span>Minute 15</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  Deterministic IST Scheduling
+                </h3>
+                <p className="text-sm sm:text-base text-secondary leading-relaxed">
+                  Plan two weeks of content in one click. Posts are spaced across peak Indian Standard Time & Global engagement windows with calendar export.
+                </p>
+                <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
+                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
+                  Zero creator burnout. 100% posting consistency 14 days in advance.
+                </div>
+              </div>
+
+              {/* Right Side: Slides from Right */}
+              <div
+                className={`order-1 md:order-2 md:pl-12 transition-all duration-700 ease-out transform ${
+                  visibleStages[4] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                }`}
+              >
+                <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
+                  <div className="flex items-center justify-between border-b border-border pb-3 mb-3 text-xs font-mono">
+                    <span className="font-semibold text-primary flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-accent" />
+                      <span>Interactive Peak IST Slots</span>
+                    </span>
+                    <span className="text-tertiary">Asia/Kolkata</span>
+                  </div>
+
+                  <p className="text-[11px] text-secondary mb-3">
+                    Click a slot to allocate scheduled clips to optimal reach windows:
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    {[
+                      { time: "08:30 AM IST", title: "Morning Commute", plat: "LinkedIn" },
+                      { time: "01:15 PM IST", title: "Lunch Break", plat: "X Thread" },
+                      { time: "06:15 PM IST", title: "Evening Prime", plat: "YT Shorts" },
+                      { time: "09:00 PM IST", title: "Night Scroll", plat: "Reels" },
+                    ].map((slot, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedSlot(i)}
+                        className={`p-2.5 rounded-lg border text-left transition-all ${
+                          selectedSlot === i
+                            ? "bg-accent text-white border-accent shadow-sm"
+                            : "bg-surface-subtle border-border text-secondary hover:text-primary hover:bg-surface"
+                        }`}
+                      >
+                        <div className="text-[10px] font-mono opacity-80">{slot.time}</div>
+                        <div className="text-xs font-bold leading-tight mt-0.5">{slot.title}</div>
+                        <div className="text-[10px] font-mono mt-1 opacity-90">{slot.plat}</div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="p-2.5 bg-canvas border border-border rounded text-[11px] font-mono text-secondary flex items-center justify-between">
+                    <span>Export Target:</span>
+                    <span className="text-accent font-semibold">Google Calendar + Apple .ics</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* STAGE 06: Causal Growth & Pipeline Loop */}
+            <div
+              ref={(el) => {
+                stageRefs.current[5] = el;
+              }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pl-12 md:pl-0"
+            >
+              {/* Left Side: Slides from Left */}
+              <div
+                className={`order-1 md:pr-12 transition-all duration-700 ease-out transform ${
+                  visibleStages[5] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                }`}
+              >
+                <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
+                  <div className="flex items-center justify-between border-b border-border pb-3 mb-3 text-xs font-mono">
+                    <span className="font-semibold text-primary flex items-center gap-2">
+                      <Coins className="w-4 h-4 text-accent" />
+                      <span>Interactive Founder Pipeline Calculator</span>
+                    </span>
+                    <span className="text-success font-bold">+340% Lift</span>
+                  </div>
+
+                  {/* Interactive Slider for Monthly Episodes */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-xs font-mono mb-1">
+                      <span className="text-secondary">Episodes Published / Month:</span>
+                      <span className="text-accent font-bold text-sm">{monthlyEpisodes} episodes</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max="8"
+                      step="1"
+                      value={monthlyEpisodes}
+                      onChange={(e) => setMonthlyEpisodes(parseInt(e.target.value))}
+                      className="w-full accent-accent h-2 bg-surface-subtle rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Computed Metrics */}
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="p-3 bg-canvas border border-border rounded-lg">
+                      <div className="text-[10px] font-mono text-tertiary">Attributed ARR</div>
+                      <div className="text-base sm:text-lg font-bold font-mono text-primary mt-1">
+                        ${(monthlyEpisodes * 12000).toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="p-3 bg-canvas border border-border rounded-lg">
+                      <div className="text-[10px] font-mono text-tertiary">Organic Reach</div>
+                      <div className="text-base sm:text-lg font-bold font-mono text-primary mt-1">
+                        {(monthlyEpisodes * 45).toLocaleString()}k
+                      </div>
+                    </div>
+                    <div className="p-3 bg-canvas border border-border rounded-lg">
+                      <div className="text-[10px] font-mono text-tertiary">Hours Saved</div>
+                      <div className="text-base sm:text-lg font-bold font-mono text-accent mt-1">
+                        {monthlyEpisodes * 24} hrs
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 text-[10px] font-mono text-tertiary text-center">
+                    Based on real conversion metrics from Ep. 42 founder distribution.
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Slides from Right */}
+              <div
+                className={`space-y-4 md:pl-12 order-2 transition-all duration-700 ease-out transform ${
+                  visibleStages[5] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                }`}
+              >
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
+                  <span className="text-accent font-bold">STAGE 06</span>
+                  <span>·</span>
+                  <span>Day 30+</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  Causal Growth & Pipeline Loop
+                </h3>
+                <p className="text-sm sm:text-base text-secondary leading-relaxed">
+                  Log impressions and deals back into the engine. Feature lift math automatically updates which hooks get prioritized for future episodes.
+                </p>
+                <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
+                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
+                  Self-improving flywheel: content quality compounds month over month.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION: Interactive Working Component (Content Engine Simulator) */}
-      <section id="interactive-engine" className="py-20 px-6 max-w-7xl mx-auto">
+      <section id="interactive-engine" className="py-20 px-6 max-w-7xl mx-auto border-t border-border">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-subtle border border-accent/20 text-xs font-mono text-accent mb-4">
             <Cpu className="w-3.5 h-3.5" />
@@ -634,157 +1550,6 @@ When you front-load the unexpected truth, retention stays above 80% through the 
         </div>
       </section>
 
-      {/* SECTION: Visual Growth Timeline (User Requested Feature) */}
-      <section id="growth-timeline" className="py-20 px-6 max-w-7xl mx-auto border-t border-border">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-border text-xs font-mono text-secondary mb-4 shadow-sm">
-            <TrendingUp className="w-3.5 h-3.5 text-accent" />
-            <span>The Continuous Authority Engine</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-primary leading-tight">
-            How TheContentCompany Scales Your Business
-          </h2>
-          <p className="text-secondary text-sm sm:text-base mt-4 leading-relaxed">
-            From raw audio ingestion to high-converting inbound pipeline. Follow the exact 6-step mechanical progression that founders use to dominate their category.
-          </p>
-        </div>
-
-        {/* Timeline Step Navigation Pills */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2 sm:gap-3 mb-10">
-          {growthTimeline.map((item, index) => {
-            const isActive = activeGrowthStage === index;
-            return (
-              <button
-                key={index}
-                onClick={() => setActiveGrowthStage(index)}
-                className={`p-3 text-left rounded-lg border transition-all text-xs ${
-                  isActive
-                    ? "bg-surface border-accent shadow-sm ring-1 ring-accent/30"
-                    : "bg-surface-subtle border-border hover:bg-surface text-secondary"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span
-                    className={`font-mono text-[10px] font-bold ${
-                      isActive ? "text-accent" : "text-tertiary"
-                    }`}
-                  >
-                    STAGE {item.stage}
-                  </span>
-                  <span className="text-[10px] text-tertiary font-mono">{item.timeframe}</span>
-                </div>
-                <div className="font-semibold text-primary truncate">{item.title}</div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Timeline Detailed Focus Card */}
-        <div className="bg-surface border border-border rounded-xl p-8 shadow-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Info: Narrative & Business Impact (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded bg-accent text-white font-mono text-xs font-bold">
-                Stage {growthTimeline[activeGrowthStage].stage}
-              </span>
-              <span className="text-xs font-mono text-tertiary">
-                Execution Time: {growthTimeline[activeGrowthStage].timeframe}
-              </span>
-              <span className="hidden sm:inline-block text-xs font-mono px-2 py-0.5 rounded bg-surface-subtle border border-border text-secondary">
-                {growthTimeline[activeGrowthStage].badge}
-              </span>
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
-              {growthTimeline[activeGrowthStage].headline}
-            </h3>
-
-            <p className="text-sm sm:text-base text-secondary leading-relaxed">
-              {growthTimeline[activeGrowthStage].description}
-            </p>
-
-            {/* Checklist of capabilities */}
-            <div className="space-y-2.5 pt-2">
-              {growthTimeline[activeGrowthStage].capabilities.map((cap, i) => (
-                <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-primary">
-                  <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-                  <span>{cap}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Direct Commercial Business Impact */}
-            <div className="p-4 rounded-lg bg-surface-subtle border-l-4 border-accent text-xs">
-              <span className="font-mono font-semibold uppercase text-tertiary block mb-1">
-                Bottom-Line Business Impact:
-              </span>
-              <span className="font-medium text-primary text-sm">
-                {growthTimeline[activeGrowthStage].businessImpact}
-              </span>
-            </div>
-          </div>
-
-          {/* Right Info: Live Snapshot & Impact Metric (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-6 lg:pl-6 lg:border-l border-border">
-            {/* Metric Callout Card */}
-            <div className="p-6 rounded-xl bg-canvas border border-border text-center">
-              <div className="text-xs font-mono text-tertiary uppercase tracking-wider mb-2">
-                Proven Output Metric
-              </div>
-              <div className="text-4xl sm:text-5xl font-bold font-mono text-primary">
-                {growthTimeline[activeGrowthStage].metric}
-              </div>
-              <div className="text-xs text-secondary mt-2 font-medium">
-                {growthTimeline[activeGrowthStage].metricLabel}
-              </div>
-            </div>
-
-            {/* Snapshot Terminal Mock */}
-            <div className="p-4 rounded-lg bg-primary text-white font-mono text-xs space-y-2 shadow-inner">
-              <div className="flex items-center justify-between text-tertiary border-b border-white/10 pb-2 text-[10px]">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-destructive" />
-                  <span className="w-2 h-2 rounded-full bg-accent" />
-                  <span className="w-2 h-2 rounded-full bg-success" />
-                </div>
-                <span>thecontentcompany-core · active</span>
-              </div>
-              <div className="text-accent text-[11px] pt-1">
-                &gt; stage_{growthTimeline[activeGrowthStage].stage}.execute()
-              </div>
-              <div className="text-white/80 text-[11px] leading-relaxed">
-                {growthTimeline[activeGrowthStage].previewSnippet}
-              </div>
-              <div className="text-success text-[10px] pt-1 flex items-center gap-1">
-                <Check className="w-3 h-3" />
-                <span>Verified deterministic pipeline pass</span>
-              </div>
-            </div>
-
-            {/* Step navigation trigger */}
-            <div className="flex items-center justify-between pt-2">
-              <button
-                disabled={activeGrowthStage === 0}
-                onClick={() => setActiveGrowthStage((prev) => Math.max(0, prev - 1))}
-                className="text-xs text-secondary hover:text-primary disabled:opacity-30 disabled:pointer-events-none"
-              >
-                ← Previous Stage
-              </button>
-              <button
-                disabled={activeGrowthStage === growthTimeline.length - 1}
-                onClick={() =>
-                  setActiveGrowthStage((prev) => Math.min(growthTimeline.length - 1, prev + 1))
-                }
-                className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:text-accent-hover disabled:opacity-30 disabled:pointer-events-none"
-              >
-                <span>Next Stage</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* SECTION: Studio Architecture / Capabilities */}
       <section id="architecture" className="py-20 px-6 max-w-7xl mx-auto border-t border-border">
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -994,6 +1759,44 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           </div>
         </div>
       </footer>
+      {/* Launch Video Cinematic Modal */}
+      {isVideoOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
+          onClick={() => setIsVideoOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-5xl bg-[#09090C] border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
+                <span className="font-mono text-xs text-white/80 font-bold uppercase tracking-wider">
+                  TheContentCompany · Official Product Launch
+                </span>
+              </div>
+              <button
+                onClick={() => setIsVideoOpen(false)}
+                className="text-white/60 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="relative aspect-video w-full bg-black">
+              <video
+                src="/videos/launch_video.mp4"
+                controls
+                autoPlay
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
