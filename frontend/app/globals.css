@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: #FAF9F6;
+  --surface: #FFFFFF;
+  --surface-subtle: #F4F3EF;
+  --border: #E5E3DC;
+  --text-primary: #121212;
+  --text-secondary: #666460;
+  --text-tertiary: #8C8982;
+  --accent: #F26522;
+  --accent-hover: #DE5718;
+  --accent-subtle: #FFF4ED;
+  --success: #16A34A;
+  --destructive: #DC2626;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--canvas);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbars matching clean 1px border aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D6CE;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8C8982;
+}
+
+/* Crisp button focus ring */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #F26522;
+  outline-offset: 1px;
+}

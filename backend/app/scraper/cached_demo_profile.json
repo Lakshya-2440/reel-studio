@@ -1,0 +1,217 @@
+{
+  "creator_profile": {
+    "handle": "alex_founder",
+    "name": "Alex Rivera",
+    "title": "Founder & Host @ The Founder Files | Building Reel (YC S24)",
+    "bio": "Building in public. Weekly conversations with engineers, operators, and researchers reimagining software with agentic AI. Voice-first, anti-slop.",
+    "website": "https://reel.studio",
+    "follower_count": 48500,
+    "following_count": 620,
+    "total_posts": 342,
+    "profile_image_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    "brand_colors": {
+      "primary": "#F26522",
+      "background": "#0B0B0C",
+      "surface": "#161618",
+      "text": "#FAF9F6",
+      "accent": "#FF7A30"
+    }
+  },
+  "posts": [
+    {
+      "id": "demo-post-01",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_the-biggest-mistake-first-time-founders-activity-7192837491",
+      "text": "The biggest mistake first-time founders make with content: they treat it like marketing instead of customer discovery.\n\nWhen you write publicly about the hardest bugs you solved this week, your ideal customers DM you with 'we have this exact problem, can we buy this?'\n\nContent is not brand fluff—it's asynchronous sales engineering.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 842,
+      "comments": 76,
+      "timestamp": "2026-10-29T14:30:00Z",
+      "hashtags": ["#buildinpublic", "#startups", "#founders", "#ai"]
+    },
+    {
+      "id": "demo-post-02",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_we-spent-6-months-building-14-features-activity-7192109482",
+      "text": "We spent 6 months building 14 different features. 80% of our churned users only ever touched one: the automated clip repurposing engine.\n\nLast Monday we deleted 6,000 lines of code, killed 3 tabs, and doubled down on one core loop: raw podcast in, 5 platform-tailored hooks out.\n\nChurn dropped 18% in 7 days. Ruthless prioritization hurts until you see the retention curve flatten.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1240,
+      "comments": 118,
+      "timestamp": "2026-10-27T10:15:00Z",
+      "hashtags": ["#saas", "#startups", "#productmanagement", "#tech"]
+    },
+    {
+      "id": "demo-post-03",
+      "platform": "instagram",
+      "post_url": "https://www.instagram.com/p/DB102934812/",
+      "text": "Unpopular opinion: Prompt engineering is dead. What matters now is stateful context memory.\n\nIf your AI tool forgets how the creator prefers their hooks structured after two edits, you don't have an AI copilot—you have an annoying intern who needs retraining every morning.\n\nThe future belongs to systems that learn from diffs.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 980,
+      "comments": 64,
+      "timestamp": "2026-10-25T16:45:00Z",
+      "hashtags": ["#ai", "#agents", "#machinelearning", "#generativeai"]
+    },
+    {
+      "id": "demo-post-04",
+      "platform": "instagram",
+      "post_url": "https://www.instagram.com/p/DB098127341/",
+      "text": "Our podcast recording rig for 2026: Shure SM7B into Elgato Wave XLR, Sony A7IV (24mm f/1.4), Whisper Large v3 for 40-language ASR, and custom ffmpeg pipelines for 9:16 vertical framing.\n\nQuality at the top of the funnel compounds. If your audio has room echo, nobody is staying past second 4.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1530,
+      "comments": 89,
+      "timestamp": "2026-10-23T11:00:00Z",
+      "hashtags": ["#podcasting", "#creators", "#audioengineering", "#contentcreation"]
+    },
+    {
+      "id": "demo-post-05",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_stop-using-10-hashtags-on-linkedin-activity-7189123847",
+      "text": "Stop using 10 hashtags on LinkedIn. The algorithm updated again: 3-5 hyper-relevant tags outperform tag clouds by 2.4x in feed reach.\n\nMore importantly: lead with a concrete data point in the first 120 characters before the '...see more' fold.\n\nHere is the exact hook formula we test on 200k monthly impressions: [Unexpected result] + [Counter-intuitive cause] + [1-sentence evidence].",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 2150,
+      "comments": 184,
+      "timestamp": "2026-10-21T08:30:00Z",
+      "hashtags": ["#linkedin", "#contentstrategy", "#growth", "#marketing"]
+    },
+    {
+      "id": "demo-post-06",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_the-math-behind-our-420k-arr-activity-7188049182",
+      "text": "The math behind our $420k ARR milestone:\n• 38 enterprise customers\n• $920 net average MRR\n• 104% net revenue retention\n• $0 spent on paid ads\n\n100% of pipeline came from 2 weekly breakdown threads breaking down open-source agent architectures. When you give away your playbook, customers hire you to execute it.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1890,
+      "comments": 142,
+      "timestamp": "2026-10-18T13:20:00Z",
+      "hashtags": ["#bootstrap", "#metrics", "#saas", "#founders"]
+    },
+    {
+      "id": "demo-post-07",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_why-we-migrated-to-neon-pgvector-activity-7186938210",
+      "text": "Why we migrated our vector embeddings directly into Neon Postgres with pgvector:\n1. Zero network hop between metadata tables and similarity vectors.\n2. ACID transactions across clip generation jobs.\n3. 70% cheaper monthly infra bill.\n\nPostgreSQL remains the undisputed champion of data engineering.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1420,
+      "comments": 95,
+      "timestamp": "2026-10-16T15:10:00Z",
+      "hashtags": ["#postgresql", "#neon", "#database", "#ai"]
+    },
+    {
+      "id": "demo-post-08",
+      "platform": "instagram",
+      "post_url": "https://www.instagram.com/p/DB018274912/",
+      "text": "Voice-first is the inevitable interface for high-velocity founders. You talk at 150 words per minute; you type on glass at 35 wpm with typos.\n\nWhen you dictate a rambling 2-minute product brief while walking your dog, an agentic intake model can strip filler words, detect self-corrections ('wait no, make that 3 clips instead of 5'), and output structured JSON.\n\nStop typing. Start talking.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 875,
+      "comments": 52,
+      "timestamp": "2026-10-14T17:40:00Z",
+      "hashtags": ["#wisprflow", "#voiceui", "#productivity", "#ai"]
+    },
+    {
+      "id": "demo-post-09",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_customer-churn-autopsy-activity-7184829104",
+      "text": "Customer churn autopsy: Our biggest churn event was a $3,500/mo agency client.\n\nWhy did they leave? Not because our AI couldn't generate clips—because it generated clips that 'felt like AI.' The tone was overly dramatic, stuffed with rocket ship emojis, and used generic buzzwords like 'game-changer' and 'delve.'\n\nSince that day, our #1 product rule: Zero AI slop. If a post sounds like a robot wrote it, it does not get published.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 3120,
+      "comments": 298,
+      "timestamp": "2026-10-11T12:05:00Z",
+      "hashtags": ["#startups", "#customerexperience", "#brandidentity"]
+    },
+    {
+      "id": "demo-post-10",
+      "platform": "instagram",
+      "post_url": "https://www.instagram.com/p/DB009182374/",
+      "text": "Repurposing playbook: From a 45-minute technical podcast episode, we consistently produce:\n• 1 LinkedIn thought leadership essay\n• 3 vertical 9:16 video hooks for Reels/TikTok\n• 1 Twitter/X technical breakdown thread\n• 2 YouTube Shorts with burned-in subtitles\n• 1 weekly newsletter takeaway\n\nTime spent: 12 minutes total with human editing. Leverage is everything.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1120,
+      "comments": 73,
+      "timestamp": "2026-10-09T09:15:00Z",
+      "hashtags": ["#contentcreation", "#reels", "#growthhacking", "#founder"]
+    },
+    {
+      "id": "demo-post-11",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_the-4-hour-rule-for-hackathons-activity-7182910384",
+      "text": "The 4-hour rule for startup hackathons: If your core user loop isn't working end-to-end within the first 4 hours, your scope is too wide.\n\nCut the settings page. Cut multi-tenancy. Cut oauth.\n\nBuild the one magical transformation that makes the judge lean forward and whisper 'wait, did it just do that?'",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1640,
+      "comments": 109,
+      "timestamp": "2026-10-06T14:50:00Z",
+      "hashtags": ["#hackathon", "#productdesign", "#buildinpublic"]
+    },
+    {
+      "id": "demo-post-12",
+      "platform": "instagram",
+      "post_url": "https://www.instagram.com/p/DA981273401/",
+      "text": "Color psychology in creator branding: Notice how every top tech podcast uses either deep obsidian black (#0B0B0C) with warm off-white (#FAF9F6) and a singular high-voltage accent (YC orange or electric cyan)?\n\nStop using rainbow gradients. High-contrast typography and disciplined palettes signal intellectual seriousness.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 930,
+      "comments": 47,
+      "timestamp": "2026-10-04T18:25:00Z",
+      "hashtags": ["#design", "#branding", "#uiux", "#creatoreconomy"]
+    },
+    {
+      "id": "demo-post-13",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_what-happened-when-we-closed-the-performance-loop-activity-7181029384",
+      "text": "Here is what happened when we started logging post engagement directly back into our generation weights:\n• Hooks starting with numbers saw +34% click-through\n• Posts without emojis saw +41% repost rate among technical audiences\n• Posts published Tuesday at 9:00 AM IST had 2.1x initial velocity\n\nBuild feedback loops into your tools. Don't guess what works—let the algorithm adjust the priors.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 2340,
+      "comments": 215,
+      "timestamp": "2026-10-01T08:00:00Z",
+      "hashtags": ["#growthmarketing", "#analytics", "#data", "#optimization"]
+    },
+    {
+      "id": "demo-post-14",
+      "platform": "linkedin",
+      "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_most-people-think-brand-voice-is-adjectives-activity-7179820194",
+      "text": "Most people think brand voice is about adjectives ('we are witty, friendly, and authoritative').\n\nWrong. Brand voice is defined by constraints: what you NEVER say.\n\nWe never use 'In today's fast-paced world', we never start with 'Are you tired of...', and we never include more than one question mark per post.\n\nConstraints breed style.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 2890,
+      "comments": 230,
+      "timestamp": "2026-09-28T11:20:00Z",
+      "hashtags": ["#copywriting", "#branding", "#writingtips"]
+    },
+    {
+      "id": "demo-post-15",
+      "platform": "instagram",
+      "post_url": "https://www.instagram.com/p/DA891823740/",
+      "text": "Autonomous AI agents won't replace creators; they will replace the tedious friction between thinking and publishing.\n\nThe founder brings the raw insight, the war stories, and the taste. The agent handles transcript indexing, semantic clip discovery, character limits, formatting constraints, and schedule slot allocation.\n\nCreative direction stays human. Execution becomes instantaneous.",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+      ],
+      "likes": 1410,
+      "comments": 88,
+      "timestamp": "2026-09-25T15:00:00Z",
+      "hashtags": ["#futureofwork", "#artificialintelligence", "#creators", "#startups"]
+    }
+  ]
+}

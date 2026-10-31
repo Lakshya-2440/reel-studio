@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: reel-backend
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: DATABASE_URL
+        sync: false
+      - key: HF_TOKEN
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: "http://localhost:3000,http://127.0.0.1:3000,https://*.vercel.app"
+      - key: HF_CHAT_MODEL
+        value: "Qwen/Qwen2.5-72B-Instruct"
+      - key: HF_ASR_MODEL
+        value: "openai/whisper-large-v3"
+      - key: HF_EMBED_MODEL
+        value: "BAAI/bge-small-en-v1.5"
+      - key: GEMINI_MODEL
+        value: "gemini-2.0-flash"
