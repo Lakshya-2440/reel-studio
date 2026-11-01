@@ -22,7 +22,7 @@
       "id": "demo-post-01",
       "platform": "linkedin",
       "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_the-biggest-mistake-first-time-founders-activity-7192837491",
-      "text": "The biggest mistake first-time founders make with content: they treat it like marketing instead of customer discovery.\n\nWhen you write publicly about the hardest bugs you solved this week, your ideal customers DM you with 'we have this exact problem, can we buy this?'\n\nContent is not brand fluff—it's asynchronous sales engineering.",
+      "text": "The biggest mistake first-time founders make with content: they treat it like marketing instead of customer discovery.\n\nWhen you write publicly about the hardest bugs you solved this week, your ideal customers DM you with 'we have this exact problem, can we buy this?'\n\nContent is not brand fluff-it's asynchronous sales engineering.",
       "image_urls": [
         "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
       ],
@@ -48,7 +48,7 @@
       "id": "demo-post-03",
       "platform": "instagram",
       "post_url": "https://www.instagram.com/p/DB102934812/",
-      "text": "Unpopular opinion: Prompt engineering is dead. What matters now is stateful context memory.\n\nIf your AI tool forgets how the creator prefers their hooks structured after two edits, you don't have an AI copilot—you have an annoying intern who needs retraining every morning.\n\nThe future belongs to systems that learn from diffs.",
+      "text": "Unpopular opinion: Prompt engineering is dead. What matters now is stateful context memory.\n\nIf your AI tool forgets how the creator prefers their hooks structured after two edits, you don't have an AI copilot-you have an annoying intern who needs retraining every morning.\n\nThe future belongs to systems that learn from diffs.",
       "image_urls": [
         "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
       ],
@@ -68,7 +68,12 @@
       "likes": 1530,
       "comments": 89,
       "timestamp": "2026-10-23T11:00:00Z",
-      "hashtags": ["#podcasting", "#creators", "#audioengineering", "#contentcreation"]
+      "hashtags": [
+        "#podcasting",
+        "#creators",
+        "#audioengineering",
+        "#contentcreation"
+      ]
     },
     {
       "id": "demo-post-05",
@@ -126,7 +131,7 @@
       "id": "demo-post-09",
       "platform": "linkedin",
       "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_customer-churn-autopsy-activity-7184829104",
-      "text": "Customer churn autopsy: Our biggest churn event was a $3,500/mo agency client.\n\nWhy did they leave? Not because our AI couldn't generate clips—because it generated clips that 'felt like AI.' The tone was overly dramatic, stuffed with rocket ship emojis, and used generic buzzwords like 'game-changer' and 'delve.'\n\nSince that day, our #1 product rule: Zero AI slop. If a post sounds like a robot wrote it, it does not get published.",
+      "text": "Customer churn autopsy: Our biggest churn event was a $3,500/mo agency client.\n\nWhy did they leave? Not because our AI couldn't generate clips-because it generated clips that 'felt like AI.' The tone was overly dramatic, stuffed with rocket ship emojis, and used generic buzzwords like 'game-changer' and 'delve.'\n\nSince that day, our #1 product rule: Zero AI slop. If a post sounds like a robot wrote it, it does not get published.",
       "image_urls": [
         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
       ],
@@ -178,7 +183,7 @@
       "id": "demo-post-13",
       "platform": "linkedin",
       "post_url": "https://www.linkedin.com/posts/alex-rivera-tech_what-happened-when-we-closed-the-performance-loop-activity-7181029384",
-      "text": "Here is what happened when we started logging post engagement directly back into our generation weights:\n• Hooks starting with numbers saw +34% click-through\n• Posts without emojis saw +41% repost rate among technical audiences\n• Posts published Tuesday at 9:00 AM IST had 2.1x initial velocity\n\nBuild feedback loops into your tools. Don't guess what works—let the algorithm adjust the priors.",
+      "text": "Here is what happened when we started logging post engagement directly back into our generation weights:\n• Hooks starting with numbers saw +34% click-through\n• Posts without emojis saw +41% repost rate among technical audiences\n• Posts published Tuesday at 9:00 AM IST had 2.1x initial velocity\n\nBuild feedback loops into your tools. Don't guess what works-let the algorithm adjust the priors.",
       "image_urls": [
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
       ],
@@ -211,7 +216,12 @@
       "likes": 1410,
       "comments": 88,
       "timestamp": "2026-09-25T15:00:00Z",
-      "hashtags": ["#futureofwork", "#artificialintelligence", "#creators", "#startups"]
+      "hashtags": [
+        "#futureofwork",
+        "#artificialintelligence",
+        "#creators",
+        "#startups"
+      ]
     }
   ]
 }

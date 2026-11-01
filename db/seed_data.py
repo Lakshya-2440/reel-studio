@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Seed Data Generator for Reel
-Populates rich demo dataset for "The Founder Files — Ep. 42":
+Populates rich demo dataset for "The Founder Files - Ep. 42":
   - ~45 min podcast transcript with chapters & segments + embeddings
   - 12 high-scoring clips with 8-signal breakdowns & evidence quotes
   - 60 platform variants (5 per clip: LinkedIn, Reels, Shorts, X, TikTok)
@@ -92,7 +92,7 @@ def seed_database():
 
     # 1. Project
     project_id = "proj_founder_files_42"
-    project_name = "The Founder Files — Ep. 42: Why 90% of AI Startups Die at $50k MRR"
+    project_name = "The Founder Files - Ep. 42: Why 90% of AI Startups Die at $50k MRR"
     project_settings = {
         "host": "Sarah Chen",
         "guest": "Marcus Vance",
@@ -256,7 +256,7 @@ def seed_database():
             "id": "clip_2",
             "title": "The 70% Gross Margin Rule for AI Startups",
             "start_time": 145.0, "end_time": 198.0, "duration": 53.0,
-            "hook_line": "If your gross margin is under 70%, you didn't build software—you built a glorified consultancy with an API key.",
+            "hook_line": "If your gross margin is under 70%, you didn't build software-you built a glorified consultancy with an API key.",
             "reasons": [
                 "Concrete quantifiable heuristic (70% gross margin rule)",
                 "Provocative identity attack on AI wrapper companies",
@@ -408,7 +408,7 @@ def seed_database():
             "id": "clip_10",
             "title": "The Monday Morning Retention Test",
             "start_time": 2120.0, "end_time": 2178.0, "duration": 58.0,
-            "hook_line": "If uninstalling your app doesn't break someone's 9 AM routine, you don't have a product—you have a bookmark.",
+            "hook_line": "If uninstalling your app doesn't break someone's 9 AM routine, you don't have a product-you have a bookmark.",
             "reasons": [
                 "Vivid, memorable diagnostic test for PMF",
                 "High organic shareability across product circles",
@@ -530,7 +530,7 @@ def seed_database():
                     f"1. Early traction disguised fatal unit economics.\n"
                     f"2. {clip['evidence_quote']}\n"
                     f"3. We had to stop celebrating top-line MRR and focus on gross margin contribution.\n\n"
-                    f"Takeaway for operators: If scaling your user base scales your server losses, you haven't found product-market fit—you found a subsidized distribution leak.\n\n"
+                    f"Takeaway for operators: If scaling your user base scales your server losses, you haven't found product-market fit-you found a subsidized distribution leak.\n\n"
                     f"{p_meta['cta']}"
                 )
                 on_screen = f"THE $50K MRR TRAP: {clip['title'].upper()}"
@@ -551,7 +551,7 @@ def seed_database():
                 on_screen = f"OPENAI BILL: $42,000 / MO"
             elif p_name == "youtube_shorts":
                 hook = clip["hook_line"]
-                caption = f"{clip['title']} — Founder Marcus Vance breaks down the unit economics of AI software."
+                caption = f"{clip['title']} - Founder Marcus Vance breaks down the unit economics of AI software."
                 on_screen = f"THE 70% MARGIN RULE"
             else:  # tiktok
                 hook = f"If you're building an AI startup, hear this right now."

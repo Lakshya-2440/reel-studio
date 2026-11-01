@@ -85,7 +85,7 @@ export function SSEProgressTracker({
               href="/app/clips"
               className="px-3 py-1.5 bg-accent hover:bg-accent-hover text-surface text-xs font-semibold rounded transition-colors flex items-center gap-1.5 shadow-sm"
             >
-              <span>Inspect 12 Clips</span>
+              <span>Inspect 14 Clips</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           )}

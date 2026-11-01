@@ -35,7 +35,7 @@ def test_parse_pasted_transcript_with_timestamps():
     raw_text = """
     [00:04:12] Alex Vance: Most founders build content as a megaphone to shout at buyers.
     [00:04:45] Elena: But the sharpest ones use it as a radar to detect market demand.
-    [00:05:20] Alex Vance: Outcome-based pricing isn't the future—it's the present.
+    [00:05:20] Alex Vance: Outcome-based pricing isn't the future-it's the present.
     """
     segments = parse_pasted_transcript(raw_text)
 

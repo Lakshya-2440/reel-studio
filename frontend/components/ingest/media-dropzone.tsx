@@ -57,38 +57,6 @@ export function MediaDropzone({ onStartIngest, isProcessing }: MediaDropzoneProp
 
   return (
     <div className="bg-surface border border-border rounded-lg p-5 shadow-card space-y-4">
-      {/* Top Quick-Demo Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-accent-subtle/50 border border-accent/20 rounded">
-        <div className="flex items-center gap-2.5">
-          <div className="w-2 h-2 rounded-full bg-accent animate-pulse shrink-0" />
-          <div>
-            <div className="text-xs font-semibold text-primary">
-              Judge Evaluation Mode: 1-Click Instant Demo
-            </div>
-            <div className="text-[11px] text-secondary">
-              Load &quot;The Founder Files — Ep. 42&quot; (~48m audio, 12 scored clips, 148 vectors).
-            </div>
-          </div>
-        </div>
-        <button
-          onClick={() => onStartIngest("sample")}
-          disabled={isProcessing}
-          className="px-3.5 py-1.5 bg-accent hover:bg-accent-hover text-surface text-xs font-semibold rounded transition-colors flex items-center justify-center gap-1.5 shrink-0 disabled:opacity-50"
-        >
-          {isProcessing ? (
-            <>
-              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-              <span>Simulating Pipeline...</span>
-            </>
-          ) : (
-            <>
-              <span>Try Sample Podcast (Ep. 42)</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </>
-          )}
-        </button>
-      </div>
-
       {/* Tabs */}
       <div className="flex items-center gap-1 border-b border-border pb-3 text-xs">
         <button

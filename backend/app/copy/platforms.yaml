@@ -1,4 +1,4 @@
-# platforms.yaml — Single Source of Truth for Platform Constraints & Copy Rules
+# platforms.yaml - Single Source of Truth for Platform Constraints & Copy Rules
 version: "1.0"
 platforms:
   linkedin:

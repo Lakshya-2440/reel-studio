@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Search,
   Play,
@@ -22,12 +22,14 @@ import {
   TranscriptSegment,
   ChapterMarker,
 } from "@/lib/seed-data";
+import { getActiveProject, IngestedProject } from "@/lib/project-store";
 
 interface TranscriptViewerProps {
   onSeek?: (seconds: number) => void;
 }
 
 export function TranscriptViewer({ onSeek }: TranscriptViewerProps) {
+  const [activeProject, setActiveProject] = useState<IngestedProject>(getActiveProject());
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSpeaker, setSelectedSpeaker] = useState<string>("all");
   const [activeSegmentId, setActiveSegmentId] = useState<string>("seg-02");
@@ -35,9 +37,41 @@ export function TranscriptViewer({ onSeek }: TranscriptViewerProps) {
   const [currentTimeSeconds, setCurrentTimeSeconds] = useState(12);
   const [playbackSpeed, setPlaybackSpeed] = useState<"1x" | "1.5x" | "2x">("1x");
 
+  useEffect(() => {
+    const proj = getActiveProject();
+    setActiveProject(proj);
+
+    const handleProjectChanged = (e: any) => {
+      if (e.detail) {
+        setActiveProject(e.detail);
+        if (e.detail.clips?.[0]?.id) {
+          setActiveSegmentId(e.detail.clips[0].id);
+        }
+      }
+    };
+    window.addEventListener("thecontentcompany_project_changed", handleProjectChanged);
+    return () => window.removeEventListener("thecontentcompany_project_changed", handleProjectChanged);
+  }, []);
+
+  const segmentsToDisplay: TranscriptSegment[] = useMemo(() => {
+    if (activeProject.sourceType === "default") {
+      return TRANSCRIPT_SEGMENTS;
+    }
+    return activeProject.clips.map((c, i) => ({
+      id: c.id,
+      speaker: `Speaker ${((i % 2) + 1)}`,
+      role: i % 2 === 0 ? "Host" : "Guest",
+      start_time: c.start_time,
+      end_time: c.end_time,
+      start_time_fmt: c.start_time_fmt,
+      end_time_fmt: c.end_time_fmt,
+      text: c.evidence_quote || c.hook_line,
+    }));
+  }, [activeProject]);
+
   // Filtered segments
   const filteredSegments = useMemo(() => {
-    return TRANSCRIPT_SEGMENTS.filter((seg) => {
+    return segmentsToDisplay.filter((seg) => {
       const matchesSearch =
         searchQuery.trim() === "" ||
         seg.text.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -49,7 +83,7 @@ export function TranscriptViewer({ onSeek }: TranscriptViewerProps) {
 
       return matchesSearch && matchesSpeaker;
     });
-  }, [searchQuery, selectedSpeaker]);
+  }, [segmentsToDisplay, searchQuery, selectedSpeaker]);
 
   const handleSegmentClick = (seg: TranscriptSegment) => {
     setActiveSegmentId(seg.id);

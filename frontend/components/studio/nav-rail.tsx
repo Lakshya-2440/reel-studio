@@ -35,8 +35,8 @@ export const navItems: NavItem[] = [
     name: "Clips",
     href: "/app/clips",
     icon: Scissors,
-    badge: "12",
-    reqTag: "8-Signal",
+    badge: "14",
+    reqTag: "9:16 MP4",
   },
   {
     name: "Copy",

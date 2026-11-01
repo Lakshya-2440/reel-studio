@@ -44,7 +44,9 @@ export default function MarketingHomePage() {
   // Live Simulator States
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioProgress, setAudioProgress] = useState(42);
-  const [activePlatformTab, setActivePlatformTab] = useState<"linkedin" | "shorts" | "x" | "reels">("linkedin");
+  const [activePlatformTab, setActivePlatformTab] = useState<
+    "linkedin" | "shorts" | "x" | "reels"
+  >("linkedin");
   const [copiedPlatform, setCopiedPlatform] = useState(false);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -57,7 +59,7 @@ export default function MarketingHomePage() {
 
   // Interactive Voice Diff Simulator State
   const [userEditedText, setUserEditedText] = useState(
-    "In Ep. 42, we proved why early B2B startups fail when they copy enterprise sales decks instead of shipping opinionated teardowns."
+    "In Ep. 42, we proved why early B2B startups fail when they copy enterprise sales decks instead of shipping opinionated teardowns.",
   );
   const [isDiffAnalyzed, setIsDiffAnalyzed] = useState(false);
   const [isAnalyzingDiff, setIsAnalyzingDiff] = useState(false);
@@ -75,12 +77,21 @@ export default function MarketingHomePage() {
   const currentProgressRef = useRef(0);
 
   // Scroll Slide-in Visibility Tracking for the 6 Stages
-  const [visibleStages, setVisibleStages] = useState<boolean[]>([false, false, false, false, false, false]);
+  const [visibleStages, setVisibleStages] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Interactive Stage Mini-Components State
   // Stage 1: Ingest Speaker Filter
-  const [selectedSpeaker, setSelectedSpeaker] = useState<"all" | "s1" | "s2">("all");
+  const [selectedSpeaker, setSelectedSpeaker] = useState<"all" | "s1" | "s2">(
+    "all",
+  );
   // Stage 2: Signal Weight Interactive Sliders
   const [contrarianWeight, setContrarianWeight] = useState(9.6);
   const [densityWeight, setDensityWeight] = useState(9.2);
@@ -136,7 +147,7 @@ export default function MarketingHomePage() {
       {
         threshold: [0, 0.22, 0.5, 0.8],
         rootMargin: "-20px 0px -20px 0px",
-      }
+      },
     );
 
     observer.observe(section);
@@ -149,7 +160,10 @@ export default function MarketingHomePage() {
       if (!videoSectionRef.current) return;
       const rect = videoSectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
+      const progress = Math.max(
+        0,
+        Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)),
+      );
       setVideoScrollProgress(progress);
     };
 
@@ -162,7 +176,10 @@ export default function MarketingHomePage() {
     const video = videoPlayerRef.current;
     if (!video) return;
     if (video.paused) {
-      video.play().then(() => setIsVideoPlaying(true)).catch(() => {});
+      video
+        .play()
+        .then(() => setIsVideoPlaying(true))
+        .catch(() => {});
     } else {
       video.pause();
       setIsVideoPlaying(false);
@@ -192,7 +209,7 @@ export default function MarketingHomePage() {
             });
           }
         },
-        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
       );
       obs.observe(el);
       observers.push(obs);
@@ -257,7 +274,10 @@ export default function MarketingHomePage() {
         if (sparkGroupRef.current) {
           const clampedP = Math.min(1, Math.max(0, p));
           const pt = curveRef.current.getPointAtLength(len * clampedP);
-          sparkGroupRef.current.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+          sparkGroupRef.current.setAttribute(
+            "transform",
+            `translate(${pt.x}, ${pt.y})`,
+          );
           sparkGroupRef.current.style.opacity = p > 0.005 ? "1" : "0.2";
         }
       }
@@ -288,10 +308,20 @@ export default function MarketingHomePage() {
         if (nodeEl) {
           const milestoneThreshold = i / 5;
           if (p >= milestoneThreshold - 0.03) {
-            nodeEl.classList.add("scale-125", "bg-accent", "border-white", "shadow-[0_0_16px_#FFAE33]");
+            nodeEl.classList.add(
+              "scale-125",
+              "bg-accent",
+              "border-white",
+              "shadow-[0_0_16px_#FFAE33]",
+            );
             nodeEl.classList.remove("bg-canvas", "border-border");
           } else {
-            nodeEl.classList.remove("scale-125", "bg-accent", "border-white", "shadow-[0_0_16px_#FFAE33]");
+            nodeEl.classList.remove(
+              "scale-125",
+              "bg-accent",
+              "border-white",
+              "shadow-[0_0_16px_#FFAE33]",
+            );
             nodeEl.classList.add("bg-canvas", "border-border");
           }
         }
@@ -329,7 +359,9 @@ export default function MarketingHomePage() {
 
   // Calculated composite virality score based on sliders
   const compositeViralityScore = (
-    (contrarianWeight * 0.4 + densityWeight * 0.3 + resonanceWeight * 0.3)
+    contrarianWeight * 0.4 +
+    densityWeight * 0.3 +
+    resonanceWeight * 0.3
   ).toFixed(1);
 
   // 6 Stages of Business Growth with Custom Rich Widgets
@@ -357,7 +389,7 @@ export default function MarketingHomePage() {
       timeframe: "Minute 2",
       headline: "Mathematically Discover the Top 5% Standalone Moments.",
       description:
-        "Standard AI clips arbitrary silence. TheContentCompany scores clips across 8 distinct psychological vectors—contrarian hook, emotional resonance, tactical density, and standalone clarity.",
+        "Standard AI clips arbitrary silence. TheContentCompany scores clips across 8 distinct psychological vectors-contrarian hook, emotional resonance, tactical density, and standalone clarity.",
       businessImpact: "3.8x increase in organic watch-through and retention.",
       metric: "9.4 / 10",
       metricLabel: "Average hook retention score",
@@ -375,7 +407,8 @@ export default function MarketingHomePage() {
       headline: "5 Bespoke Formats. Zero Repetitive Cross-Posting Slop.",
       description:
         "Every channel demands unique algorithmic pacing. Generate LinkedIn authority breakdowns, YouTube Shorts vertical scripts with visual cues, high-engagement X threads, and Reel captions.",
-      businessImpact: "5x organic distribution footprint from 1 single recording.",
+      businessImpact:
+        "5x organic distribution footprint from 1 single recording.",
       metric: "5 Platforms",
       metricLabel: "Generated simultaneously",
       badge: "Strict Platform Budget Rules",
@@ -391,7 +424,7 @@ export default function MarketingHomePage() {
       timeframe: "Minute 10",
       headline: "Edit Once. Train Your Private Voice Vector Permanently.",
       description:
-        "Every time you polish a line or delete generic buzzwords, our neural diff engine extracts your exact stylistic preference. Future drafts permanently sound like you—never like generic ChatGPT.",
+        "Every time you polish a line or delete generic buzzwords, our neural diff engine extracts your exact stylistic preference. Future drafts permanently sound like you-never like generic ChatGPT.",
       businessImpact: "98.4% brand voice consistency across all output.",
       metric: "0% Drift",
       metricLabel: "Permanent stylistic retention",
@@ -409,7 +442,8 @@ export default function MarketingHomePage() {
       headline: "Deterministic Spacing Across High-Velocity Peak Slots.",
       description:
         "Automate your publishing calendar with peak Indian Standard Time & Global engagement windows. Spacing algorithms prevent audience fatigue while maintaining daily pipeline visibility.",
-      businessImpact: "Consistent 14-day publishing backlog without creator burnout.",
+      businessImpact:
+        "Consistent 14-day publishing backlog without creator burnout.",
       metric: "14 Days",
       metricLabel: "Automated queue pre-scheduled",
       badge: "Algorithmic Cadence Engine",
@@ -426,7 +460,8 @@ export default function MarketingHomePage() {
       headline: "Actual Engagement Metrics Re-Weight Future Generation.",
       description:
         "Log post impressions, shares, and inbound leads via voice note, form, or CSV. The causal engine computes feature lift to prioritize the exact narrative angles that drive real customer pipeline.",
-      businessImpact: "$48,000+ attributed inbound revenue from founder-led authority.",
+      businessImpact:
+        "$48,000+ attributed inbound revenue from founder-led authority.",
       metric: "+340%",
       metricLabel: "Quarterly inbound pipeline lift",
       badge: "Closed-Loop Feature Feedback",
@@ -443,7 +478,7 @@ export default function MarketingHomePage() {
       tag: "LinkedIn · Authority Breakdown",
       chars: "784 chars · 2 min read",
       hook: "Most founders treat content like a megaphone. The best use it as a radar.",
-      body: `In Ep. 42 of The Founder Files, we broke down why top B2B companies get 80% of pipeline from unpolished founder perspectives—not slick corporate marketing.
+      body: `In Ep. 42 of The Founder Files, we broke down why top B2B companies get 80% of pipeline from unpolished founder perspectives-not slick corporate marketing.
 
 3 rules we live by:
 1. Share the breakdown first, the framework second.
@@ -461,7 +496,7 @@ When you speak with high conviction about specific customer friction, qualified 
 
 Stop editing your podcasts like a legacy media company.
 
-If your first 5 seconds sound like 'Hey everyone, welcome back to episode 42'—you've already lost 85% of your audience.
+If your first 5 seconds sound like 'Hey everyone, welcome back to episode 42'-you've already lost 85% of your audience.
 
 [B-Roll Cut: Studio mic waveform peaking]
 
@@ -546,7 +581,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface text-xs font-mono text-secondary mb-8 shadow-sm">
             <Flame className="w-3.5 h-3.5 text-accent" />
-            <span className="font-semibold text-primary">Autonomous Content Studio</span>
+            <span className="font-semibold text-primary">
+              Autonomous Content Studio
+            </span>
             <span className="text-tertiary">·</span>
             <span>Continuous Voice Memory</span>
           </div>
@@ -558,12 +595,17 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               14 Days of Authority
             </span>
             . <br />
-            <span className="text-secondary font-normal">Zero Fluff. Zero Drift.</span>
+            <span className="text-secondary font-normal">
+              Zero Fluff. Zero Drift.
+            </span>
           </h1>
 
           {/* Subheading */}
           <p className="text-lg sm:text-xl text-secondary max-w-2xl mx-auto leading-relaxed mb-10">
-            TheContentCompany ingests raw founder recordings, ranks high-retention clips across 8 psychological signals, generates platform-native copy, and continuously learns your exact voice from every edit.
+            TheContentCompany ingests raw founder recordings, ranks
+            high-retention clips across 8 psychological signals, generates
+            platform-native copy, and continuously learns your exact voice from
+            every edit.
           </p>
 
           {/* Primary CTA Button */}
@@ -581,20 +623,36 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           {/* Key Value Proof Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-border/80">
             <div className="p-4 rounded-lg bg-surface border border-border text-left">
-              <div className="text-2xl font-bold font-mono text-primary">8 Signals</div>
-              <div className="text-xs text-secondary mt-1">Multi-vector clip retention scoring</div>
+              <div className="text-2xl font-bold font-mono text-primary">
+                8 Signals
+              </div>
+              <div className="text-xs text-secondary mt-1">
+                Multi-vector clip retention scoring
+              </div>
             </div>
             <div className="p-4 rounded-lg bg-surface border border-border text-left">
-              <div className="text-2xl font-bold font-mono text-primary">0% Drift</div>
-              <div className="text-xs text-secondary mt-1">Neural diff voice memory vector</div>
+              <div className="text-2xl font-bold font-mono text-primary">
+                0% Drift
+              </div>
+              <div className="text-xs text-secondary mt-1">
+                Neural diff voice memory vector
+              </div>
             </div>
             <div className="p-4 rounded-lg bg-surface border border-border text-left">
-              <div className="text-2xl font-bold font-mono text-primary">5 Formats</div>
-              <div className="text-xs text-secondary mt-1">Strict algorithmic platform budgets</div>
+              <div className="text-2xl font-bold font-mono text-primary">
+                5 Formats
+              </div>
+              <div className="text-xs text-secondary mt-1">
+                Strict algorithmic platform budgets
+              </div>
             </div>
             <div className="p-4 rounded-lg bg-surface border border-border text-left">
-              <div className="text-2xl font-bold font-mono text-primary">Smart IST</div>
-              <div className="text-xs text-secondary mt-1">Peak-hour cadence scheduling</div>
+              <div className="text-2xl font-bold font-mono text-primary">
+                Smart IST
+              </div>
+              <div className="text-xs text-secondary mt-1">
+                Peak-hour cadence scheduling
+              </div>
             </div>
           </div>
         </div>
@@ -613,7 +671,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-xs font-mono text-accent mb-4 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-semibold uppercase tracking-wider">Official 68s Launch Film</span>
+            <span className="font-semibold uppercase tracking-wider">
+              Official 68s Launch Film
+            </span>
             <span className="text-accent/40">·</span>
             <span>Thunderstruck Soundtrack</span>
           </div>
@@ -621,7 +681,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             See The Flywheel In Full Motion
           </h2>
           <p className="text-secondary text-sm sm:text-base mt-4 leading-relaxed max-w-2xl mx-auto">
-            Scroll past to watch the studio ingest raw episodes, score 8-signal retention hooks, generate platform-native copy, and continuously train voice memory in real-time.
+            Scroll past to watch the studio ingest raw episodes, score 8-signal
+            retention hooks, generate platform-native copy, and continuously
+            train voice memory in real-time.
           </p>
         </div>
 
@@ -636,10 +698,13 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           >
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-success" />
-              <span className="text-xs font-mono font-bold text-primary">Whisper Large-v3</span>
+              <span className="text-xs font-mono font-bold text-primary">
+                Whisper Large-v3
+              </span>
             </div>
             <p className="text-[11px] text-secondary leading-snug">
-              148 segments chunked &<br />vectorized with pgvector
+              148 segments chunked &<br />
+              vectorized with pgvector
             </p>
           </div>
 
@@ -652,10 +717,14 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           >
             <div className="flex items-center gap-2">
               <Flame className="w-3.5 h-3.5 text-accent" />
-              <span className="text-xs font-mono font-bold text-primary">Continuous Voice Memory</span>
+              <span className="text-xs font-mono font-bold text-primary">
+                Continuous Voice Memory
+              </span>
             </div>
             <p className="text-[11px] text-secondary leading-snug">
-              Neural diff learns creator edits<br />across 5 platform channels
+              Neural diff learns creator edits
+              <br />
+              across 5 platform channels
             </p>
           </div>
 
@@ -688,10 +757,16 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${
-                      isVideoPlaying ? "bg-success animate-pulse" : "bg-tertiary"
+                      isVideoPlaying
+                        ? "bg-success animate-pulse"
+                        : "bg-tertiary"
                     }`}
                   />
-                  <span>{isVideoPlaying ? "Auto-Playing on Scroll" : "Paused on Scroll"}</span>
+                  <span>
+                    {isVideoPlaying
+                      ? "Auto-Playing on Scroll"
+                      : "Paused on Scroll"}
+                  </span>
                 </span>
 
                 <button
@@ -701,7 +776,11 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                       ? "bg-accent hover:bg-accent-hover text-white shadow-md animate-pulse"
                       : "bg-surface-subtle hover:bg-surface text-primary border border-border"
                   }`}
-                  title={isVideoMuted ? "Click to Unmute Thunderstruck Audio" : "Mute Video"}
+                  title={
+                    isVideoMuted
+                      ? "Click to Unmute Thunderstruck Audio"
+                      : "Mute Video"
+                  }
                 >
                   {isVideoMuted ? (
                     <>
@@ -752,7 +831,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                     className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/80 hover:bg-black text-white text-xs font-semibold backdrop-blur-md border border-accent/40 shadow-xl hover:border-accent hover:scale-105 transition-all"
                   >
                     <VolumeX className="w-4 h-4 text-accent" />
-                    <span>Click to Unmute Thunderstruck Audio (AC/DC + Voiceover)</span>
+                    <span>
+                      Click to Unmute Thunderstruck Audio (AC/DC + Voiceover)
+                    </span>
                   </button>
                 </div>
               )}
@@ -777,7 +858,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             How TheContentCompany Scales Your Business
           </h2>
           <p className="text-secondary text-sm sm:text-base mt-4 leading-relaxed">
-            Scroll down to watch the continuous authority line illuminate each stage. Interact with the live modules to see how founders save 24+ hours every month while generating inbound pipeline.
+            Scroll down to watch the continuous authority line illuminate each
+            stage. Interact with the live modules to see how founders save 24+
+            hours every month while generating inbound pipeline.
           </p>
         </div>
 
@@ -787,8 +870,13 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             {/* Left: Active Stage Live Indicator */}
             <div className="flex items-center gap-2 min-w-[170px]">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-tertiary hidden sm:inline">Active Phase:</span>
-              <span ref={stageLabelRef} className="font-bold text-primary truncate">
+              <span className="text-tertiary hidden sm:inline">
+                Active Phase:
+              </span>
+              <span
+                ref={stageLabelRef}
+                className="font-bold text-primary truncate"
+              >
                 Stage 01 · Ingest
               </span>
             </div>
@@ -802,7 +890,10 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   style={{ width: "0%" }}
                 />
               </div>
-              <span ref={progressTextRef} className="font-bold text-accent min-w-[36px] text-right">
+              <span
+                ref={progressTextRef}
+                className="font-bold text-accent min-w-[36px] text-right"
+              >
                 0%
               </span>
             </div>
@@ -828,21 +919,63 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             >
               <defs>
                 {/* Pure Warm Yellow-Orange Laser Gradient */}
-                <linearGradient id="warm-laser-grad" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id="warm-laser-grad"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="0%" stopColor="#FFAE33" />
                   <stop offset="50%" stopColor="#FF7A30" />
                   <stop offset="100%" stopColor="#F26522" />
                 </linearGradient>
 
                 {/* Soft Ambient Neon Glow Filter */}
-                <filter id="laser-glow-soft" x="-50%" y="-10%" width="200%" height="120%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#FFAE33" floodOpacity="0.8" />
-                  <feDropShadow dx="0" dy="0" stdDeviation="14" floodColor="#F26522" floodOpacity="0.5" />
+                <filter
+                  id="laser-glow-soft"
+                  x="-50%"
+                  y="-10%"
+                  width="200%"
+                  height="120%"
+                >
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="6"
+                    floodColor="#FFAE33"
+                    floodOpacity="0.8"
+                  />
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="14"
+                    floodColor="#F26522"
+                    floodOpacity="0.5"
+                  />
                 </filter>
 
-                <filter id="spark-laser-glow" x="-100%" y="-100%" width="300%" height="300%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#FFAE33" floodOpacity="0.9" />
-                  <feDropShadow dx="0" dy="0" stdDeviation="16" floodColor="#F26522" floodOpacity="0.7" />
+                <filter
+                  id="spark-laser-glow"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="6"
+                    floodColor="#FFAE33"
+                    floodOpacity="0.9"
+                  />
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="16"
+                    floodColor="#F26522"
+                    floodOpacity="0.7"
+                  />
                 </filter>
               </defs>
 
@@ -879,8 +1012,17 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               />
 
               {/* 4. Traveling Spark Head (Rides mathematically on top of the curvy wave) */}
-              <g ref={sparkGroupRef} opacity="0" filter="url(#spark-laser-glow)">
-                <circle r="14" fill="#FFAE33" opacity="0.35" className="animate-ping" />
+              <g
+                ref={sparkGroupRef}
+                opacity="0"
+                filter="url(#spark-laser-glow)"
+              >
+                <circle
+                  r="14"
+                  fill="#FFAE33"
+                  opacity="0.35"
+                  className="animate-ping"
+                />
                 <circle r="9" fill="#F26522" stroke="#FFF" strokeWidth="2.5" />
                 <circle r="4" fill="#FFF" />
               </g>
@@ -915,7 +1057,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Left Side: Slides from Left */}
               <div
                 className={`space-y-4 md:pr-12 md:text-right order-2 md:order-1 transition-all duration-700 ease-out transform ${
-                  visibleStages[0] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                  visibleStages[0]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-14"
                 }`}
               >
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
@@ -927,18 +1071,25 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   Zero-Friction Ingest
                 </h3>
                 <p className="text-sm sm:text-base text-secondary leading-relaxed">
-                  Drop any 30-90 min interview or podcast. Whisper ASR extracts sub-word timestamps and speaker boundaries with zero transcription latency.
+                  Drop any 30-90 min interview or podcast. Whisper ASR extracts
+                  sub-word timestamps and speaker boundaries with zero
+                  transcription latency.
                 </p>
                 <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
-                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
-                  Replaces $3,500/mo manual video editor fees · 6.2 hours saved per recording.
+                  <div className="text-primary font-semibold mb-1">
+                    Business Metric:
+                  </div>
+                  Replaces $3,500/mo manual video editor fees · 6.2 hours saved
+                  per recording.
                 </div>
               </div>
 
               {/* Right Side: Slides from Right */}
               <div
                 className={`order-1 md:order-2 md:pl-12 transition-all duration-700 ease-out transform ${
-                  visibleStages[0] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                  visibleStages[0]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-14"
                 }`}
               >
                 <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
@@ -952,7 +1103,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
 
                   {/* Interactive Speaker Filter Controls */}
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-[11px] font-mono text-tertiary">Filter Audio:</span>
+                    <span className="text-[11px] font-mono text-tertiary">
+                      Filter Audio:
+                    </span>
                     <button
                       onClick={() => setSelectedSpeaker("all")}
                       className={`px-2 py-0.5 rounded text-[11px] font-mono font-medium transition-colors ${
@@ -989,10 +1142,15 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   <div className="p-3 bg-canvas border border-border rounded-lg space-y-2">
                     <div className="flex items-center justify-between text-[11px] font-mono text-secondary">
                       <span>Diarized Timeline [00:00 - 02:30]</span>
-                      <span className="text-accent font-bold">Whisper V3 Alignment</span>
+                      <span className="text-accent font-bold">
+                        Whisper V3 Alignment
+                      </span>
                     </div>
                     <div className="h-8 flex items-center gap-1">
-                      {[60, 90, 45, 80, 100, 75, 40, 85, 95, 30, 70, 85, 90, 60, 40, 80, 100, 70, 50, 90, 80, 40].map((h, i) => {
+                      {[
+                        60, 90, 45, 80, 100, 75, 40, 85, 95, 30, 70, 85, 90, 60,
+                        40, 80, 100, 70, 50, 90, 80, 40,
+                      ].map((h, i) => {
                         const isS1 = i % 2 === 0;
                         const isDimmed =
                           (selectedSpeaker === "s1" && !isS1) ||
@@ -1004,8 +1162,8 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                               isDimmed
                                 ? "bg-border opacity-30"
                                 : isS1
-                                ? "bg-accent"
-                                : "bg-primary"
+                                  ? "bg-accent"
+                                  : "bg-primary"
                             }`}
                             style={{ height: `${h}%` }}
                           />
@@ -1031,7 +1189,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Left Side: Slides from Left */}
               <div
                 className={`order-1 md:pr-12 transition-all duration-700 ease-out transform ${
-                  visibleStages[1] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                  visibleStages[1]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-14"
                 }`}
               >
                 <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
@@ -1046,15 +1206,20 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   </div>
 
                   <p className="text-[11px] text-secondary mb-3">
-                    Adjust psychological signal weights to see how the mathematical ranking reacts:
+                    Adjust psychological signal weights to see how the
+                    mathematical ranking reacts:
                   </p>
 
                   {/* Live Sliders */}
                   <div className="space-y-3">
                     <div>
                       <div className="flex justify-between text-xs font-mono mb-1">
-                        <span className="text-secondary">Contrarian Hook Lift</span>
-                        <span className="text-accent font-bold">{contrarianWeight}</span>
+                        <span className="text-secondary">
+                          Contrarian Hook Lift
+                        </span>
+                        <span className="text-accent font-bold">
+                          {contrarianWeight}
+                        </span>
                       </div>
                       <input
                         type="range"
@@ -1062,15 +1227,21 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                         max="10.0"
                         step="0.1"
                         value={contrarianWeight}
-                        onChange={(e) => setContrarianWeight(parseFloat(e.target.value))}
+                        onChange={(e) =>
+                          setContrarianWeight(parseFloat(e.target.value))
+                        }
                         className="w-full accent-accent h-1.5 bg-surface-subtle rounded-lg cursor-pointer"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between text-xs font-mono mb-1">
-                        <span className="text-secondary">Information Density</span>
-                        <span className="text-accent font-bold">{densityWeight}</span>
+                        <span className="text-secondary">
+                          Information Density
+                        </span>
+                        <span className="text-accent font-bold">
+                          {densityWeight}
+                        </span>
                       </div>
                       <input
                         type="range"
@@ -1078,15 +1249,21 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                         max="10.0"
                         step="0.1"
                         value={densityWeight}
-                        onChange={(e) => setDensityWeight(parseFloat(e.target.value))}
+                        onChange={(e) =>
+                          setDensityWeight(parseFloat(e.target.value))
+                        }
                         className="w-full accent-accent h-1.5 bg-surface-subtle rounded-lg cursor-pointer"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between text-xs font-mono mb-1">
-                        <span className="text-secondary">Emotional Resonance</span>
-                        <span className="text-accent font-bold">{resonanceWeight}</span>
+                        <span className="text-secondary">
+                          Emotional Resonance
+                        </span>
+                        <span className="text-accent font-bold">
+                          {resonanceWeight}
+                        </span>
                       </div>
                       <input
                         type="range"
@@ -1094,7 +1271,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                         max="10.0"
                         step="0.1"
                         value={resonanceWeight}
-                        onChange={(e) => setResonanceWeight(parseFloat(e.target.value))}
+                        onChange={(e) =>
+                          setResonanceWeight(parseFloat(e.target.value))
+                        }
                         className="w-full accent-accent h-1.5 bg-surface-subtle rounded-lg cursor-pointer"
                       />
                     </div>
@@ -1102,7 +1281,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
 
                   <div className="mt-4 p-2.5 bg-surface-subtle rounded border border-border text-[11px] text-secondary flex items-center justify-between font-mono">
                     <span>Ranked Output:</span>
-                    <span className="text-primary font-semibold">Clip #04 qualifies for Top 5% Distribution</span>
+                    <span className="text-primary font-semibold">
+                      Clip #04 qualifies for Top 5% Distribution
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1110,7 +1291,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Right Side: Slides from Right */}
               <div
                 className={`space-y-4 md:pl-12 order-2 transition-all duration-700 ease-out transform ${
-                  visibleStages[1] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                  visibleStages[1]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-14"
                 }`}
               >
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
@@ -1122,11 +1305,16 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   8-Signal Viral Extraction
                 </h3>
                 <p className="text-sm sm:text-base text-secondary leading-relaxed">
-                  No arbitrary silence cuts. The engine scans for contrarian claims, concrete takeaways, and emotional hooks with mathematical confidence.
+                  No arbitrary silence cuts. The engine scans for contrarian
+                  claims, concrete takeaways, and emotional hooks with
+                  mathematical confidence.
                 </p>
                 <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
-                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
-                  3.8x increase in audience completion & retention vs standard clips.
+                  <div className="text-primary font-semibold mb-1">
+                    Business Metric:
+                  </div>
+                  3.8x increase in audience completion & retention vs standard
+                  clips.
                 </div>
               </div>
             </div>
@@ -1141,7 +1329,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Left Side: Slides from Left */}
               <div
                 className={`space-y-4 md:pr-12 md:text-right order-2 md:order-1 transition-all duration-700 ease-out transform ${
-                  visibleStages[2] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                  visibleStages[2]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-14"
                 }`}
               >
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
@@ -1153,18 +1343,25 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   Platform-Native Repurposing
                 </h3>
                 <p className="text-sm sm:text-base text-secondary leading-relaxed">
-                  One conversation creates 5 distinct algorithmic formats: LinkedIn thought leadership, YouTube Shorts script with visual pacing, and high-retention X threads.
+                  One conversation creates 5 distinct algorithmic formats:
+                  LinkedIn thought leadership, YouTube Shorts script with visual
+                  pacing, and high-retention X threads.
                 </p>
                 <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
-                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
-                  5x content footprint without hiring a multi-person social media team.
+                  <div className="text-primary font-semibold mb-1">
+                    Business Metric:
+                  </div>
+                  5x content footprint without hiring a multi-person social
+                  media team.
                 </div>
               </div>
 
               {/* Right Side: Slides from Right */}
               <div
                 className={`order-1 md:order-2 md:pl-12 transition-all duration-700 ease-out transform ${
-                  visibleStages[2] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                  visibleStages[2]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-14"
                 }`}
               >
                 <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
@@ -1172,7 +1369,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                     <span className="text-xs font-mono font-semibold text-primary">
                       Multi-Platform Output Switcher
                     </span>
-                    <span className="text-[10px] font-mono text-accent">Auto-Budgeted</span>
+                    <span className="text-[10px] font-mono text-accent">
+                      Auto-Budgeted
+                    </span>
                   </div>
 
                   {/* Platform Pills */}
@@ -1187,7 +1386,11 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                             : "bg-surface-subtle text-secondary hover:text-primary"
                         }`}
                       >
-                        {plat === "linkedin" ? "LinkedIn Post" : plat === "shorts" ? "YT Shorts" : "X Thread"}
+                        {plat === "linkedin"
+                          ? "LinkedIn Post"
+                          : plat === "shorts"
+                            ? "YT Shorts"
+                            : "X Thread"}
                       </button>
                     ))}
                   </div>
@@ -1219,7 +1422,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Left Side: Slides from Left */}
               <div
                 className={`order-1 md:pr-12 transition-all duration-700 ease-out transform ${
-                  visibleStages[3] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                  visibleStages[3]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-14"
                 }`}
               >
                 <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
@@ -1272,12 +1477,14 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   <div className="p-3 bg-canvas border border-border rounded-lg text-xs font-mono leading-relaxed">
                     {diffMode === "before" && (
                       <p className="text-secondary">
-                        In this game-changing video, we basically reveal how top founders scale fast without burning capital...
+                        In this game-changing video, we basically reveal how top
+                        founders scale fast without burning capital...
                       </p>
                     )}
                     {diffMode === "after" && (
                       <p className="text-primary">
-                        In Ep. 42, we broke down why top founders ignore vanity metrics and focus on 90-day retention cohorts...
+                        In Ep. 42, we broke down why top founders ignore vanity
+                        metrics and focus on 90-day retention cohorts...
                       </p>
                     )}
                     {diffMode === "diff" && (
@@ -1294,14 +1501,16 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                           scale fast without burning capital...
                         </span>
                         <span className="bg-success/20 text-success px-1 rounded font-semibold">
-                          ignore vanity metrics and focus on 90-day retention cohorts...
+                          ignore vanity metrics and focus on 90-day retention
+                          cohorts...
                         </span>
                       </p>
                     )}
                   </div>
 
                   <div className="mt-3 p-2 bg-surface-subtle border border-border rounded text-[10px] font-mono text-tertiary">
-                    Rule Extracted: Ban hype words (&quot;game-changing&quot;) → Permanent Weight: +0.92
+                    Rule Extracted: Ban hype words (&quot;game-changing&quot;) →
+                    Permanent Weight: +0.92
                   </div>
                 </div>
               </div>
@@ -1309,7 +1518,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Right Side: Slides from Right */}
               <div
                 className={`space-y-4 md:pl-12 order-2 transition-all duration-700 ease-out transform ${
-                  visibleStages[3] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                  visibleStages[3]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-14"
                 }`}
               >
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
@@ -1321,11 +1532,16 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   Continuous Voice Memory
                 </h3>
                 <p className="text-sm sm:text-base text-secondary leading-relaxed">
-                  Every edit permanently trains your private voice vector. The model adopts your unique vocabulary and stops repeating generic buzzwords.
+                  Every edit permanently trains your private voice vector. The
+                  model adopts your unique vocabulary and stops repeating
+                  generic buzzwords.
                 </p>
                 <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
-                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
-                  0% tone drift. 98.4% brand consistency across all company channels.
+                  <div className="text-primary font-semibold mb-1">
+                    Business Metric:
+                  </div>
+                  0% tone drift. 98.4% brand consistency across all company
+                  channels.
                 </div>
               </div>
             </div>
@@ -1340,7 +1556,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Left Side: Slides from Left */}
               <div
                 className={`space-y-4 md:pr-12 md:text-right order-2 md:order-1 transition-all duration-700 ease-out transform ${
-                  visibleStages[4] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                  visibleStages[4]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-14"
                 }`}
               >
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
@@ -1352,18 +1570,25 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   Deterministic IST Scheduling
                 </h3>
                 <p className="text-sm sm:text-base text-secondary leading-relaxed">
-                  Plan two weeks of content in one click. Posts are spaced across peak Indian Standard Time & Global engagement windows with calendar export.
+                  Plan two weeks of content in one click. Posts are spaced
+                  across peak Indian Standard Time & Global engagement windows
+                  with calendar export.
                 </p>
                 <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
-                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
-                  Zero creator burnout. 100% posting consistency 14 days in advance.
+                  <div className="text-primary font-semibold mb-1">
+                    Business Metric:
+                  </div>
+                  Zero creator burnout. 100% posting consistency 14 days in
+                  advance.
                 </div>
               </div>
 
               {/* Right Side: Slides from Right */}
               <div
                 className={`order-1 md:order-2 md:pl-12 transition-all duration-700 ease-out transform ${
-                  visibleStages[4] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                  visibleStages[4]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-14"
                 }`}
               >
                 <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
@@ -1376,15 +1601,32 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   </div>
 
                   <p className="text-[11px] text-secondary mb-3">
-                    Click a slot to allocate scheduled clips to optimal reach windows:
+                    Click a slot to allocate scheduled clips to optimal reach
+                    windows:
                   </p>
 
                   <div className="grid grid-cols-2 gap-2 mb-3">
                     {[
-                      { time: "08:30 AM IST", title: "Morning Commute", plat: "LinkedIn" },
-                      { time: "01:15 PM IST", title: "Lunch Break", plat: "X Thread" },
-                      { time: "06:15 PM IST", title: "Evening Prime", plat: "YT Shorts" },
-                      { time: "09:00 PM IST", title: "Night Scroll", plat: "Reels" },
+                      {
+                        time: "08:30 AM IST",
+                        title: "Morning Commute",
+                        plat: "LinkedIn",
+                      },
+                      {
+                        time: "01:15 PM IST",
+                        title: "Lunch Break",
+                        plat: "X Thread",
+                      },
+                      {
+                        time: "06:15 PM IST",
+                        title: "Evening Prime",
+                        plat: "YT Shorts",
+                      },
+                      {
+                        time: "09:00 PM IST",
+                        title: "Night Scroll",
+                        plat: "Reels",
+                      },
                     ].map((slot, i) => (
                       <button
                         key={i}
@@ -1395,16 +1637,24 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                             : "bg-surface-subtle border-border text-secondary hover:text-primary hover:bg-surface"
                         }`}
                       >
-                        <div className="text-[10px] font-mono opacity-80">{slot.time}</div>
-                        <div className="text-xs font-bold leading-tight mt-0.5">{slot.title}</div>
-                        <div className="text-[10px] font-mono mt-1 opacity-90">{slot.plat}</div>
+                        <div className="text-[10px] font-mono opacity-80">
+                          {slot.time}
+                        </div>
+                        <div className="text-xs font-bold leading-tight mt-0.5">
+                          {slot.title}
+                        </div>
+                        <div className="text-[10px] font-mono mt-1 opacity-90">
+                          {slot.plat}
+                        </div>
                       </button>
                     ))}
                   </div>
 
                   <div className="p-2.5 bg-canvas border border-border rounded text-[11px] font-mono text-secondary flex items-center justify-between">
                     <span>Export Target:</span>
-                    <span className="text-accent font-semibold">Google Calendar + Apple .ics</span>
+                    <span className="text-accent font-semibold">
+                      Google Calendar + Apple .ics
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1420,7 +1670,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Left Side: Slides from Left */}
               <div
                 className={`order-1 md:pr-12 transition-all duration-700 ease-out transform ${
-                  visibleStages[5] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-14"
+                  visibleStages[5]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-14"
                 }`}
               >
                 <div className="bg-surface border border-border hover:border-accent/50 rounded-xl p-5 shadow-card transition-all">
@@ -1435,8 +1687,12 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   {/* Interactive Slider for Monthly Episodes */}
                   <div className="mb-4">
                     <div className="flex justify-between text-xs font-mono mb-1">
-                      <span className="text-secondary">Episodes Published / Month:</span>
-                      <span className="text-accent font-bold text-sm">{monthlyEpisodes} episodes</span>
+                      <span className="text-secondary">
+                        Episodes Published / Month:
+                      </span>
+                      <span className="text-accent font-bold text-sm">
+                        {monthlyEpisodes} episodes
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -1444,7 +1700,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                       max="8"
                       step="1"
                       value={monthlyEpisodes}
-                      onChange={(e) => setMonthlyEpisodes(parseInt(e.target.value))}
+                      onChange={(e) =>
+                        setMonthlyEpisodes(parseInt(e.target.value))
+                      }
                       className="w-full accent-accent h-2 bg-surface-subtle rounded-lg cursor-pointer"
                     />
                   </div>
@@ -1452,19 +1710,25 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   {/* Computed Metrics */}
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div className="p-3 bg-canvas border border-border rounded-lg">
-                      <div className="text-[10px] font-mono text-tertiary">Attributed ARR</div>
+                      <div className="text-[10px] font-mono text-tertiary">
+                        Attributed ARR
+                      </div>
                       <div className="text-base sm:text-lg font-bold font-mono text-primary mt-1">
                         ${(monthlyEpisodes * 12000).toLocaleString()}
                       </div>
                     </div>
                     <div className="p-3 bg-canvas border border-border rounded-lg">
-                      <div className="text-[10px] font-mono text-tertiary">Organic Reach</div>
+                      <div className="text-[10px] font-mono text-tertiary">
+                        Organic Reach
+                      </div>
                       <div className="text-base sm:text-lg font-bold font-mono text-primary mt-1">
                         {(monthlyEpisodes * 45).toLocaleString()}k
                       </div>
                     </div>
                     <div className="p-3 bg-canvas border border-border rounded-lg">
-                      <div className="text-[10px] font-mono text-tertiary">Hours Saved</div>
+                      <div className="text-[10px] font-mono text-tertiary">
+                        Hours Saved
+                      </div>
                       <div className="text-base sm:text-lg font-bold font-mono text-accent mt-1">
                         {monthlyEpisodes * 24} hrs
                       </div>
@@ -1472,7 +1736,8 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   </div>
 
                   <div className="mt-3 text-[10px] font-mono text-tertiary text-center">
-                    Based on real conversion metrics from Ep. 42 founder distribution.
+                    Based on real conversion metrics from Ep. 42 founder
+                    distribution.
                   </div>
                 </div>
               </div>
@@ -1480,7 +1745,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Right Side: Slides from Right */}
               <div
                 className={`space-y-4 md:pl-12 order-2 transition-all duration-700 ease-out transform ${
-                  visibleStages[5] ? "opacity-100 translate-x-0" : "opacity-0 translate-x-14"
+                  visibleStages[5]
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-14"
                 }`}
               >
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface border border-border text-xs font-mono text-tertiary">
@@ -1492,11 +1759,16 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   Causal Growth & Pipeline Loop
                 </h3>
                 <p className="text-sm sm:text-base text-secondary leading-relaxed">
-                  Log impressions and deals back into the engine. Feature lift math automatically updates which hooks get prioritized for future episodes.
+                  Log impressions and deals back into the engine. Feature lift
+                  math automatically updates which hooks get prioritized for
+                  future episodes.
                 </p>
                 <div className="p-3 bg-surface-subtle border border-border rounded-lg inline-block text-left text-xs text-secondary font-mono">
-                  <div className="text-primary font-semibold mb-1">Business Metric:</div>
-                  Self-improving flywheel: content quality compounds month over month.
+                  <div className="text-primary font-semibold mb-1">
+                    Business Metric:
+                  </div>
+                  Self-improving flywheel: content quality compounds month over
+                  month.
                 </div>
               </div>
             </div>
@@ -1505,7 +1777,10 @@ When you front-load the unexpected truth, retention stays above 80% through the 
       </section>
 
       {/* SECTION: Interactive Working Component (Content Engine Simulator) */}
-      <section id="interactive-engine" className="py-20 px-6 max-w-7xl mx-auto border-t border-border">
+      <section
+        id="interactive-engine"
+        className="py-20 px-6 max-w-7xl mx-auto border-t border-border"
+      >
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-subtle border border-accent/20 text-xs font-mono text-accent mb-4">
             <Cpu className="w-3.5 h-3.5" />
@@ -1515,7 +1790,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             Experience the Core Studio Engine
           </h2>
           <p className="text-secondary text-sm sm:text-base mt-3">
-            Inspect real-time 8-signal clip detection, switch platform copy formats with one click, and see how the neural diff memory learns from your custom edits.
+            Inspect real-time 8-signal clip detection, switch platform copy
+            formats with one click, and see how the neural diff memory learns
+            from your custom edits.
           </p>
         </div>
 
@@ -1547,7 +1824,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                     <button
                       onClick={() => setIsPlaying(!isPlaying)}
                       className="w-8 h-8 rounded-full bg-accent hover:bg-accent-hover text-white flex items-center justify-center transition-all shadow-sm"
-                      aria-label={isPlaying ? "Pause audio preview" : "Play audio preview"}
+                      aria-label={
+                        isPlaying ? "Pause audio preview" : "Play audio preview"
+                      }
                     >
                       {isPlaying ? (
                         <Pause className="w-4 h-4 fill-white" />
@@ -1556,7 +1835,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                       )}
                     </button>
                     <span className="font-semibold text-primary">
-                      {isPlaying ? "Playing Audio Stream..." : "Preview Synchronized Audio"}
+                      {isPlaying
+                        ? "Playing Audio Stream..."
+                        : "Preview Synchronized Audio"}
                     </span>
                   </div>
                   <span>{isPlaying ? "00:24 / 00:48" : "00:00 / 00:48"}</span>
@@ -1565,8 +1846,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                 {/* Animated Waveform Bars */}
                 <div className="h-10 flex items-center justify-between gap-1 px-1">
                   {[
-                    40, 65, 80, 50, 95, 75, 45, 90, 100, 60, 35, 70, 85, 95, 60, 80, 50, 70, 90, 65,
-                    45, 85, 100, 55, 75, 90, 60, 40, 70, 95, 80, 50,
+                    40, 65, 80, 50, 95, 75, 45, 90, 100, 60, 35, 70, 85, 95, 60,
+                    80, 50, 70, 90, 65, 45, 85, 100, 55, 75, 90, 60, 40, 70, 95,
+                    80, 50,
                   ].map((height, i) => {
                     const isPassed = (i / 32) * 100 <= audioProgress;
                     return (
@@ -1589,14 +1871,39 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                 </div>
                 <div className="space-y-2.5">
                   {[
-                    { label: "Contrarian Pattern Interrupt", score: 9.6, color: "bg-accent" },
-                    { label: "Emotional Resonance", score: 9.2, color: "bg-accent" },
-                    { label: "Standalone Information Density", score: 9.5, color: "bg-accent" },
-                    { label: "Direct Actionable Takeaway", score: 9.1, color: "bg-accent" },
-                    { label: "Conversational Story Arc", score: 8.8, color: "bg-secondary" },
+                    {
+                      label: "Contrarian Pattern Interrupt",
+                      score: 9.6,
+                      color: "bg-accent",
+                    },
+                    {
+                      label: "Emotional Resonance",
+                      score: 9.2,
+                      color: "bg-accent",
+                    },
+                    {
+                      label: "Standalone Information Density",
+                      score: 9.5,
+                      color: "bg-accent",
+                    },
+                    {
+                      label: "Direct Actionable Takeaway",
+                      score: 9.1,
+                      color: "bg-accent",
+                    },
+                    {
+                      label: "Conversational Story Arc",
+                      score: 8.8,
+                      color: "bg-secondary",
+                    },
                   ].map((signal, idx) => (
-                    <div key={idx} className="flex items-center justify-between text-xs">
-                      <span className="text-secondary text-[11px]">{signal.label}</span>
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between text-xs"
+                    >
+                      <span className="text-secondary text-[11px]">
+                        {signal.label}
+                      </span>
                       <div className="flex items-center gap-2">
                         <div className="w-24 h-1.5 bg-surface-subtle rounded-full overflow-hidden border border-border">
                           <div
@@ -1620,7 +1927,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                 Verifiable Audio Transcript Anchor
               </span>
               <p className="text-xs text-secondary italic">
-                &quot;The moment you start sending 30-slide PDF decks to seed founders, you stop building a movement and start looking like a commodity agency.&quot;
+                &quot;The moment you start sending 30-slide PDF decks to seed
+                founders, you stop building a movement and start looking like a
+                commodity agency.&quot;
               </p>
             </div>
           </div>
@@ -1631,31 +1940,33 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               {/* Tabs for Platforms */}
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  {(["linkedin", "shorts", "x", "reels"] as const).map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => setActivePlatformTab(tab)}
-                      className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
-                        activePlatformTab === tab
-                          ? "bg-primary text-white shadow-sm"
-                          : "text-secondary hover:text-primary hover:bg-surface-subtle"
-                      }`}
-                    >
-                      {tab === "linkedin"
-                        ? "LinkedIn"
-                        : tab === "shorts"
-                        ? "YT Shorts"
-                        : tab === "x"
-                        ? "X (Twitter)"
-                        : "Reels"}
-                    </button>
-                  ))}
+                  {(["linkedin", "shorts", "x", "reels"] as const).map(
+                    (tab) => (
+                      <button
+                        key={tab}
+                        onClick={() => setActivePlatformTab(tab)}
+                        className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+                          activePlatformTab === tab
+                            ? "bg-primary text-white shadow-sm"
+                            : "text-secondary hover:text-primary hover:bg-surface-subtle"
+                        }`}
+                      >
+                        {tab === "linkedin"
+                          ? "LinkedIn"
+                          : tab === "shorts"
+                            ? "YT Shorts"
+                            : tab === "x"
+                              ? "X (Twitter)"
+                              : "Reels"}
+                      </button>
+                    ),
+                  )}
                 </div>
 
                 <button
                   onClick={() =>
                     handleCopyPlatformText(
-                      `${platformContent[activePlatformTab].hook}\n\n${platformContent[activePlatformTab].body}`
+                      `${platformContent[activePlatformTab].hook}\n\n${platformContent[activePlatformTab].body}`,
                     )
                   }
                   className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-secondary hover:text-primary bg-surface-subtle border border-border rounded transition-colors"
@@ -1663,7 +1974,9 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   {copiedPlatform ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-success" />
-                      <span className="text-success font-semibold">Copied!</span>
+                      <span className="text-success font-semibold">
+                        Copied!
+                      </span>
                     </>
                   ) : (
                     <>
@@ -1714,7 +2027,8 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                 </div>
 
                 <p className="text-[11px] text-secondary mb-3">
-                  Every user edit is parsed through a Levenshtein character & semantic classifier to formulate durable stylistic rules.
+                  Every user edit is parsed through a Levenshtein character &
+                  semantic classifier to formulate durable stylistic rules.
                 </p>
 
                 <div className="space-y-2">
@@ -1736,13 +2050,19 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-surface hover:bg-surface-subtle border border-border text-primary rounded transition-all shadow-sm"
                     >
                       <Sparkles className="w-3 h-3 text-accent" />
-                      <span>{isAnalyzingDiff ? "Extracting Rules..." : "Extract Voice Rule"}</span>
+                      <span>
+                        {isAnalyzingDiff
+                          ? "Extracting Rules..."
+                          : "Extract Voice Rule"}
+                      </span>
                     </button>
 
                     {isDiffAnalyzed && (
                       <div className="inline-flex items-center gap-1.5 text-[11px] font-mono text-success">
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Rule Stored to Voice Memory (Confidence: 98.2%)</span>
+                        <span>
+                          Rule Stored to Voice Memory (Confidence: 98.2%)
+                        </span>
                       </div>
                     )}
                   </div>
@@ -1750,10 +2070,12 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                   {isDiffAnalyzed && (
                     <div className="p-3 bg-surface border border-success/30 rounded text-xs space-y-1 mt-2">
                       <div className="font-mono text-[11px] text-primary font-semibold">
-                        Extracted Rule #14: Replace generic hype (&quot;game-changer&quot;) with specific thesis
+                        Extracted Rule #14: Replace generic hype
+                        (&quot;game-changer&quot;) with specific thesis
                       </div>
                       <div className="text-[11px] text-secondary">
-                        Action: Pinned to Private Memory · Weight: +0.88 · Will auto-apply to future generations
+                        Action: Pinned to Private Memory · Weight: +0.88 · Will
+                        auto-apply to future generations
                       </div>
                     </div>
                   )}
@@ -1776,7 +2098,10 @@ When you front-load the unexpected truth, retention stays above 80% through the 
       </section>
 
       {/* SECTION: Studio Architecture / Capabilities */}
-      <section id="architecture" className="py-20 px-6 max-w-7xl mx-auto border-t border-border">
+      <section
+        id="architecture"
+        className="py-20 px-6 max-w-7xl mx-auto border-t border-border"
+      >
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-border text-xs font-mono text-secondary mb-4 shadow-sm">
             <Layers className="w-3.5 h-3.5 text-accent" />
@@ -1786,7 +2111,8 @@ When you front-load the unexpected truth, retention stays above 80% through the 
             Engineered for Precision. Built for Scale.
           </h2>
           <p className="text-secondary text-sm sm:text-base mt-3">
-            Every module solves a concrete bottleneck in the founder content pipeline with verifiable algorithms.
+            Every module solves a concrete bottleneck in the founder content
+            pipeline with verifiable algorithms.
           </p>
         </div>
 
@@ -1865,7 +2191,8 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               Generic AI Wrappers vs. TheContentCompany
             </h2>
             <p className="text-secondary text-sm mt-2">
-              Why leading founders reject generic LLM copy and rely on continuous learning.
+              Why leading founders reject generic LLM copy and rely on
+              continuous learning.
             </p>
           </div>
 
@@ -1874,8 +2201,12 @@ When you front-load the unexpected truth, retention stays above 80% through the 
               <thead>
                 <tr className="border-b border-border bg-surface-subtle text-secondary font-mono text-xs uppercase">
                   <th className="p-4 sm:p-5">Capability</th>
-                  <th className="p-4 sm:p-5 text-tertiary">Standard AI Tools</th>
-                  <th className="p-4 sm:p-5 text-accent font-bold">TheContentCompany</th>
+                  <th className="p-4 sm:p-5 text-tertiary">
+                    Standard AI Tools
+                  </th>
+                  <th className="p-4 sm:p-5 text-accent font-bold">
+                    TheContentCompany
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -1911,8 +2242,13 @@ When you front-load the unexpected truth, retention stays above 80% through the 
                     good: "Causal feature lift updates future ranking based on real metrics",
                   },
                 ].map((row, idx) => (
-                  <tr key={idx} className="hover:bg-surface-subtle/50 transition-colors">
-                    <td className="p-4 sm:p-5 font-semibold text-primary">{row.feature}</td>
+                  <tr
+                    key={idx}
+                    className="hover:bg-surface-subtle/50 transition-colors"
+                  >
+                    <td className="p-4 sm:p-5 font-semibold text-primary">
+                      {row.feature}
+                    </td>
                     <td className="p-4 sm:p-5 text-secondary">{row.bad}</td>
                     <td className="p-4 sm:p-5 font-medium text-primary bg-accent/5">
                       <div className="flex items-start gap-2">
@@ -1942,7 +2278,8 @@ When you front-load the unexpected truth, retention stays above 80% through the 
           </h2>
 
           <p className="text-white/70 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8">
-            Experience the full studio pre-seeded with Episode 42, or connect your own private database and voice models in seconds.
+            Experience the full studio pre-seeded with Episode 42, or connect
+            your own private database and voice models in seconds.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -1968,19 +2305,32 @@ When you front-load the unexpected truth, retention stays above 80% through the 
       <footer className="border-t border-border bg-surface py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-secondary">
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <TheContentCompanyLogo size={28} subtitle="Continuous Voice Memory" />
+            <TheContentCompanyLogo
+              size={28}
+              subtitle="Continuous Voice Memory"
+            />
             <span className="hidden sm:inline text-tertiary">·</span>
-            <span>Empowering founders to scale authority without voice compromise.</span>
+            <span>
+              Empowering founders to scale authority without voice compromise.
+            </span>
           </div>
 
           <div className="flex items-center gap-6 font-mono text-xs">
-            <Link href="/how-it-works" className="hover:text-primary transition-colors">
+            <Link
+              href="/how-it-works"
+              className="hover:text-primary transition-colors"
+            >
               System Architecture
             </Link>
-            <Link href="/app/clips" className="hover:text-primary transition-colors">
+            <Link
+              href="/app/clips"
+              className="hover:text-primary transition-colors"
+            >
               Studio Workspace
             </Link>
-            <span className="text-tertiary">© 2026 TheContentCompany, Inc.</span>
+            <span className="text-tertiary">
+              © 2026 TheContentCompany, Inc.
+            </span>
           </div>
         </div>
       </footer>

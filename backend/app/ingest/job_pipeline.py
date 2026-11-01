@@ -212,7 +212,7 @@ async def process_sample_podcast(
 ) -> Dict[str, Any]:
     """
     Zero-Latency Demo Path:
-    Instantly processes the pre-seeded "The Founder Files — Ep. 42" podcast.
+    Instantly processes the pre-seeded "The Founder Files - Ep. 42" podcast.
     Broadcasts real-time SSE progress events so live judges see the full pipeline
     progression in 1-2 seconds without waiting 45 minutes for ASR!
     """
@@ -280,7 +280,7 @@ async def process_sample_podcast(
         "project_id": pid,
         "transcript_id": transcript_id,
         "media_asset_id": media_id,
-        "title": "The Founder Files — Ep. 42: Why 90% of AI Startups Die at $50k MRR",
+        "title": "The Founder Files - Ep. 42: Why 90% of AI Startups Die at $50k MRR",
         "duration_seconds": 2724.0,
         "chapter_count": 6,
         "segment_count": 12,

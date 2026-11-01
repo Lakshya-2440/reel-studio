@@ -33,7 +33,13 @@ interface DiffSegment {
 interface RuleItem {
   id: string;
   name: string;
-  category: "opening_hooks" | "formatting" | "perspective" | "syntax" | "vocabulary" | "closing_cta";
+  category:
+    | "opening_hooks"
+    | "formatting"
+    | "perspective"
+    | "syntax"
+    | "vocabulary"
+    | "closing_cta";
   categoryLabel: string;
   confidence: number;
   editCount: number;
@@ -48,14 +54,17 @@ interface RuleItem {
 }
 
 export default function VoiceMemoryPage() {
-  const [activeVersion, setActiveVersion] = useState<"v1" | "v2" | "v3" | "v4">("v4");
+  const [activeVersion, setActiveVersion] = useState<"v1" | "v2" | "v3" | "v4">(
+    "v4",
+  );
   const [showBeforeAfter, setShowBeforeAfter] = useState(true);
   const [comparisonClipIdx, setComparisonClipIdx] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddRuleModal, setShowAddRuleModal] = useState(false);
   const [newRuleText, setNewRuleText] = useState("");
-  const [newRuleCategory, setNewRuleCategory] = useState<RuleItem["category"]>("opening_hooks");
+  const [newRuleCategory, setNewRuleCategory] =
+    useState<RuleItem["category"]>("opening_hooks");
 
   // Tone Sliders State
   const [formality, setFormality] = useState(18); // 18 = Casual/Direct (82%)
@@ -92,16 +101,26 @@ export default function VoiceMemoryPage() {
       editCount: 9,
       isPinned: true,
       isActive: true,
-      sourceClip: "Ep. 42 Clip #01 — LinkedIn",
-      citation: "Extracted after creator deleted rhetorical intro and replaced with $42,000 compute statistic",
+      sourceClip: "Ep. 42 Clip #01 - LinkedIn",
+      citation:
+        "Extracted after creator deleted rhetorical intro and replaced with $42,000 compute statistic",
       diffSegments: [
-        { type: "removed", text: "🚀 In today's fast-paced tech world, it's no secret that scaling software has challenges! 💡" },
+        {
+          type: "removed",
+          text: "🚀 In today's fast-paced tech world, it's no secret that scaling software has challenges! 💡",
+        },
         { type: "unchanged", text: " " },
-        { type: "added", text: "At $50k MRR, our compute bill was $42,000. We were subsidizing Fortune 500 pilots on personal credit cards." },
+        {
+          type: "added",
+          text: "At $50k MRR, our compute bill was $42,000. We were subsidizing Fortune 500 pilots on personal credit cards.",
+        },
       ],
-      rawBefore: "🚀 In today's fast-paced tech world, it's no secret that scaling software has challenges! 💡",
-      rawAfter: "At $50k MRR, our compute bill was $42,000. We were subsidizing Fortune 500 pilots on personal credit cards.",
-      ruleExplanation: "Creator consistently strikes introductory pleasantries and opens on financial loss mechanics.",
+      rawBefore:
+        "🚀 In today's fast-paced tech world, it's no secret that scaling software has challenges! 💡",
+      rawAfter:
+        "At $50k MRR, our compute bill was $42,000. We were subsidizing Fortune 500 pilots on personal credit cards.",
+      ruleExplanation:
+        "Creator consistently strikes introductory pleasantries and opens on financial loss mechanics.",
     },
     {
       id: "vrule_2",
@@ -112,19 +131,26 @@ export default function VoiceMemoryPage() {
       editCount: 7,
       isPinned: true,
       isActive: true,
-      sourceClip: "Ep. 42 Clip #01 — LinkedIn",
-      citation: "Diff inspection: 4 emojis stripped across 3 consecutive post edits",
+      sourceClip: "Ep. 42 Clip #01 - LinkedIn",
+      citation:
+        "Diff inspection: 4 emojis stripped across 3 consecutive post edits",
       diffSegments: [
-        { type: "unchanged", text: "3 rules for gross margins:\n1. Share the failure first " },
+        {
+          type: "unchanged",
+          text: "3 rules for gross margins:\n1. Share the failure first ",
+        },
         { type: "removed", text: "🔥" },
         { type: "unchanged", text: "\n2. Audit token churn " },
         { type: "removed", text: "💡" },
         { type: "unchanged", text: "\n3. Fire unprofitable pilot tiers " },
         { type: "removed", text: "🚀" },
       ],
-      rawBefore: "3 rules for gross margins:\n1. Share the failure first 🔥\n2. Audit token churn 💡\n3. Fire unprofitable pilot tiers 🚀",
-      rawAfter: "3 rules for gross margins:\n1. Share the failure first\n2. Audit token churn\n3. Fire unprofitable pilot tiers",
-      ruleExplanation: "High-density editorial tone demands zero decorative cartoon emojis in the hook and body text.",
+      rawBefore:
+        "3 rules for gross margins:\n1. Share the failure first 🔥\n2. Audit token churn 💡\n3. Fire unprofitable pilot tiers 🚀",
+      rawAfter:
+        "3 rules for gross margins:\n1. Share the failure first\n2. Audit token churn\n3. Fire unprofitable pilot tiers",
+      ruleExplanation:
+        "High-density editorial tone demands zero decorative cartoon emojis in the hook and body text.",
     },
     {
       id: "vrule_3",
@@ -135,16 +161,26 @@ export default function VoiceMemoryPage() {
       editCount: 6,
       isPinned: false,
       isActive: true,
-      sourceClip: "Ep. 42 Clip #04 — LinkedIn",
-      citation: "Replaced third-person guidance with visceral personal operator account",
+      sourceClip: "Ep. 42 Clip #04 - LinkedIn",
+      citation:
+        "Replaced third-person guidance with visceral personal operator account",
       diffSegments: [
-        { type: "removed", text: "When evaluating early-stage customer alignment, founders should occasionally consider pruning accounts that demand excessive custom work." },
+        {
+          type: "removed",
+          text: "When evaluating early-stage customer alignment, founders should occasionally consider pruning accounts that demand excessive custom work.",
+        },
         { type: "unchanged", text: " " },
-        { type: "added", text: "We fired 12 customers in one afternoon. Our team wept. Three months later, ACV jumped from $80 to $14,000." },
+        {
+          type: "added",
+          text: "We fired 12 customers in one afternoon. Our team wept. Three months later, ACV jumped from $80 to $14,000.",
+        },
       ],
-      rawBefore: "When evaluating early-stage customer alignment, founders should occasionally consider pruning accounts that demand excessive custom work.",
-      rawAfter: "We fired 12 customers in one afternoon. Our team wept. Three months later, ACV jumped from $80 to $14,000.",
-      ruleExplanation: "Personal accountability and explicit stakeholder emotional tension perform 2.8x better than advice.",
+      rawBefore:
+        "When evaluating early-stage customer alignment, founders should occasionally consider pruning accounts that demand excessive custom work.",
+      rawAfter:
+        "We fired 12 customers in one afternoon. Our team wept. Three months later, ACV jumped from $80 to $14,000.",
+      ruleExplanation:
+        "Personal accountability and explicit stakeholder emotional tension perform 2.8x better than advice.",
     },
     {
       id: "vrule_4",
@@ -155,16 +191,25 @@ export default function VoiceMemoryPage() {
       editCount: 11,
       isPinned: true,
       isActive: true,
-      sourceClip: "Ep. 42 Clip #02 — X Post",
+      sourceClip: "Ep. 42 Clip #02 - X Post",
       citation: "Creator restructured paragraph block into 2 crisp assertions",
       diffSegments: [
-        { type: "removed", text: "Are you excited about generative AI? Many software startups are discovering that gross margin health is super critical to long-term viability." },
+        {
+          type: "removed",
+          text: "Are you excited about generative AI? Many software startups are discovering that gross margin health is super critical to long-term viability.",
+        },
         { type: "unchanged", text: " " },
-        { type: "added", text: "If your gross margin is under 70%, you didn't build software.\n\nYou built a glorified consultancy with an API key." },
+        {
+          type: "added",
+          text: "If your gross margin is under 70%, you didn't build software.\n\nYou built a glorified consultancy with an API key.",
+        },
       ],
-      rawBefore: "Are you excited about generative AI? Many software startups are discovering that gross margin health is super critical to long-term viability.",
-      rawAfter: "If your gross margin is under 70%, you didn't build software.\n\nYou built a glorified consultancy with an API key.",
-      ruleExplanation: "Prevents conversational drifting. Forces every sentence to deliver a standalone high-conviction punch.",
+      rawBefore:
+        "Are you excited about generative AI? Many software startups are discovering that gross margin health is super critical to long-term viability.",
+      rawAfter:
+        "If your gross margin is under 70%, you didn't build software.\n\nYou built a glorified consultancy with an API key.",
+      ruleExplanation:
+        "Prevents conversational drifting. Forces every sentence to deliver a standalone high-conviction punch.",
     },
     {
       id: "vrule_5",
@@ -175,17 +220,27 @@ export default function VoiceMemoryPage() {
       editCount: 8,
       isPinned: false,
       isActive: true,
-      sourceClip: "Ep. 42 Clip #05 — LinkedIn",
-      citation: "Automatic lexical filter triggered by repeated replacement of buzzword list",
+      sourceClip: "Ep. 42 Clip #05 - LinkedIn",
+      citation:
+        "Automatic lexical filter triggered by repeated replacement of buzzword list",
       diffSegments: [
         { type: "unchanged", text: "How we leveraged " },
-        { type: "removed", text: "game-changing enterprise workflows to unlock synergies" },
-        { type: "added", text: "audited unit margins to cut server churn by 64%" },
+        {
+          type: "removed",
+          text: "game-changing enterprise workflows to unlock synergies",
+        },
+        {
+          type: "added",
+          text: "audited unit margins to cut server churn by 64%",
+        },
         { type: "unchanged", text: " without hiring more SDRs." },
       ],
-      rawBefore: "How we leveraged game-changing enterprise workflows to unlock synergies without hiring more SDRs.",
-      rawAfter: "How we audited unit margins to cut server churn by 64% without hiring more SDRs.",
-      ruleExplanation: "Replaces empty marketing puffery with concrete, auditable enterprise engineering reality.",
+      rawBefore:
+        "How we leveraged game-changing enterprise workflows to unlock synergies without hiring more SDRs.",
+      rawAfter:
+        "How we audited unit margins to cut server churn by 64% without hiring more SDRs.",
+      ruleExplanation:
+        "Replaces empty marketing puffery with concrete, auditable enterprise engineering reality.",
     },
     {
       id: "vrule_6",
@@ -196,16 +251,29 @@ export default function VoiceMemoryPage() {
       editCount: 5,
       isPinned: false,
       isActive: true,
-      sourceClip: "Ep. 42 Clip #03 — LinkedIn",
-      citation: "Deleted generic 'Thoughts? Agree?' and replaced with actionable threshold question",
+      sourceClip: "Ep. 42 Clip #03 - LinkedIn",
+      citation:
+        "Deleted generic 'Thoughts? Agree?' and replaced with actionable threshold question",
       diffSegments: [
-        { type: "unchanged", text: "Never charge per token. Value-based pricing wins. " },
-        { type: "removed", text: "Do you agree? Let me know your thoughts in the comments below! 👇" },
-        { type: "added", text: "Disagree? What is your gross margin floor before deploying an agent workflow?" },
+        {
+          type: "unchanged",
+          text: "Never charge per token. Value-based pricing wins. ",
+        },
+        {
+          type: "removed",
+          text: "Do you agree? Let me know your thoughts in the comments below! 👇",
+        },
+        {
+          type: "added",
+          text: "Disagree? What is your gross margin floor before deploying an agent workflow?",
+        },
       ],
-      rawBefore: "Never charge per token. Value-based pricing wins. Do you agree? Let me know your thoughts in the comments below! 👇",
-      rawAfter: "Never charge per token. Value-based pricing wins. Disagree? What is your gross margin floor before deploying an agent workflow?",
-      ruleExplanation: "Passive 'thoughts?' invites spam comments. High-stakes boundary prompts invite genuine executive discussion.",
+      rawBefore:
+        "Never charge per token. Value-based pricing wins. Do you agree? Let me know your thoughts in the comments below! 👇",
+      rawAfter:
+        "Never charge per token. Value-based pricing wins. Disagree? What is your gross margin floor before deploying an agent workflow?",
+      ruleExplanation:
+        "Passive 'thoughts?' invites spam comments. High-stakes boundary prompts invite genuine executive discussion.",
     },
   ]);
 
@@ -304,18 +372,20 @@ Stop giving away compute at cost. What is your current gross margin?`,
 
   const toggleRuleActive = (ruleId: string) => {
     setRules((prev) =>
-      prev.map((r) => (r.id === ruleId ? { ...r, isActive: !r.isActive } : r))
+      prev.map((r) => (r.id === ruleId ? { ...r, isActive: !r.isActive } : r)),
     );
   };
 
   const toggleRulePin = (ruleId: string) => {
     setRules((prev) =>
-      prev.map((r) => (r.id === ruleId ? { ...r, isPinned: !r.isPinned } : r))
+      prev.map((r) => (r.id === ruleId ? { ...r, isPinned: !r.isPinned } : r)),
     );
   };
 
   const deleteRule = (ruleId: string) => {
-    if (confirm("Delete this learned rule from the voice memory prompt pipeline?")) {
+    if (
+      confirm("Delete this learned rule from the voice memory prompt pipeline?")
+    ) {
       setRules((prev) => prev.filter((r) => r.id !== ruleId));
     }
   };
@@ -355,12 +425,11 @@ Stop giving away compute at cost. What is your current gross margin?`,
       isActive: true,
       sourceClip: "Creator Manual Rule (v4 Prompt Pipeline)",
       citation: "Manually registered rule with high priority prompt injection",
-      diffSegments: [
-        { type: "added", text: newRuleText.trim() },
-      ],
+      diffSegments: [{ type: "added", text: newRuleText.trim() }],
       rawBefore: "(Unconstrained AI output)",
       rawAfter: newRuleText.trim(),
-      ruleExplanation: "Explicitly defined by creator to enforce continuous consistency.",
+      ruleExplanation:
+        "Explicitly defined by creator to enforce continuous consistency.",
     };
     setRules([newRule, ...rules]);
     setNewRuleText("");
@@ -368,7 +437,8 @@ Stop giving away compute at cost. What is your current gross margin?`,
   };
 
   const filteredRules = rules.filter((rule) => {
-    const matchesCategory = selectedCategory === "all" || rule.category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === "all" || rule.category === selectedCategory;
     const matchesQuery =
       rule.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       rule.citation.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -391,13 +461,17 @@ Stop giving away compute at cost. What is your current gross margin?`,
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-accent-subtle text-accent border border-accent/20">
               Memory 04
             </span>
-            <span className="text-xs font-mono text-tertiary">Brand Voice Memory · Continuous Learning Engine</span>
+            <span className="text-xs font-mono text-tertiary">
+              Brand Voice Memory · Continuous Learning Engine
+            </span>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-primary mt-1">
             Diff-Based Voice Memory & Style Invariant Engine
           </h1>
           <p className="text-xs text-secondary mt-0.5">
-            Learns immutable tone guidelines and banned idioms by extracting word-level diffs from creator edits. Closes the creative feedback loop.
+            Learns immutable tone guidelines and banned idioms by extracting
+            word-level diffs from creator edits. Closes the creative feedback
+            loop.
           </p>
         </div>
 
@@ -407,7 +481,11 @@ Stop giving away compute at cost. What is your current gross margin?`,
             className="px-3.5 py-1.5 bg-surface text-primary border border-border hover:bg-surface-subtle text-xs font-medium rounded transition-colors flex items-center gap-1.5 font-mono shadow-sm"
           >
             <FileDiff className="w-3.5 h-3.5 text-accent" />
-            <span>{showBeforeAfter ? "Hide A/B Verification" : "Compare Memory ON vs OFF"}</span>
+            <span>
+              {showBeforeAfter
+                ? "Hide A/B Verification"
+                : "Compare Memory ON vs OFF"}
+            </span>
           </button>
 
           <button
@@ -430,9 +508,11 @@ Stop giving away compute at cost. What is your current gross margin?`,
                 A/B Demonstration: Same Transcript with Voice Memory OFF vs ON
               </span>
             </div>
-            
+
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-tertiary">Select Demonstration Clip:</span>
+              <span className="text-xs font-mono text-tertiary">
+                Select Demonstration Clip:
+              </span>
               <div className="flex items-center gap-1 font-mono text-xs">
                 {comparisonClips.map((clip, idx) => (
                   <button
@@ -452,7 +532,12 @@ Stop giving away compute at cost. What is your current gross margin?`,
           </div>
 
           <div className="text-xs font-mono text-tertiary flex items-center justify-between">
-            <span>Evaluating: <strong className="text-primary font-sans">{currentComparison.title}</strong></span>
+            <span>
+              Evaluating:{" "}
+              <strong className="text-primary font-sans">
+                {currentComparison.title}
+              </strong>
+            </span>
             <span>Duration: {currentComparison.timestamp}</span>
           </div>
 
@@ -482,8 +567,13 @@ Stop giving away compute at cost. What is your current gross margin?`,
                 </div>
                 <ul className="space-y-1">
                   {currentComparison.off.violations.map((v, i) => (
-                    <li key={i} className="text-[11px] text-destructive/90 flex items-start gap-1.5 font-sans">
-                      <span className="text-destructive font-bold shrink-0">•</span>
+                    <li
+                      key={i}
+                      className="text-[11px] text-destructive/90 flex items-start gap-1.5 font-sans"
+                    >
+                      <span className="text-destructive font-bold shrink-0">
+                        •
+                      </span>
                       <span>{v}</span>
                     </li>
                   ))}
@@ -516,7 +606,10 @@ Stop giving away compute at cost. What is your current gross margin?`,
                 </div>
                 <ul className="space-y-1">
                   {currentComparison.on.adhered.map((a, i) => (
-                    <li key={i} className="text-[11px] text-secondary flex items-start gap-1.5 font-sans">
+                    <li
+                      key={i}
+                      className="text-[11px] text-secondary flex items-start gap-1.5 font-sans"
+                    >
                       <span className="text-success font-bold shrink-0">✓</span>
                       <span>{a}</span>
                     </li>
@@ -533,24 +626,45 @@ Stop giving away compute at cost. What is your current gross margin?`,
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-base font-bold text-primary">Founder Voice Profile</span>
+              <span className="text-base font-bold text-primary">
+                Founder Voice Profile
+              </span>
               <span className="text-xs font-mono px-2 py-0.5 rounded bg-accent-subtle text-accent font-semibold border border-accent/20">
                 Active: Version 4
               </span>
-              <span className="text-xs font-mono text-tertiary">12 Edits Analyzed</span>
+              <span className="text-xs font-mono text-tertiary">
+                12 Edits Analyzed
+              </span>
             </div>
             <p className="text-xs text-secondary mt-1">
-              Sharp, metric-driven founder voice. Zero corporate throat-clearing, anti-buzzword, loss-framed unit economics.
+              Sharp, metric-driven founder voice. Zero corporate
+              throat-clearing, anti-buzzword, loss-framed unit economics.
             </p>
           </div>
 
           {/* Version timeline */}
           <div className="flex items-center gap-1 text-xs font-mono self-start sm:self-auto bg-canvas p-1 rounded border border-border">
             {[
-              { id: "v1", label: "v1 (Cold Start)", notes: "Bootstrapped from Scrapling social scrape" },
-              { id: "v2", label: "v2 (+2 edits)", notes: "Suppressed introductory emojis" },
-              { id: "v3", label: "v3 (+5 edits)", notes: "Banned 'delve into' and 'leverage'" },
-              { id: "v4", label: "v4 (Current)", notes: "Enforced $ metric openers & high-stakes debate CTA" },
+              {
+                id: "v1",
+                label: "v1 (Cold Start)",
+                notes: "Bootstrapped from Scrapling social scrape",
+              },
+              {
+                id: "v2",
+                label: "v2 (+2 edits)",
+                notes: "Suppressed introductory emojis",
+              },
+              {
+                id: "v3",
+                label: "v3 (+5 edits)",
+                notes: "Banned 'delve into' and 'leverage'",
+              },
+              {
+                id: "v4",
+                label: "v4 (Current)",
+                notes: "Enforced $ metric openers & high-stakes debate CTA",
+              },
             ].map((ver) => (
               <button
                 key={ver.id}
@@ -585,7 +699,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
               <div className="flex justify-between text-xs font-mono">
                 <span className="text-tertiary">FORMAL</span>
                 <span className="font-bold text-primary">
-                  {formality < 50 ? `CASUAL / DIRECT (${100 - formality}%)` : `FORMAL (${formality}%)`}
+                  {formality < 50
+                    ? `CASUAL / DIRECT (${100 - formality}%)`
+                    : `FORMAL (${formality}%)`}
                 </span>
               </div>
               <input
@@ -606,7 +722,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
             <div className="p-3.5 bg-canvas rounded-lg border border-border space-y-2">
               <div className="flex justify-between text-xs font-mono">
                 <span className="text-tertiary">MEASURED</span>
-                <span className="font-bold text-primary">CONTRARIAN / BOLD ({boldness}%)</span>
+                <span className="font-bold text-primary">
+                  CONTRARIAN / BOLD ({boldness}%)
+                </span>
               </div>
               <input
                 type="range"
@@ -626,7 +744,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
             <div className="p-3.5 bg-canvas rounded-lg border border-border space-y-2">
               <div className="flex justify-between text-xs font-mono">
                 <span className="text-tertiary">EXPANSIVE</span>
-                <span className="font-bold text-primary">HIGH DENSITY ({density}%)</span>
+                <span className="font-bold text-primary">
+                  HIGH DENSITY ({density}%)
+                </span>
               </div>
               <input
                 type="range"
@@ -652,7 +772,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-tertiary">
                 Signature Lexical Anchors ({signaturePhrases.length})
               </span>
-              <span className="text-[10px] font-mono text-tertiary">Included in prompt exemplars</span>
+              <span className="text-[10px] font-mono text-tertiary">
+                Included in prompt exemplars
+              </span>
             </div>
             <div className="p-3 bg-canvas rounded-lg border border-border min-h-[90px] flex flex-wrap gap-1.5 items-center">
               {signaturePhrases.map((phrase) => (
@@ -675,7 +797,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
                   placeholder="Add signature phrase..."
                   value={newPhrase}
                   onChange={(e) => setNewPhrase(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleAddSignaturePhrase()}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && handleAddSignaturePhrase()
+                  }
                   className="flex-1 px-2.5 py-1 text-xs border border-border rounded bg-surface font-mono focus:outline-none focus:border-accent"
                 />
                 <button
@@ -694,7 +818,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-destructive">
                 Banned Corporate Slop ({bannedWords.length})
               </span>
-              <span className="text-[10px] font-mono text-destructive/80">Strict regex rejection gate</span>
+              <span className="text-[10px] font-mono text-destructive/80">
+                Strict regex rejection gate
+              </span>
             </div>
             <div className="p-3 bg-canvas rounded-lg border border-destructive/20 min-h-[90px] flex flex-wrap gap-1.5 items-center">
               {bannedWords.map((word) => (
@@ -743,7 +869,8 @@ Stop giving away compute at cost. What is your current gross margin?`,
               </span>
             </h2>
             <p className="text-xs text-secondary mt-0.5">
-              Each rule is backed by verifiable red/green editor diff citations. Toggle or pin rules directly.
+              Each rule is backed by verifiable red/green editor diff citations.
+              Toggle or pin rules directly.
             </p>
           </div>
 
@@ -809,7 +936,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
                 <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto font-mono text-xs">
                   {/* Confidence meter */}
                   <div className="text-right">
-                    <div className="text-[10px] text-tertiary uppercase">CONFIDENCE</div>
+                    <div className="text-[10px] text-tertiary uppercase">
+                      CONFIDENCE
+                    </div>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <div className="w-16 h-1.5 bg-border rounded-full overflow-hidden">
                         <div
@@ -879,10 +1008,12 @@ Stop giving away compute at cost. What is your current gross margin?`,
 
                 <div className="flex items-center justify-between text-[10px] font-mono text-tertiary pt-1">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded bg-destructive/30" /> Red strikethrough: Discarded AI phrasing
+                    <span className="w-2 h-2 rounded bg-destructive/30" /> Red
+                    strikethrough: Discarded AI phrasing
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded bg-success/30" /> Green highlight: Creator-injected operator invariant
+                    <span className="w-2 h-2 rounded bg-success/30" /> Green
+                    highlight: Creator-injected operator invariant
                   </span>
                 </div>
               </div>
@@ -896,7 +1027,9 @@ Stop giving away compute at cost. What is your current gross margin?`,
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-surface border border-border rounded-lg max-w-lg w-full p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-border pb-3">
-              <h3 className="text-base font-bold text-primary">Add Voice Memory Rule</h3>
+              <h3 className="text-base font-bold text-primary">
+                Add Voice Memory Rule
+              </h3>
               <button
                 onClick={() => setShowAddRuleModal(false)}
                 className="text-tertiary hover:text-primary text-sm font-mono"
@@ -938,8 +1071,13 @@ Stop giving away compute at cost. What is your current gross margin?`,
               </div>
 
               <div className="p-3 bg-canvas rounded border border-border text-[11px] text-tertiary font-mono space-y-1">
-                <div className="font-semibold text-primary">Prompt Pipeline Impact:</div>
-                <div>This rule will be injected into all future LLM platform variant prompts with 0.95 confidence priority.</div>
+                <div className="font-semibold text-primary">
+                  Prompt Pipeline Impact:
+                </div>
+                <div>
+                  This rule will be injected into all future LLM platform
+                  variant prompts with 0.95 confidence priority.
+                </div>
               </div>
             </div>
 

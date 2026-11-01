@@ -36,7 +36,7 @@ FALLBACK_CLIPS = [
     {
         "id": "clip_2",
         "title": "The 70% Gross Margin Rule for AI Startups",
-        "hook_line": "If your gross margin is under 70%, you didn't build software—you built a glorified consultancy with an API key.",
+        "hook_line": "If your gross margin is under 70%, you didn't build software-you built a glorified consultancy with an API key.",
     },
     {
         "id": "clip_3",
@@ -76,7 +76,7 @@ FALLBACK_CLIPS = [
     {
         "id": "clip_10",
         "title": "The Monday Morning Retention Test",
-        "hook_line": "If uninstalling your app doesn't break someone's 9 AM routine, you don't have a product—you have a bookmark.",
+        "hook_line": "If uninstalling your app doesn't break someone's 9 AM routine, you don't have a product-you have a bookmark.",
     },
     {
         "id": "clip_11",

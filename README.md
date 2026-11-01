@@ -1,9 +1,9 @@
-# TheContentCompany Studio — Autonomous Content Repurposing with Continuous Voice Memory
+# TheContentCompany Studio - Autonomous Content Repurposing with Continuous Voice Memory
 
-[![Next.js 14](https://img.shields.io/badge/Frontend-Next.js%2014%20(App%20Router)-black?style=for-the-badge&logo=next.js)](https://thecontentcompany.vercel.app)
+[![Next.js 14](<https://img.shields.io/badge/Frontend-Next.js%2014%20(App%20Router)-black?style=for-the-badge&logo=next.js>)](https://thecontentcompany.vercel.app)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI%20%2B%20Python%203.14-009688?style=for-the-badge&logo=fastapi)](https://the-content-company-backend.onrender.com)
 [![Neon Postgres](https://img.shields.io/badge/Database-Neon%20Postgres%20%2B%20pgvector-00E599?style=for-the-badge&logo=postgresql)](https://neon.tech)
-[![Tests Passing](https://img.shields.io/badge/Tests-107%20%2F%20107%20Passing%20(100%25)-brightgreen?style=for-the-badge)](https://github.com/Lakshya-2440/reel-studio)
+[![Tests Passing](<https://img.shields.io/badge/Tests-107%20%2F%20107%20Passing%20(100%25)-brightgreen?style=for-the-badge>)](https://github.com/Lakshya-2440/reel-studio)
 [![Wispr Flow Powered](https://img.shields.io/badge/Voice-Wispr%20Flow%20Dictation-FF7A30?style=for-the-badge)](https://wisprflow.ai)
 
 > **Built for Product Space x Wispr Flow "Agentic AI Hackathon"**  
@@ -27,13 +27,14 @@ Most content repurposing tools output generic, robotic "AI slop" that dilutes fo
 4. **Continuous Neural Diff Voice Memory**: Analyzes creator edits against AI drafts via diff vectors to extract verifiable voice rules, tone sliders, signature phrases, and banned vocabulary.
 5. **Smart IST Content Calendar**: Automatically schedules content during peak audience hours in Asia/Kolkata (e.g. Monday 08:30 AM IST B2B commute peak), enforces 48-hour spacing guardrails, and exports RFC 5545 compliant `.ics` files.
 6. **Causal Performance Feedback Loop**: Logs real post analytics, computes feature lift ratios (e.g., number-led hooks outperforming question hooks by 2.4x), updates Bayesian clip selection weights, and surfaces an actionable causal feed.
-7. **Hands-Free Wispr Flow Voice Studio**: Cleans conversational dictation, removes filler words (*"um", "like"*), resolves mid-sentence self-corrections, and maps speech directly to studio actions.
+7. **Hands-Free Wispr Flow Voice Studio**: Cleans conversational dictation, removes filler words (_"um", "like"_), resolves mid-sentence self-corrections, and maps speech directly to studio actions.
 
 ---
 
 ## 🎬 Official Launch Video
 
 The landing page features an embedded, cinematic 68-second launch film generated with HyperFrames, accompanied by the **AC/DC Thunderstruck** master soundtrack and an accelerated, humanized voiceover:
+
 - **Location:** Dedicated parallel section immediately following the hero at [thecontentcompany.vercel.app/#launch-film](https://thecontentcompany.vercel.app/#launch-film)
 - **Interactive Experience:** Smoothly scales into view with floating parallel feature badges; automatically plays when scrolled past the hero section and automatically pauses when scrolled out of view.
 - **Controls:** In-frame macOS window header, one-click Thunderstruck audio unmute toggle, and status indicators.
@@ -42,14 +43,14 @@ The landing page features an embedded, cinematic 68-second launch film generated
 
 ## 🎯 6 Mandatory Capabilities Traceability
 
-| # | Core Capability | How TheContentCompany Solves It | Technical & Acceptance Verification |
-|---|---|---|---|
-| **1** | **Long Video / Podcast Ingestion** | Chunked ffmpeg audio demuxing + Whisper Large-v3 ASR + speaker boundary detection + 384-dim BAAI embeddings in Neon pgvector. | Interactive SSE pipeline with live progress tracking across 6 stages; full scrubbable transcript with speaker tags (`Alex`, `Sarah`). |
-| **2** | **Clip Selection with Reasons** | 8-signal retention rubric: Hook Strength, Info Density, Emotional Resonance, Brand Fit, Performance Prior, Clarity, Standalone Value, Overall. | 12 candidate clips ranked with detailed "Why this clip" analysis, verbatim quotes, platform chips, and trim adjustment editor. |
-| **3** | **Platform-Tailored Copy** | Generates platform-compliant copy adhering to strict character ceilings and fold cutoffs (LinkedIn 210 chars, Reels 125 chars, X 280 chars, TikTok). | 5 live feed preview mockups (LinkedIn, Reels, Shorts, X, TikTok), A/B hook selector, and dynamic Voice Match meters (0–100%). |
-| **4** | **Brand-Voice Memory from Edits** | Neural diff engine compares `(ai_draft, creator_final)` pairs; extracts structured rules with confidence scores and proof citations (`Voice Profile v1 &rarr; v4`). | Red/green inline diff view, tone sliders (Casual/Formal, Bold/Measured, Density), signature phrase and banned word management. |
-| **5** | **Content Calendar** | Week and Month visual scheduling with peak IST audience optimization (08:30 AM commute, 06:30 PM evening browse) and 48-hour cadence guardrails. | "Auto-Fill Remaining Week" algorithmic planner + 1-click RFC 5545 `.ics` export compatible with Google Calendar, Apple Calendar, and Outlook. |
-| **6** | **Performance Feedback Loop** | Logs metrics via manual form, CSV upload, or voice dictation; runs Bayesian regression to calculate feature lift and shifts future selection weights. | Causal feed ("What changed & why"), dynamic feature weight table (e.g. +35% boost for financial metrics), and performance charts. |
+| #     | Core Capability                    | How TheContentCompany Solves It                                                                                                                                     | Technical & Acceptance Verification                                                                                                           |
+| ----- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1** | **Long Video / Podcast Ingestion** | Chunked ffmpeg audio demuxing + Whisper Large-v3 ASR + speaker boundary detection + 384-dim BAAI embeddings in Neon pgvector.                                       | Interactive SSE pipeline with live progress tracking across 6 stages; full scrubbable transcript with speaker tags (`Alex`, `Sarah`).         |
+| **2** | **Clip Selection with Reasons**    | 8-signal retention rubric: Hook Strength, Info Density, Emotional Resonance, Brand Fit, Performance Prior, Clarity, Standalone Value, Overall.                      | 12 candidate clips ranked with detailed "Why this clip" analysis, verbatim quotes, platform chips, and trim adjustment editor.                |
+| **3** | **Platform-Tailored Copy**         | Generates platform-compliant copy adhering to strict character ceilings and fold cutoffs (LinkedIn 210 chars, Reels 125 chars, X 280 chars, TikTok).                | 5 live feed preview mockups (LinkedIn, Reels, Shorts, X, TikTok), A/B hook selector, and dynamic Voice Match meters (0–100%).                 |
+| **4** | **Brand-Voice Memory from Edits**  | Neural diff engine compares `(ai_draft, creator_final)` pairs; extracts structured rules with confidence scores and proof citations (`Voice Profile v1 &rarr; v4`). | Red/green inline diff view, tone sliders (Casual/Formal, Bold/Measured, Density), signature phrase and banned word management.                |
+| **5** | **Content Calendar**               | Week and Month visual scheduling with peak IST audience optimization (08:30 AM commute, 06:30 PM evening browse) and 48-hour cadence guardrails.                    | "Auto-Fill Remaining Week" algorithmic planner + 1-click RFC 5545 `.ics` export compatible with Google Calendar, Apple Calendar, and Outlook. |
+| **6** | **Performance Feedback Loop**      | Logs metrics via manual form, CSV upload, or voice dictation; runs Bayesian regression to calculate feature lift and shifts future selection weights.               | Causal feed ("What changed & why"), dynamic feature weight table (e.g. +35% boost for financial metrics), and performance charts.             |
 
 ---
 
@@ -57,7 +58,7 @@ The landing page features an embedded, cinematic 68-second launch film generated
 
 ```mermaid
 flowchart TD
-    subgraph Client ["Frontend — Next.js 14 App Router (Vercel)"]
+    subgraph Client ["Frontend - Next.js 14 App Router (Vercel)"]
         LP["Landing Page & Parallax Timeline"]
         LF["Embedded Launch Film (Thunderstruck)"]
         ING["Ingest Pipeline & Transcript Scrubber"]
@@ -69,7 +70,7 @@ flowchart TD
         VS["Wispr Flow Voice Studio"]
     end
 
-    subgraph Backend ["Backend — FastAPI & Python 3.14 (Render / Local)"]
+    subgraph Backend ["Backend - FastAPI & Python 3.14 (Render / Local)"]
         Router["FastAPI Application Gateway"]
         FFMPEG["ffmpeg Audio Demuxer & Chunking"]
         Whisper["Whisper Large-v3 ASR Engine"]
@@ -115,10 +116,10 @@ flowchart TD
 
 Real human dictation is messy, rambling, and full of natural corrections. TheContentCompany implements a dedicated **Voice Intake Pipeline** (`/voice/interpret`):
 
-1. **Filler Removal**: Strips verbal tics (*"um", "like", "you know", "actually wait", "so yeah"*).
+1. **Filler Removal**: Strips verbal tics (_"um", "like", "you know", "actually wait", "so yeah"_).
 2. **Self-Correction Processing**: Intelligently resolves mid-sentence corrections:
-   - Input: *"Schedule the pricing clip on Thursday morning, wait actually Friday on LinkedIn"*
-   - Cleaned: *"Schedule the pricing clip on Friday on LinkedIn."*
+   - Input: _"Schedule the pricing clip on Thursday morning, wait actually Friday on LinkedIn"_
+   - Cleaned: _"Schedule the pricing clip on Friday on LinkedIn."_
    - Entities: `{ "platform": "linkedin", "when": "2026-11-06T08:30:00+05:30", "clip_ref": "pricing clip" }`
 3. **Intent Classification**: Classifies dictation into 6 canonical actions:
    - `schedule` &rarr; adds post slot to calendar.
@@ -149,6 +150,7 @@ tests/test_voice_memory.py ............                                  [ 12 pa
 ```
 
 ### Key Test Assertions:
+
 - **`test_ics_export_rfc5545_compliance`**: Validates standard VCALENDAR format, CRLF line endings, 75-octet line folding, and `Asia/Kolkata` timezones.
 - **`test_process_variant_edit_persists_and_updates_voice_memory`**: Confirms postgres boolean literals (`TRUE`), updates `platform_variants`, and appends new learned rules to `voice_rules`.
 - **`test_rambling_dictation_with_fillers_and_corrections`**: Validates speech self-correction, filler elimination, and IST timezone offset attachment.
@@ -159,17 +161,20 @@ tests/test_voice_memory.py ............                                  [ 12 pa
 ## 🚀 Quickstart & Local Installation
 
 ### Prerequisites
+
 - **Node.js**: `v18.17+` or `v20+`
 - **Python**: `3.11+` (tested through Python `3.14.2`)
 - **ffmpeg**: Required for audio demuxing (`brew install ffmpeg` on macOS)
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/Lakshya-2440/reel-studio.git
 cd reel-studio
 ```
 
 ### 2. Backend Setup
+
 ```bash
 cd backend
 python3 -m venv .venv
@@ -183,6 +188,7 @@ python3 -m uvicorn app.main:app --reload --port 8000
 Backend will be live at `http://localhost:8000`. Swagger API documentation is available at `http://localhost:8000/docs`.
 
 ### 3. Frontend Setup
+
 ```bash
 cd ../frontend
 npm install
@@ -192,6 +198,7 @@ npm run dev
 Frontend will be live at `http://localhost:3000`.
 
 ### 4. Run Full Verification Suite
+
 ```bash
 # In backend/
 pytest tests/ -v
@@ -204,30 +211,31 @@ npm run build
 
 ## 📡 REST API Reference
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/health` | Service health status and timestamp |
-| `POST` | `/ingest/upload` | Upload audio/video file for Whisper transcription & vectorization |
-| `POST` | `/ingest/sample` | Load 1-click pre-seeded 48m episode ("The Founder Files") |
-| `GET` | `/clips?project_id=...` | Retrieve ranked candidate clips with 8-signal scores & quotes |
-| `PATCH` | `/clips/{id}` | Update clip status (`accepted`, `rejected`) with rejection reason |
-| `POST` | `/copy/generate` | Generate channel-native copy variants across 5 platforms |
-| `PATCH` | `/variants/{id}` | Save creator edit & trigger neural diff voice memory learning |
-| `GET` | `/voice/profile` | Retrieve active voice profile, tone sliders, signature phrases, & rules |
-| `PATCH` | `/voice/rules/{id}` | Toggle voice rule active/inactive or pin status |
-| `POST` | `/voice/interpret` | Clean conversational speech, extract intent, and resolve IST datetime |
-| `GET` | `/calendar` | Retrieve scheduled posts in Asia/Kolkata timezone |
-| `POST` | `/calendar/plan-week` | Algorithmic peak IST slot auto-allocation |
-| `GET` | `/calendar/export.ics` | Download RFC 5545 compliant `.ics` calendar file |
-| `GET` | `/performance/weights` | Retrieve current feature weights and lift ratios |
-| `POST` | `/performance/log` | Log real post engagement metrics (form or voice) |
-| `POST` | `/performance/upload-csv` | Bulk upload historical performance logs |
+| Method  | Endpoint                  | Description                                                             |
+| ------- | ------------------------- | ----------------------------------------------------------------------- |
+| `GET`   | `/health`                 | Service health status and timestamp                                     |
+| `POST`  | `/ingest/upload`          | Upload audio/video file for Whisper transcription & vectorization       |
+| `POST`  | `/ingest/sample`          | Load 1-click pre-seeded 48m episode ("The Founder Files")               |
+| `GET`   | `/clips?project_id=...`   | Retrieve ranked candidate clips with 8-signal scores & quotes           |
+| `PATCH` | `/clips/{id}`             | Update clip status (`accepted`, `rejected`) with rejection reason       |
+| `POST`  | `/copy/generate`          | Generate channel-native copy variants across 5 platforms                |
+| `PATCH` | `/variants/{id}`          | Save creator edit & trigger neural diff voice memory learning           |
+| `GET`   | `/voice/profile`          | Retrieve active voice profile, tone sliders, signature phrases, & rules |
+| `PATCH` | `/voice/rules/{id}`       | Toggle voice rule active/inactive or pin status                         |
+| `POST`  | `/voice/interpret`        | Clean conversational speech, extract intent, and resolve IST datetime   |
+| `GET`   | `/calendar`               | Retrieve scheduled posts in Asia/Kolkata timezone                       |
+| `POST`  | `/calendar/plan-week`     | Algorithmic peak IST slot auto-allocation                               |
+| `GET`   | `/calendar/export.ics`    | Download RFC 5545 compliant `.ics` calendar file                        |
+| `GET`   | `/performance/weights`    | Retrieve current feature weights and lift ratios                        |
+| `POST`  | `/performance/log`        | Log real post engagement metrics (form or voice)                        |
+| `POST`  | `/performance/upload-csv` | Bulk upload historical performance logs                                 |
 
 ---
 
 ## 🎨 Design Philosophy: Anti-Slop, Pure Editorial Utility
 
 TheContentCompany was designed adhering to the **Impeccable** design system:
+
 - **Canvas**: Warm off-white editorial paper (`#FAF9F6`) with deep contrast typography (`#121212`).
 - **Accent**: Confident YC-amber flame (`#F26522` / `#FF7A30`).
 - **Surface**: Subtle card elevations (`#FFFFFF` with `#E5E5E0` borders).
@@ -239,4 +247,4 @@ TheContentCompany was designed adhering to the **Impeccable** design system:
 ## 👥 Built By
 
 - **Lakshya Gupta** ([@Lakshya-2440](https://github.com/Lakshya-2440))  
-  *Built with Google Antigravity & Wispr Flow for the Product Space Agentic AI Hackathon 2026.*
+  _Built with Google Antigravity & Wispr Flow for the Product Space Agentic AI Hackathon 2026._

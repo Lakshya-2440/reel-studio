@@ -200,13 +200,13 @@ def evaluate_standalone_clarity(text: str) -> tuple[SignalScore, List[str], Opti
         if cue in lowered:
             score -= penalty
             rationale_parts.append(f"Contains dependent context reference ('{cue}')")
-            risks.append(f"References external context ('{cue}') — trim opening boundaries")
+            risks.append(f"References external context ('{cue}') - trim opening boundaries")
             suggested_trim = {"trim_start_s": 3.0, "trim_end_s": 0.0}
 
     # Check if begins with awkward conjunction
     if re.match(r"^(and then|so anyway|but like|also)\b", lowered):
         score -= 1.5
-        risks.append("Begins mid-sentence on conjunction — trim first 1.5s")
+        risks.append("Begins mid-sentence on conjunction - trim first 1.5s")
         suggested_trim = {"trim_start_s": 1.5, "trim_end_s": 0.0}
 
     # Check if contains clear thesis

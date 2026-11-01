@@ -1,4 +1,4 @@
-# Reel Studio — Design System & Visual Authority
+# Reel Studio - Design System & Visual Authority
 
 > Established via UI/UX Pro Max + Impeccable Skill  
 > Mode: **Operate** (Studio) + **Persuade** (Landing)  
@@ -9,6 +9,7 @@
 ## 1. Core Color Tokens
 
 ### Light Mode (Default)
+
 - **Canvas / Background:** `#FAF9F6` (warm off-white editorial paper)
 - **Surface / Card Background:** `#FFFFFF` (crisp white)
 - **Subtle Surface:** `#F4F3EF` (muted control fill)
@@ -23,6 +24,7 @@
 - **Destructive / Lift Negative:** `#DC2626`
 
 ### Dark Mode
+
 - **Canvas / Background:** `#0B0B0C` (deep obsidian)
 - **Surface / Card Background:** `#141416`
 - **Border Hairline:** `#232326`

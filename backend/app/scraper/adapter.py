@@ -1,5 +1,5 @@
 """
-Reel Scraper Adapter — Scrapling Integration with Reliable Fallbacks
+Reel Scraper Adapter - Scrapling Integration with Reliable Fallbacks
 =====================================================================
 Wraps the Scrapling framework for Instagram and LinkedIn social profile scraping.
 Standardizes output into ScrapedPost Pydantic models.

@@ -373,7 +373,7 @@ async def export_calendar_ics(
 
     ics_content = generate_ics_calendar(
         items=items,
-        calendar_name=f"TheContentCompany Schedule — {project_id}",
+        calendar_name=f"TheContentCompany Schedule - {project_id}",
         calendar_description="TheContentCompany Studio schedule optimized for IST audience peaks",
     )
 

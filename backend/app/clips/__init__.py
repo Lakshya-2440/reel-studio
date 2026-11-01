@@ -1,5 +1,5 @@
 """
-Reel Clips Module — Clip Finder and 8-Signal Scoring Engine.
+Reel Clips Module - Clip Finder and 8-Signal Scoring Engine.
 """
 
 from app.clips.candidate_generator import (

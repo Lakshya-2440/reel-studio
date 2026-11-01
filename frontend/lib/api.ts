@@ -63,7 +63,13 @@ export interface PlatformVariant {
 export interface VoiceRule {
   id: string;
   rule: string;
-  category: "tone" | "length" | "vocabulary" | "structure" | "formatting" | "banned";
+  category:
+    | "tone"
+    | "length"
+    | "vocabulary"
+    | "structure"
+    | "formatting"
+    | "banned";
   confidence: number;
   edit_count: number;
   evidence_diff: {
@@ -169,7 +175,13 @@ export interface BrandKit {
 export interface VoiceInterpretation {
   raw_text: string;
   clean_text: string;
-  intent: "edit_clip" | "schedule_post" | "generate_copy" | "log_performance" | "update_rule" | "general_query";
+  intent:
+    | "edit_clip"
+    | "schedule_post"
+    | "generate_copy"
+    | "log_performance"
+    | "update_rule"
+    | "general_query";
   entities: Record<string, any>;
   fillers_removed: string[];
   corrections_applied: {
@@ -202,7 +214,10 @@ class ApiClient {
 
       return await res.json();
     } catch (err) {
-      console.warn(`[API] Call to ${url} failed, using local/fallback behavior:`, err);
+      console.warn(
+        `[API] Call to ${url} failed, using local/fallback behavior:`,
+        err,
+      );
       throw err;
     }
   }
@@ -211,7 +226,7 @@ class ApiClient {
   async getProject(id: string = "demo-project"): Promise<Project> {
     return this.fetchJson<Project>(`/projects/${id}`).catch(() => ({
       id: "demo-project",
-      name: "The Founder Files — Ep. 42",
+      name: "The Founder Files - Ep. 42",
       created_at: new Date().toISOString(),
     }));
   }
@@ -221,7 +236,11 @@ class ApiClient {
     return this.fetchJson<Clip[]>(`/projects/${projectId}/clips`);
   }
 
-  async updateClipStatus(clipId: string, status: Clip["status"], reason?: string): Promise<{ success: boolean }> {
+  async updateClipStatus(
+    clipId: string,
+    status: Clip["status"],
+    reason?: string,
+  ): Promise<{ success: boolean }> {
     return this.fetchJson<{ success: boolean }>(`/clips/${clipId}`, {
       method: "PATCH",
       body: JSON.stringify({ status, rejection_reason: reason }),
@@ -233,11 +252,17 @@ class ApiClient {
     return this.fetchJson<PlatformVariant[]>(`/clips/${clipId}/copy`);
   }
 
-  async updateVariant(variantId: string, data: { creator_final: string; ai_draft?: string }): Promise<{ success: boolean; voice_rules_updated: boolean }> {
-    return this.fetchJson<{ success: boolean; voice_rules_updated: boolean }>(`/variants/${variantId}`, {
-      method: "PATCH",
-      body: JSON.stringify(data),
-    });
+  async updateVariant(
+    variantId: string,
+    data: { creator_final: string; ai_draft?: string },
+  ): Promise<{ success: boolean; voice_rules_updated: boolean }> {
+    return this.fetchJson<{ success: boolean; voice_rules_updated: boolean }>(
+      `/variants/${variantId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      },
+    );
   }
 
   // Voice Memory
@@ -245,7 +270,10 @@ class ApiClient {
     return this.fetchJson<VoiceProfile>("/voice/profile");
   }
 
-  async toggleVoiceRule(ruleId: string, isActive: boolean): Promise<{ success: boolean }> {
+  async toggleVoiceRule(
+    ruleId: string,
+    isActive: boolean,
+  ): Promise<{ success: boolean }> {
     return this.fetchJson<{ success: boolean }>(`/voice/rules/${ruleId}`, {
       method: "PATCH",
       body: JSON.stringify({ is_active: isActive }),
@@ -266,7 +294,9 @@ class ApiClient {
   }
 
   async planWeek(): Promise<CalendarItem[]> {
-    return this.fetchJson<CalendarItem[]>("/calendar/plan-week", { method: "POST" });
+    return this.fetchJson<CalendarItem[]>("/calendar/plan-week", {
+      method: "POST",
+    });
   }
 
   // Performance

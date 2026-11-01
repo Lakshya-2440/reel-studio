@@ -1,19 +1,20 @@
-# VOICE_LOG.md — Wispr Flow Dictation & Voice-Driven Build Log
+# VOICE_LOG.md - Wispr Flow Dictation & Voice-Driven Build Log
 
 > Hackathon: Product Space x Wispr Flow  
-> Project: Reel — Content Repurposing Studio with Brand Memory  
+> Project: Reel - Content Repurposing Studio with Brand Memory  
 > Built by: Lakshya Gupta via Wispr Flow dictation + Antigravity Orchestrator
 
 ---
 
 ## Log Entries
 
-### Entry 1 — Project Kickoff & Spec Alignment
+### Entry 1 - Project Kickoff & Spec Alignment
+
 - **Timestamp (IST):** 2026-10-31 14:49:00
 - **Raw Dictation (Wispr Flow):**
   > "Okay, um, hey Antigravity, we're in the Product Space Wispr Flow hackathon, problem 01 media. We need all six capabilities, long video ingestion, clip selection with reasons, captions per platform, brand voice memory that learns from edits, calendar, and performance loop. Build it fast, deploy skeletons on Vercel and Render, use Neon postgres. Don't skim the PRD, follow context protocol, and use subagents."
 - **Cleaned Structured Spec:**
-  - Problem Statement: 01 — Media (Content Repurposing Studio with Brand Memory)
+  - Problem Statement: 01 - Media (Content Repurposing Studio with Brand Memory)
   - Stack: Next.js (Vercel), FastAPI Docker + ffmpeg (Render), Neon Postgres + pgvector
   - Mandatory Capabilities: Ingestion, Clips w/ reasons, Platform copy, Brand memory from edits, Content calendar, Performance loop
   - Primary Input: Natural speech via Wispr Flow (Voice Intake pipeline)
@@ -21,7 +22,8 @@
 
 ---
 
-### Entry 2 — Voice Command Bar & Cleanup Pipeline
+### Entry 2 - Voice Command Bar & Cleanup Pipeline
+
 - **Timestamp (IST):** 2026-10-31 15:02:00
 - **Raw Dictation (Wispr Flow):**
   > "Make sure voice intake handles messy speech, like um when I say schedule the pricing clip on Thursday morning, actually no, Friday morning on LinkedIn. It should strike through Thursday and set Friday at 9am IST."
@@ -33,7 +35,8 @@
 
 ---
 
-### Entry 3 — Clip Selection with Justifications
+### Entry 3 - Clip Selection with Justifications
+
 - **Timestamp (IST):** 2026-10-31 15:06:00
 - **Raw Dictation (Wispr Flow):**
   > "For clip selection, don't just return random timestamps. Every clip must have a clear 'Why this clip' section with at least three bullet points and an exact quote from the transcript proving the insight."
@@ -44,7 +47,8 @@
 
 ---
 
-### Entry 4 — Platform Copy Constraints
+### Entry 4 - Platform Copy Constraints
+
 - **Timestamp (IST):** 2026-10-31 15:09:00
 - **Raw Dictation (Wispr Flow):**
   > "The copy engine needs to strictly follow real platform rules. LinkedIn has that 210-character 'see more' cutoff, so the hook has to fit before it. No emojis on LinkedIn if the voice profile says so. Instagram needs line breaks and hashtags. X needs 280 characters."
@@ -56,7 +60,8 @@
 
 ---
 
-### Entry 5 — Brand Voice Learning from Edits
+### Entry 5 - Brand Voice Learning from Edits
+
 - **Timestamp (IST):** 2026-10-31 15:11:00
 - **Raw Dictation (Wispr Flow):**
   > "When I edit a draft in the UI, like stripping out buzzwords or putting a number in the first sentence, I want the system to learn that immediately. Show a side-by-side comparison with memory on versus off."
@@ -67,7 +72,8 @@
 
 ---
 
-### Entry 6 — Performance Loop & Causal Feed
+### Entry 6 - Performance Loop & Causal Feed
+
 - **Timestamp (IST):** 2026-10-31 15:14:00
 - **Raw Dictation (Wispr Flow):**
   > "Make the performance feedback loop very obvious to the judges. When I log metrics, update the weights and show a 'What changed and why' feed, like number hooks beat questions by 2.4x so we re-ranked clips."
@@ -78,7 +84,8 @@
 
 ---
 
-### Entry 7 — Public GitHub & YC Design Polish
+### Entry 7 - Public GitHub & YC Design Polish
+
 - **Timestamp (IST):** 2026-10-31 15:15:00
 - **Raw Dictation (Wispr Flow):**
   > "Push all this to a public repo on my GitHub. Make sure the UI looks like a real Y Combinator startup, not generic AI slop. Warm off-white canvas, sharp typography, no neon gradients."
@@ -89,7 +96,8 @@
 
 ---
 
-### Entry 8 — Deployment & Demo Verification
+### Entry 8 - Deployment & Demo Verification
+
 - **Timestamp (IST):** 2026-10-31 15:22:00
 - **Raw Dictation (Wispr Flow):**
   > "Let's deploy everything live to Vercel and Render and run the automated browser test on the deployed URLs."

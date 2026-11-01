@@ -1,31 +1,46 @@
 "use client";
 
-import { useState } from "react";
-import {
-  ChevronDown,
-  RotateCcw,
-  Mic,
-  ExternalLink,
-  Check,
-} from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronDown, RotateCcw, Mic, ExternalLink, Check } from "lucide-react";
+import { getActiveProject, resetToDefaultProject } from "@/lib/project-store";
 
 interface TopBarProps {
   onOpenVoiceStudio?: () => void;
 }
 
 export function TopBar({ onOpenVoiceStudio }: TopBarProps) {
-  const [selectedProject, setSelectedProject] = useState("The Founder Files — Ep. 42");
+  const [selectedProject, setSelectedProject] = useState(
+    "The Founder Files - Ep. 42",
+  );
+  const [projectDuration, setProjectDuration] = useState("48m 12s");
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
   const [resetting, setResetting] = useState(false);
 
-  const projects = [
-    "The Founder Files — Ep. 42",
-    "SaaS Scaling Decoded — Ep. 18",
-    "Modern B2B Growth — Ep. 09",
-  ];
+  useEffect(() => {
+    const proj = getActiveProject();
+    setSelectedProject(proj.title);
+    setProjectDuration(proj.durationFmt);
+
+    const handleProjectChanged = (e: any) => {
+      if (e.detail?.title) {
+        setSelectedProject(e.detail.title);
+        setProjectDuration(e.detail.durationFmt);
+      }
+    };
+    window.addEventListener("thecontentcompany_project_changed", handleProjectChanged);
+    return () => window.removeEventListener("thecontentcompany_project_changed", handleProjectChanged);
+  }, []);
+
+  const projects = Array.from(new Set([
+    selectedProject,
+    "The Founder Files - Ep. 42",
+    "SaaS Scaling Decoded - Ep. 18",
+    "Modern B2B Growth - Ep. 09",
+  ]));
 
   const handleResetDemo = () => {
     setResetting(true);
+    resetToDefaultProject();
     setTimeout(() => {
       setResetting(false);
       window.location.reload();
@@ -60,8 +75,14 @@ export function TopBar({ onOpenVoiceStudio }: TopBarProps) {
                   }}
                   className="w-full text-left px-3 py-1.5 text-xs text-primary hover:bg-surface-subtle flex items-center justify-between"
                 >
-                  <span className={proj === selectedProject ? "font-semibold" : ""}>{proj}</span>
-                  {proj === selectedProject && <Check className="w-3.5 h-3.5 text-accent" />}
+                  <span
+                    className={proj === selectedProject ? "font-semibold" : ""}
+                  >
+                    {proj}
+                  </span>
+                  {proj === selectedProject && (
+                    <Check className="w-3.5 h-3.5 text-accent" />
+                  )}
                 </button>
               ))}
             </div>
@@ -69,7 +90,7 @@ export function TopBar({ onOpenVoiceStudio }: TopBarProps) {
         </div>
 
         <span className="text-xs font-mono text-tertiary hidden sm:inline-block">
-          Duration: 48m 12s · 12 clips ranked
+          Duration: {projectDuration} · 14 clips ranked
         </span>
       </div>
 
@@ -92,7 +113,9 @@ export function TopBar({ onOpenVoiceStudio }: TopBarProps) {
           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-border bg-surface hover:bg-surface-subtle text-xs font-medium text-secondary hover:text-primary transition-colors disabled:opacity-50"
           title="Reset project demo state to clean seeds"
         >
-          <RotateCcw className={`w-3.5 h-3.5 text-tertiary ${resetting ? "animate-spin" : ""}`} />
+          <RotateCcw
+            className={`w-3.5 h-3.5 text-tertiary ${resetting ? "animate-spin" : ""}`}
+          />
           <span className="hidden sm:inline">Reset Demo</span>
         </button>
       </div>

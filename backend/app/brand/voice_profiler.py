@@ -168,7 +168,7 @@ def analyze_linguistics(posts: List[Union[ScrapedPost, Dict[str, Any], str]]) ->
         clean_texts = [
             "The biggest mistake first-time founders make with content: they treat it like marketing instead of customer discovery.",
             "When you write publicly about the hardest bugs you solved this week, your ideal customers DM you.",
-            "Content is not brand fluff—it's asynchronous sales engineering.",
+            "Content is not brand fluff-it's asynchronous sales engineering.",
         ]
 
     # Aggregate text metrics
@@ -217,7 +217,7 @@ def analyze_linguistics(posts: List[Union[ScrapedPost, Dict[str, Any], str]]) ->
         words = s_clean.split()
         if len(words) >= 4 and any(b in s_clean.lower() for b in ["the", "we", "here", "stop", "when", "if", "why"]):
             prefix = " ".join(words[:4])
-            if prefix.endswith((":", "—", "-")):
+            if prefix.endswith((":", "-", "-")):
                 openers.append(prefix)
             elif any(s_clean.startswith(pat) for pat in ["The biggest mistake", "We spent", "Stop measuring", "Here is"]):
                 openers.append(prefix)
@@ -291,7 +291,7 @@ def analyze_linguistics(posts: List[Union[ScrapedPost, Dict[str, Any], str]]) ->
             confidence=0.94,
             evidence_diff={
                 "before": "Content creation is really important for companies.",
-                "after": "Content is not brand fluff—it's asynchronous sales engineering.",
+                "after": "Content is not brand fluff-it's asynchronous sales engineering.",
             },
         ),
         VoiceRule(

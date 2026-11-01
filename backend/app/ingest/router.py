@@ -237,14 +237,14 @@ async def ingest_transcript(payload: IngestTranscriptRequest):
 async def ingest_sample(payload: Optional[SampleIngestRequest] = None):
     """
     Zero-Latency Demo Path:
-    Instantly runs demo pipeline using the pre-seeded "The Founder Files — Ep. 42" podcast.
+    Instantly runs demo pipeline using the pre-seeded "The Founder Files - Ep. 42" podcast.
     Broadcasts real-time SSE progress events to /jobs/{id}/events.
     """
     pid = payload.project_id if payload else "proj_founder_files_42"
     job = job_manager.create_job(
         type="ingest_sample",
         initial_stage="uploading",
-        detail="Initializing demo podcast: The Founder Files — Ep. 42",
+        detail="Initializing demo podcast: The Founder Files - Ep. 42",
     )
 
     # Spawn background task for SSE progress broadcast
@@ -277,7 +277,7 @@ async def get_transcript(transcript_id: str):
         t_row = conn.execute(
             text(
                 """
-                SELECT t.id, t.project_id, COALESCE(p.name, 'The Founder Files — Ep. 42') as project_name,
+                SELECT t.id, t.project_id, COALESCE(p.name, 'The Founder Files - Ep. 42') as project_name,
                        t.full_text, t.duration, t.speaker_count
                 FROM transcripts t
                 LEFT JOIN projects p ON p.id = t.project_id
@@ -292,7 +292,7 @@ async def get_transcript(transcript_id: str):
             t_row = conn.execute(
                 text(
                     """
-                    SELECT t.id, t.project_id, COALESCE(p.name, 'The Founder Files — Ep. 42') as project_name,
+                    SELECT t.id, t.project_id, COALESCE(p.name, 'The Founder Files - Ep. 42') as project_name,
                            t.full_text, t.duration, t.speaker_count
                     FROM transcripts t
                     LEFT JOIN projects p ON p.id = t.project_id

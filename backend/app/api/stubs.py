@@ -13,7 +13,7 @@ router = APIRouter()
 # 1. Projects
 # -----------------------------------------------------------------------------
 class ProjectCreate(BaseModel):
-    name: str = "The Founder Files — Ep. 42"
+    name: str = "The Founder Files - Ep. 42"
 
 
 class ProjectResponse(BaseModel):
@@ -37,7 +37,7 @@ async def get_project(project_id: str):
     """Get project details."""
     return ProjectResponse(
         id=project_id,
-        name="The Founder Files — Ep. 42",
+        name="The Founder Files - Ep. 42",
         created_at=datetime.now(timezone.utc).isoformat(),
     )
 

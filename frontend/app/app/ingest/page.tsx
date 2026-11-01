@@ -18,36 +18,55 @@ import { MediaDropzone } from "@/components/ingest/media-dropzone";
 import { SSEProgressTracker } from "@/components/ingest/sse-progress-tracker";
 import { TranscriptViewer } from "@/components/ingest/transcript-viewer";
 import { EPISODE_METADATA } from "@/lib/seed-data";
+import { generateProjectFromInput, setActiveProject, getActiveProject } from "@/lib/project-store";
 
 export default function IngestPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progressPct, setProgressPct] = useState(100);
   const [stageIndex, setStageIndex] = useState(5); // 0 to 5 (Done)
   const [statusMessage, setStatusMessage] = useState(
-    "Indexed & vectorized: 148 segments, 12 candidate clips ready for scoring."
+    "Indexed & vectorized: 148 segments, 14 candidate clips ready for scoring."
   );
 
   const startPipelineSimulation = (sourceType: string, sourceDetail?: any) => {
     setIsProcessing(true);
     setProgressPct(5);
     setStageIndex(0);
-    setStatusMessage(`Uploading media from ${sourceType}...`);
+
+    // Generate dynamic 14-clip project immediately based on user input
+    const newProject = generateProjectFromInput(sourceType as any, sourceDetail);
+    setActiveProject(newProject);
+
+    setStatusMessage(`Uploading media from ${sourceType}: ${newProject.title}...`);
+
+    // Asynchronously sync with backend if available
+    if (sourceType === "paste" && sourceDetail) {
+      fetch("http://localhost:8000/ingest/transcript", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          transcript_text: sourceDetail,
+          title: newProject.title,
+          project_id: newProject.id,
+        }),
+      }).catch(() => {});
+    }
 
     const stageTimeline = [
       {
         pct: 18,
         stage: 0,
-        msg: "Uploaded 48m 12s audio payload (128kbps stereo source).",
+        msg: `Ingested media payload for ${newProject.title} (${newProject.durationFmt}).`,
       },
       {
         pct: 35,
         stage: 1,
-        msg: "ffmpeg: Demuxing into 16kHz mono WAV for Whisper Large-v3...",
+        msg: "ffmpeg: Demuxing into 16kHz mono audio for Whisper Large-v3...",
       },
       {
         pct: 58,
         stage: 2,
-        msg: "Chunked ASR: Transcribing 24 overlapping audio windows (FP16)...",
+        msg: "Chunked ASR: Transcribing audio windows with FP16 precision...",
       },
       {
         pct: 76,
@@ -57,12 +76,12 @@ export default function IngestPage() {
       {
         pct: 92,
         stage: 4,
-        msg: "Vectorizing: Generating 384-dim embeddings (BAAI/bge-small-en-v1.5) in pgvector...",
+        msg: "Vectorizing: Generating 384-dim dense embeddings in pgvector...",
       },
       {
         pct: 100,
         stage: 5,
-        msg: "Complete: 148 segments indexed, 6 semantic chapters, 12 candidate clips extracted.",
+        msg: `Complete: 14 platform-ready clips extracted and scored for ${newProject.title}.`,
       },
     ];
 
@@ -78,7 +97,7 @@ export default function IngestPage() {
         clearInterval(interval);
         setIsProcessing(false);
       }
-    }, 900);
+    }, 700);
   };
 
   return (
@@ -105,7 +124,7 @@ export default function IngestPage() {
             href="/app/clips"
             className="px-3.5 py-1.5 bg-accent hover:bg-accent-hover text-surface text-xs font-semibold rounded transition-colors flex items-center gap-1.5 shadow-sm"
           >
-            <span>View 12 Scored Clips</span>
+            <span>View 14 Scored Clips</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

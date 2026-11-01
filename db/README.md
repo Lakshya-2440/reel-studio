@@ -14,7 +14,7 @@ This directory houses the schema definitions, migration runner, and seeding scri
 
 - `schema.sql`: Full DDL defining 21 tables (all 18 core tables + 3 supporting workflow tables), indexes, and constraints.
 - `migrate.py`: Migration runner that executes `schema.sql` against Postgres (via `psycopg` / `psycopg2`) or translates DDL on the fly for SQLite. Verifies that all expected tables exist.
-- `seed_data.py`: Populates the complete demo dataset for *"The Founder Files — Ep. 42: Why 90% of AI Startups Die at $50k MRR"*:
+- `seed_data.py`: Populates the complete demo dataset for _"The Founder Files - Ep. 42: Why 90% of AI Startups Die at $50k MRR"_:
   - ~45 min podcast transcript (Host: Sarah Chen, Guest: Marcus Vance)
   - 6 timed chapters & 12 transcript segments with 384-d embeddings
   - 12 high-conviction clips with 8-signal scoring breakdowns & evidence quotes
@@ -35,11 +35,13 @@ This directory houses the schema definitions, migration runner, and seeding scri
 ## Commands
 
 ### Run Migrations
+
 ```bash
 python3 db/migrate.py
 ```
 
 ### Seed Demo Dataset
+
 ```bash
 python3 db/seed_data.py
 ```
