@@ -31,6 +31,8 @@ FRONTEND_CLIPS_DIR = REPO_ROOT / "frontend" / "public" / "rendered_clips"
 # Source video candidates
 LAUNCH_VIDEO = REPO_ROOT / "thecontentcompany_launch" / "thecontentcompany_launch.mp4"
 INTRO_VIDEO = REPO_ROOT / "video_intro" / "lakshya_intro.mp4"
+ACTIVE_UPLOADED_VIDEO = BACKEND_DIR / "static" / "active_source_video.mp4"
+FRONTEND_ACTIVE_VIDEO = FRONTEND_CLIPS_DIR.parent / "active_source_video.mp4"
 
 # Master 14 Engineered Short-Form Clips Specifications (All >= 9.5s to 10.5s)
 MASTER_14_CLIPS_SPEC: List[Dict[str, Any]] = [
@@ -182,8 +184,43 @@ def is_ffmpeg_available() -> bool:
     return shutil.which("ffmpeg") is not None
 
 
-def get_source_video_for_spec(source_tag: str) -> Optional[Path]:
+def get_media_duration_seconds(file_path: Union[str, Path]) -> float:
+    """Probes media duration with ffprobe."""
+    try:
+        cmd = [
+            "ffprobe", "-v", "error",
+            "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1",
+            str(file_path),
+        ]
+        res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+        dur = float(res.stdout.strip())
+        return dur if dur > 0 else 60.0
+    except Exception as e:
+        logger.warning(f"Could not probe duration for {file_path}: {e}")
+        return 60.0
+
+
+def has_audio_stream(file_path: Union[str, Path]) -> bool:
+    """Checks if the given video file contains an audio stream."""
+    try:
+        cmd = [
+            "ffprobe", "-v", "error",
+            "-select_streams", "a",
+            "-show_entries", "stream=codec_type",
+            "-of", "default=noprint_wrappers=1:nokey=1",
+            str(file_path),
+        ]
+        res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return "audio" in res.stdout
+    except Exception:
+        return False
+
+
+def get_source_video_for_spec(source_tag: Optional[str] = None) -> Optional[Path]:
     """Resolve specific source video for a clip."""
+    if ACTIVE_UPLOADED_VIDEO.exists() and ACTIVE_UPLOADED_VIDEO.stat().st_size > 1000:
+        return ACTIVE_UPLOADED_VIDEO
     if source_tag == "intro" and INTRO_VIDEO.exists() and INTRO_VIDEO.stat().st_size > 1000:
         return INTRO_VIDEO
     if LAUNCH_VIDEO.exists() and LAUNCH_VIDEO.stat().st_size > 1000:
@@ -365,11 +402,27 @@ def render_short_clip(
         raise RuntimeError("ffmpeg executable not found on host system.")
 
     source_p = Path(input_video_path) if input_video_path else None
-    if not source_p or not source_p.exists():
-        # Match from spec or fallback to launch
-        source_p = LAUNCH_VIDEO if LAUNCH_VIDEO.exists() else INTRO_VIDEO
+    if not source_p or not source_p.exists() or source_p.stat().st_size < 1000:
+        if ACTIVE_UPLOADED_VIDEO.exists() and ACTIVE_UPLOADED_VIDEO.stat().st_size > 1000:
+            source_p = ACTIVE_UPLOADED_VIDEO
+        elif LAUNCH_VIDEO.exists() and LAUNCH_VIDEO.stat().st_size > 1000:
+            source_p = LAUNCH_VIDEO
+        elif INTRO_VIDEO.exists() and INTRO_VIDEO.stat().st_size > 1000:
+            source_p = INTRO_VIDEO
+        else:
+            source_p = None
 
-    duration = max(9.0, end_time - start_time)
+    if source_p and source_p.exists():
+        src_dur = get_media_duration_seconds(source_p)
+        if src_dur > 0:
+            if start_time >= src_dur - 1.0:
+                start_time = max(0.0, src_dur - 10.0)
+            if end_time > src_dur or end_time <= start_time:
+                end_time = min(src_dur, start_time + 10.0)
+            if end_time - start_time < 3.0:
+                start_time = max(0.0, end_time - 9.8)
+
+    duration = max(3.0, end_time - start_time)
 
     # Create temporary overlay PNG
     temp_dir = Path(tempfile.mkdtemp(prefix="reel_clip_"))
@@ -390,6 +443,8 @@ def render_short_clip(
     fade_out_dur = 0.6
     fade_out_start = max(0.1, duration - fade_out_dur)
 
+    has_audio = source_p and source_p.exists() and has_audio_stream(source_p)
+
     if not source_p or not source_p.exists():
         # Fallback synthetic rendering
         cmd = [
@@ -403,15 +458,12 @@ def render_short_clip(
             "-pix_fmt", "yuv420p", "-movflags", "+faststart",
             str(out_p),
         ]
-    else:
-        # Flagship OpusClip-style layout:
-        # [0:v] split into [bg] (blurred 9:16) and [fg] (sharp centered 16:9)
-        # overlay [1:v] HUD card on top
-        # smooth audio fade on [0:a]
+    elif has_audio:
+        # Flagship OpusClip-style layout with source audio:
         filter_complex = (
             "[0:v]split=2[bg][fg];"
             f"[bg]scale={target_width}:{target_height}:force_original_aspect_ratio=increase,"
-            f"crop={target_width}:{target_height},boxblur=25:5[blurred];"
+            f"crop={target_width}:{target_height},boxblur=20:4[blurred];"
             f"[fg]scale=968:544[sharp];"
             "[blurred][sharp]overlay=(W-w)/2:(H-h)/2[base];"
             "[base][1:v]overlay=0:0[outv];"
@@ -428,10 +480,41 @@ def render_short_clip(
             "-map", "[outv]",
             "-map", "[outa]",
             "-c:v", "libx264",
-            "-preset", "fast",
+            "-preset", "ultrafast",
             "-crf", "22",
             "-c:a", "aac",
             "-b:a", "192k",
+            "-pix_fmt", "yuv420p",
+            "-movflags", "+faststart",
+            str(out_p),
+        ]
+    else:
+        # Source video without audio track - generate subtle tone
+        filter_complex = (
+            "[0:v]split=2[bg][fg];"
+            f"[bg]scale={target_width}:{target_height}:force_original_aspect_ratio=increase,"
+            f"crop={target_width}:{target_height},boxblur=20:4[blurred];"
+            f"[fg]scale=968:544[sharp];"
+            "[blurred][sharp]overlay=(W-w)/2:(H-h)/2[base];"
+            "[base][1:v]overlay=0:0[outv];"
+            f"[2:a]afade=t=in:ss=0:d={fade_in_dur},afade=t=out:st={fade_out_start:.2f}:d={fade_out_dur}[outa]"
+        )
+
+        cmd = [
+            "ffmpeg", "-y",
+            "-ss", str(start_time),
+            "-to", str(end_time),
+            "-i", str(source_p),
+            "-i", str(overlay_png),
+            "-f", "lavfi", "-i", f"sine=frequency=220:duration={duration}",
+            "-filter_complex", filter_complex,
+            "-map", "[outv]",
+            "-map", "[outa]",
+            "-c:v", "libx264",
+            "-preset", "ultrafast",
+            "-crf", "22",
+            "-c:a", "aac",
+            "-b:a", "128k",
             "-pix_fmt", "yuv420p",
             "-movflags", "+faststart",
             str(out_p),
@@ -462,81 +545,135 @@ def batch_render_14_clips(
     Batch cuts all 14 short-form clips into flagship vertical 9:16 MP4s (all >= 9.5s),
     writing to both backend static and frontend public directories.
     """
+    import concurrent.futures
+
     out_dir = Path(output_dir) if output_dir else STATIC_CLIPS_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
     FRONTEND_CLIPS_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Use master engineered spec if not explicitly passed
-    clip_list = clips if (clips and len(clips) >= 14) else MASTER_14_CLIPS_SPEC
-    results = []
+    # Resolve target video source
+    target_source = None
+    if source_video_path and Path(source_video_path).exists() and Path(source_video_path).stat().st_size > 1000:
+        target_source = Path(source_video_path)
+    elif ACTIVE_UPLOADED_VIDEO.exists() and ACTIVE_UPLOADED_VIDEO.stat().st_size > 1000:
+        target_source = ACTIVE_UPLOADED_VIDEO
+    elif LAUNCH_VIDEO.exists() and LAUNCH_VIDEO.stat().st_size > 1000:
+        target_source = LAUNCH_VIDEO
+    elif INTRO_VIDEO.exists() and INTRO_VIDEO.stat().st_size > 1000:
+        target_source = INTRO_VIDEO
 
-    for idx, clip in enumerate(clip_list, 1):
+    is_custom_source = target_source is not None and (
+        (source_video_path and Path(source_video_path).exists()) or
+        (ACTIVE_UPLOADED_VIDEO.exists() and ACTIVE_UPLOADED_VIDEO.stat().st_size > 1000)
+    )
+
+    clip_list = list(clips) if (clips and len(clips) >= 1) else list(MASTER_14_CLIPS_SPEC)
+    while len(clip_list) < 14:
+        idx_to_add = len(clip_list)
+        clip_list.append(MASTER_14_CLIPS_SPEC[idx_to_add % len(MASTER_14_CLIPS_SPEC)])
+
+    src_dur = get_media_duration_seconds(target_source) if target_source else 68.0
+    step = max(0.5, (src_dur - 9.8) / 13.0) if src_dur > 10.0 else 0.0
+
+    prepared_jobs = []
+    for idx in range(1, 15):
+        clip = clip_list[idx - 1]
         clip_id = clip.get("id") or f"clip_{idx}"
         rank = int(clip.get("rank") or idx)
-        
-        # Match with master spec for engineered times if input times are too short
+
         master_match = next((m for m in MASTER_14_CLIPS_SPEC if m["id"] == clip_id or m["rank"] == rank), None)
-        
-        if master_match:
+
+        if is_custom_source:
+            start_time = round(min(max(0.0, src_dur - 9.8), (idx - 1) * step), 1)
+            end_time = round(min(src_dur, start_time + 9.8), 1)
+            source = target_source
+            title = clip.get("title") or (master_match["title"] if master_match else f"High-Signal Clip #{rank}")
+            hook = clip.get("hook_line") or clip.get("hook") or (master_match["hook_line"] if master_match else "")
+            evidence = clip.get("evidence_quote") or (master_match["evidence_quote"] if master_match else "")
+        elif master_match:
             start_time = float(master_match["start_time"])
             end_time = float(master_match["end_time"])
             source_tag = master_match.get("source", "launch")
-            source = get_source_video_for_spec(source_tag)
+            source = get_source_video_for_spec(source_tag) or target_source
             title = clip.get("title") or master_match["title"]
             hook = clip.get("hook_line") or clip.get("hook") or master_match["hook_line"]
             evidence = clip.get("evidence_quote") or master_match["evidence_quote"]
         else:
             start_time = float(clip.get("start_time", 0.0))
-            end_time = float(clip.get("end_time", start_time + 10.0))
-            source = Path(source_video_path) if source_video_path else LAUNCH_VIDEO
+            end_time = float(clip.get("end_time", start_time + 9.8))
+            source = target_source
             title = clip.get("title") or f"High-Signal Clip #{rank}"
             hook = clip.get("hook_line") or clip.get("hook") or ""
             evidence = clip.get("evidence_quote") or ""
 
-        # Guarantee at least 9.5s duration
-        if end_time - start_time < 9.0:
+        if end_time - start_time < 3.0:
             end_time = start_time + 9.8
 
         out_backend = out_dir / f"{clip_id}.mp4"
+        out_backend_ranked = out_dir / f"clip_{idx}.mp4"
         out_frontend = FRONTEND_CLIPS_DIR / f"{clip_id}.mp4"
+        out_frontend_ranked = FRONTEND_CLIPS_DIR / f"clip_{idx}.mp4"
 
+        prepared_jobs.append({
+            "clip_id": clip_id,
+            "rank": rank,
+            "title": title,
+            "hook": hook,
+            "evidence": evidence,
+            "start_time": start_time,
+            "end_time": end_time,
+            "source": source,
+            "out_backend": out_backend,
+            "out_backend_ranked": out_backend_ranked,
+            "out_frontend": out_frontend,
+            "out_frontend_ranked": out_frontend_ranked,
+        })
+
+    def _render_job(job: Dict[str, Any]) -> Dict[str, Any]:
         try:
             render_short_clip(
-                start_time=start_time,
-                end_time=end_time,
-                output_path=out_backend,
-                input_video_path=source,
-                title_overlay=title,
-                hook_line=hook,
-                evidence_quote=evidence,
-                rank=rank,
+                start_time=job["start_time"],
+                end_time=job["end_time"],
+                output_path=job["out_backend"],
+                input_video_path=job["source"],
+                title_overlay=job["title"],
+                hook_line=job["hook"],
+                evidence_quote=job["evidence"],
+                rank=job["rank"],
             )
-            # Synchronize to frontend public directory
-            if out_backend.exists():
-                shutil.copy2(out_backend, out_frontend)
+            # Copy to frontend and alternative names
+            if job["out_backend"].exists():
+                shutil.copy2(job["out_backend"], job["out_frontend"])
+                if job["out_backend"] != job["out_backend_ranked"]:
+                    shutil.copy2(job["out_backend"], job["out_backend_ranked"])
+                if job["out_frontend"] != job["out_frontend_ranked"]:
+                    shutil.copy2(job["out_backend"], job["out_frontend_ranked"])
 
-            file_size = out_backend.stat().st_size if out_backend.exists() else 0
-            duration = round(end_time - start_time, 1)
-            results.append({
-                "clip_id": clip_id,
-                "rank": rank,
-                "title": title,
+            file_size = job["out_backend"].stat().st_size if job["out_backend"].exists() else 0
+            duration = round(job["end_time"] - job["start_time"], 1)
+            return {
+                "clip_id": job["clip_id"],
+                "rank": job["rank"],
+                "title": job["title"],
                 "status": "ready",
-                "video_url": f"/rendered_clips/{clip_id}.mp4",
-                "backend_url": f"/static/rendered_clips/{clip_id}.mp4",
+                "video_url": f"/rendered_clips/clip_{job['rank']}.mp4",
+                "backend_url": f"/static/rendered_clips/clip_{job['rank']}.mp4",
                 "duration": duration,
                 "file_size_bytes": file_size,
                 "format": "9:16 (1080x1920) Flagship MP4",
-            })
-            logger.info(f"Rendered {clip_id} ({rank}/14): {duration}s ({file_size} bytes)")
+            }
         except Exception as e:
-            logger.error(f"Failed to render {clip_id}: {e}")
-            results.append({
-                "clip_id": clip_id,
-                "rank": rank,
-                "title": title,
+            logger.error(f"Failed to render {job['clip_id']}: {e}")
+            return {
+                "clip_id": job["clip_id"],
+                "rank": job["rank"],
+                "title": job["title"],
                 "status": "failed",
                 "error": str(e),
-            })
+            }
 
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        results = list(executor.map(_render_job, prepared_jobs))
+
+    results.sort(key=lambda x: x["rank"])
     return results

@@ -19,3 +19,6 @@ Scrapling/
 *.db
 .vercel
 ACDC_-_Thunder_Struck_(mp3.pm).mp3
+
+backend/static/active_source_video.mp4
+frontend/public/active_source_video.mp4

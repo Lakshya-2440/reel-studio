@@ -148,7 +148,7 @@ function generateFromPastedTranscript(projectId: string, rawText: string): Inges
       ? titleWords.map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(" ")
       : `Critical Insight #${rank.toString().padStart(2, "0")}`;
 
-    const startSeconds = i * 45;
+    const startSeconds = Math.round((i * 4.2) % 58);
     const endSeconds = startSeconds + 10;
     const score = Number((9.8 - (i * 0.05)).toFixed(1));
 
@@ -189,7 +189,7 @@ function generateFromPastedTranscript(projectId: string, rawText: string): Inges
       recommended_platforms: ["LinkedIn", "Instagram Reels", "YouTube Shorts", "TikTok"],
       status: i < 6 ? "accepted" : i === 13 ? "rejected" : "suggested",
       rejection_reason: i === 13 ? "Hook is slightly longer than 5 seconds" : null,
-      video_url: `/rendered_clips/clip_${rank}_short.mp4`,
+      video_url: `/rendered_clips/clip_${rank}.mp4`,
     });
   }
 
@@ -238,7 +238,7 @@ function generateFromFileUpload(projectId: string, fileName: string): IngestedPr
 
   const clips: SeedClip[] = topics.map((t, i) => {
     const rank = i + 1;
-    const startSeconds = i * 60;
+    const startSeconds = Math.round((i * 4.2) % 58);
     const endSeconds = startSeconds + 10;
     const score = Number((9.7 - i * 0.04).toFixed(1));
 
@@ -279,7 +279,7 @@ function generateFromFileUpload(projectId: string, fileName: string): IngestedPr
       recommended_platforms: ["LinkedIn", "Instagram Reels", "YouTube Shorts", "TikTok"],
       status: i < 6 ? "accepted" : i === 13 ? "rejected" : "suggested",
       rejection_reason: i === 13 ? "Hook requires slightly more preamble" : null,
-      video_url: `/rendered_clips/clip_${rank}_short.mp4`,
+      video_url: `/rendered_clips/clip_${rank}.mp4`,
     };
   });
 

@@ -1,0 +1,707 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 7,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 371 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-age9\"> is a timeline element that contains nested <div id=\"tbox\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-age9",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-age9\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-age16\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-age16",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-age16\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-age17\"> is a timeline element that contains nested <div id=\"mun-card\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-age17",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-age17\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-age18\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-age18",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-age18\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-age19\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-age19",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-age19\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-climax\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-climax",
+        "dataAttributes": {},
+        "sourceFile": "/Users/lakshyagupta/Desktop/wispr_portfolio/video_intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-climax\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 38,
+    "samples": [
+      2.111,
+      6.333,
+      10.556,
+      14.778,
+      19,
+      23.222,
+      27.444,
+      31.667,
+      35.889
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      2.111,
+      10.556,
+      19,
+      27.444,
+      35.889
+    ],
+    "checked": 59,
+    "passed": 59
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 5,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"ORIGIN STORY AGE 9 TEN YEARS OF SHIPPING CODE\" (9 words) is on screen 2.07 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "ORIGIN STORY AGE 9 TEN YEARS OF SHIPPING CODE",
+        "selector": "#hero-age9",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 787.94,
+          "y": 589.91,
+          "width": 344.0999999999999,
+          "height": 149.09000000000003
+        },
+        "time": 2.5,
+        "words": 9,
+        "seconds": 2.07,
+        "floorSeconds": 2.4
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.63 s (6.50–10.13 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 6.5,
+        "seconds": 3.625,
+        "floorSeconds": 3,
+        "until": 10.125
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.38 s (11.25–14.63 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 11.25,
+        "seconds": 3.375,
+        "floorSeconds": 3,
+        "until": 14.625
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 5.38 s (16.38–21.75 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 16.375,
+        "seconds": 5.375,
+        "floorSeconds": 3,
+        "until": 21.75
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 50 text elements stay under it for 0.5 s or more, the smallest \"SELECTION\" at 12 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "SELECTION",
+        "selector": "#card-harvard > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 664.22,
+          "y": 637.6,
+          "width": 79.26,
+          "height": 15.66
+        },
+        "time": 25.5,
+        "times": [
+          0,
+          0,
+          0,
+          0.375,
+          0.375,
+          0.375,
+          0.375,
+          2,
+          2.5,
+          4.625,
+          4.625,
+          4.625,
+          4.625,
+          4.625,
+          4.75,
+          4.75,
+          4.75,
+          10.75,
+          10.75,
+          10.75,
+          10.75,
+          10.75,
+          15.75,
+          15.75,
+          15.75,
+          16,
+          16,
+          16,
+          22.875,
+          22.875,
+          23,
+          23,
+          24.375,
+          24.5,
+          24.75,
+          25,
+          25.5,
+          25.5,
+          25.5,
+          26.75,
+          26.75,
+          26.75,
+          30.375,
+          30.375,
+          30.375,
+          30.375,
+          30.375,
+          30.375,
+          32.375,
+          32.375
+        ],
+        "fontPx": 11.74,
+        "floorPx": 28,
+        "seconds": 4.25,
+        "elements": [
+          {
+            "selector": "#card-harvard > div:nth-of-type(1)",
+            "text": "SELECTION",
+            "fontPx": 11.74,
+            "time": 25.5,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#card-amazon > div:nth-of-type(1)",
+            "text": "SELECTION",
+            "fontPx": 11.84,
+            "time": 26.75,
+            "seconds": 3
+          },
+          {
+            "selector": "#portrait-box > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "LAKSHYA GUPTA",
+            "fontPx": 12.6,
+            "time": 22.875,
+            "seconds": 6.875
+          },
+          {
+            "selector": "#card-harvard > div:nth-of-type(3)",
+            "text": "Hanoi, 50+ Countries",
+            "fontPx": 12.72,
+            "time": 25.5,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#card-amazon > div:nth-of-type(3)",
+            "text": "Elite ML Residency",
+            "fontPx": 12.83,
+            "time": 26.75,
+            "seconds": 3
+          },
+          {
+            "selector": "div.terminal-bar > span:nth-of-type(1)",
+            "text": "lakshya@core ~ zsh",
+            "fontPx": 12.84,
+            "time": 0.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#hero-age9 > div:nth-of-type(1)",
+            "text": "ORIGIN STORY",
+            "fontPx": 13.29,
+            "time": 2.5,
+            "seconds": 2.125
+          },
+          {
+            "selector": "#climax-text-group > div:nth-of-type(3)",
+            "text": "BUILDING GROWTH FOR WISPR FLOW INDIA · 2026",
+            "fontPx": 13.56,
+            "time": 32.375,
+            "seconds": 5.625
+          },
+          {
+            "selector": "#card-sparker > div:nth-of-type(1)",
+            "text": "FOUNDER AT 16 · SPARKER KIT",
+            "fontPx": 13.68,
+            "time": 4.75,
+            "seconds": 5.875
+          },
+          {
+            "selector": "div.status-pill > span:nth-of-type(1)",
+            "text": "HEAD → autcy, openscion",
+            "fontPx": 14,
+            "time": 0,
+            "seconds": 38
+          },
+          {
+            "selector": "div.card-matrix > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+            "text": "NET PROFIT",
+            "fontPx": 14,
+            "time": 4.625,
+            "seconds": 6
+          },
+          {
+            "selector": "div.card-matrix > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "LEADERSHIP SPRINT",
+            "fontPx": 14,
+            "time": 4.625,
+            "seconds": 6
+          },
+          {
+            "selector": "#mun-card > div:nth-of-type(1)",
+            "text": "DIPLOMACY & SCALE · AGE 17",
+            "fontPx": 14,
+            "time": 10.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#eco-left > div:nth-of-type(1)",
+            "text": "NEWTON SCHOOL OF TECHNOLOGY · GPA 8.91",
+            "fontPx": 14,
+            "time": 15.75,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#eco-right > div:nth-of-type(1)",
+            "text": "GLOBAL OPEN SOURCE RECOGNITION",
+            "fontPx": 14,
+            "time": 16,
+            "seconds": 6.25
+          },
+          {
+            "selector": "#scale-info > div:nth-of-type(1)",
+            "text": "DISTRIBUTION PROVEN · AGE 19",
+            "fontPx": 14,
+            "time": 23,
+            "seconds": 6.75
+          },
+          {
+            "selector": "div.flagship-card.openscion > div:nth-of-type(1)",
+            "text": "FLAGSHIP 01 · OPEN SOURCE",
+            "fontPx": 14,
+            "time": 30.375,
+            "seconds": 7.625
+          },
+          {
+            "selector": "div.flagship-card.openscion > div:nth-of-type(4)",
+            "text": "316 merges/sec · 0-byte virtual clones · Cryptographic agent provenance",
+            "fontPx": 14,
+            "time": 30.375,
+            "seconds": 7.625
+          },
+          {
+            "selector": "div.flagship-card.autcy > div:nth-of-type(1)",
+            "text": "FLAGSHIP 02 · REVENUE CYCLE AGENTS",
+            "fontPx": 14,
+            "time": 30.375,
+            "seconds": 7.625
+          },
+          {
+            "selector": "div.flagship-card.autcy > div:nth-of-type(4)",
+            "text": "Autonomous 24/7 revenue workforce: Receptionist, Outbound Voice & Lead pipelines",
+            "fontPx": 14,
+            "time": 30.375,
+            "seconds": 7.625
+          },
+          {
+            "selector": "div.brand-title",
+            "text": "Wispr Flow × Emergent",
+            "fontPx": 15,
+            "time": 0,
+            "seconds": 38
+          },
+          {
+            "selector": "div.card-matrix > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3)",
+            "text": "50% margin in 10-day hackathon",
+            "fontPx": 15,
+            "time": 4.625,
+            "seconds": 6
+          },
+          {
+            "selector": "div.card-matrix > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3)",
+            "text": "Mentored school peers on unit economics & distribution",
+            "fontPx": 15,
+            "time": 4.625,
+            "seconds": 6
+          },
+          {
+            "selector": "div.mun-grid > div:nth-of-type(1) > div:nth-of-type(2)",
+            "text": "Delegates Chaired",
+            "fontPx": 15,
+            "time": 10.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "div.mun-grid > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Conflicted Blocs Reconciled",
+            "fontPx": 15,
+            "time": 10.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "div.mun-grid > div:nth-of-type(3) > div:nth-of-type(2)",
+            "text": "Working Papers Adopted",
+            "fontPx": 15,
+            "time": 10.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#eco-right > div:nth-of-type(4)",
+            "text": "> 8,000+ lines merged across 10+ international repositories",
+            "fontPx": 15,
+            "time": 16,
+            "seconds": 6.25
+          },
+          {
+            "selector": "div.pill-row > div:nth-of-type(1)",
+            "text": "🇮🇳 India",
+            "fontPx": 15,
+            "time": 24.375,
+            "seconds": 5.375
+          },
+          {
+            "selector": "div.pill-row > div:nth-of-type(2)",
+            "text": "🇻🇳 Vietnam",
+            "fontPx": 15,
+            "time": 24.5,
+            "seconds": 5.25
+          },
+          {
+            "selector": "div.pill-row > div:nth-of-type(3)",
+            "text": "🇮🇩 Indonesia",
+            "fontPx": 15,
+            "time": 24.75,
+            "seconds": 5
+          },
+          {
+            "selector": "div.pill-row > div:nth-of-type(4)",
+            "text": "🇵🇭 Philippines",
+            "fontPx": 15,
+            "time": 25,
+            "seconds": 4.75
+          },
+          {
+            "selector": "div.logo-pill",
+            "text": "GIT LOG --LAKSHYA",
+            "fontPx": 16,
+            "time": 0,
+            "seconds": 38
+          },
+          {
+            "selector": "#card-harvard > div:nth-of-type(2)",
+            "text": "Harvard HPAIR '26",
+            "fontPx": 16.63,
+            "time": 25.5,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#card-amazon > div:nth-of-type(2)",
+            "text": "Amazon ML Summer School '26",
+            "fontPx": 16.77,
+            "time": 26.75,
+            "seconds": 3
+          },
+          {
+            "selector": "#portrait-box > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Builder & Founder",
+            "fontPx": 17.45,
+            "time": 22.875,
+            "seconds": 6.875
+          },
+          {
+            "selector": "#card-sparker > div:nth-of-type(4)",
+            "text": "Won 10-Day Entrepreneurship Hackathon sprint. Ideation → Sales → Profit in a single run.",
+            "fontPx": 17.59,
+            "time": 4.75,
+            "seconds": 5.875
+          },
+          {
+            "selector": "#eco-left > div:nth-of-type(3)",
+            "text": "Hosted masterclasses and panels with senior executives from .",
+            "fontPx": 18,
+            "time": 15.75,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#eco-left > div:nth-of-type(3) > span:nth-of-type(1)",
+            "text": "Adani, IndiGo, Airtel, Upwork, and Everstream Analytics",
+            "fontPx": 18,
+            "time": 15.75,
+            "seconds": 6.5
+          },
+          {
+            "selector": "div.flagship-card.openscion > div:nth-of-type(3)",
+            "text": "Git for AI Agents · Git on Steroids",
+            "fontPx": 18,
+            "time": 30.375,
+            "seconds": 7.625
+          },
+          {
+            "selector": "div.flagship-card.autcy > div:nth-of-type(3)",
+            "text": "Intelligent Automation. Limitless Scale.",
+            "fontPx": 18,
+            "time": 30.375,
+            "seconds": 7.625
+          },
+          {
+            "selector": "div.terminal-content > div:nth-of-type(1)",
+            "text": "# Day 1 of 10-year shipping journey",
+            "fontPx": 19.75,
+            "time": 0.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "div.terminal-content > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "$",
+            "fontPx": 19.75,
+            "time": 0.375,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#typed-cmd",
+            "text": "git commit -m \"start writing code\" --author=\"Lakshya\"",
+            "fontPx": 19.75,
+            "time": 0.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#cmd-out",
+            "text": "[main (root-commit) 9a1c0de] 1st commit at age 9. 1 file changed.",
+            "fontPx": 20,
+            "time": 2,
+            "seconds": 2.625
+          },
+          {
+            "selector": "#eco-right > div:nth-of-type(3)",
+            "text": "Worldwide in Hacktoberfest & Google Big Code",
+            "fontPx": 20,
+            "time": 16,
+            "seconds": 6.25
+          },
+          {
+            "selector": "div.card-matrix > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Peer Product Mentorship",
+            "fontPx": 22,
+            "time": 4.625,
+            "seconds": 6
+          },
+          {
+            "selector": "#mun-card > div:nth-of-type(3)",
+            "text": "Led Secretariat for flagship 2024 summit. Chaired and mediated international committees under intense policy deadlocks.",
+            "fontPx": 22,
+            "time": 10.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "div.climax-punchline",
+            "text": "I'M JUST GETTING STARTED.",
+            "fontPx": 25.18,
+            "time": 32.375,
+            "seconds": 5.625
+          },
+          {
+            "selector": "#card-sparker > div:nth-of-type(3)",
+            "text": "Revenue in 10 Days",
+            "fontPx": 25.41,
+            "time": 4.75,
+            "seconds": 5.875
+          },
+          {
+            "selector": "#scale-info > div:nth-of-type(3)",
+            "text": "Active Users Across 4 Countries",
+            "fontPx": 26,
+            "time": 23,
+            "seconds": 6.75
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 304
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

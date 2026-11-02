@@ -26,6 +26,7 @@ export function MediaDropzone({ onStartIngest, isProcessing }: MediaDropzoneProp
   );
   const [dragActive, setDragActive] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDrag = (e: React.DragEvent) => {
@@ -45,6 +46,7 @@ export function MediaDropzone({ onStartIngest, isProcessing }: MediaDropzoneProp
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
       setSelectedFileName(file.name);
+      setSelectedFile(file);
     }
   };
 
@@ -52,6 +54,7 @@ export function MediaDropzone({ onStartIngest, isProcessing }: MediaDropzoneProp
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setSelectedFileName(file.name);
+      setSelectedFile(file);
     }
   };
 
@@ -135,7 +138,7 @@ export function MediaDropzone({ onStartIngest, isProcessing }: MediaDropzoneProp
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onStartIngest("file", selectedFileName);
+                    onStartIngest("file", selectedFile || selectedFileName);
                   }}
                   disabled={isProcessing}
                   className="mt-2 px-4 py-1.5 bg-primary hover:bg-black text-surface text-xs font-medium rounded transition-colors disabled:opacity-50"

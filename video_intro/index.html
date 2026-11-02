@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Lakshya Gupta — Introduction</title>
+    <!-- GSAP 3.15 -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+
+      :root {
+        --bg: #070709;
+        --surface: #111116;
+        --border: rgba(255, 255, 255, 0.1);
+        --accent: #C6FF3D;
+        --accent-glow: rgba(198, 255, 61, 0.4);
+        --cyan: #00F0FF;
+        --text: #F5F5F7;
+        --text-muted: #8E8E93;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+        font-family: 'Inter', sans-serif;
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 50%, #13131c 0%, #060608 70%, #020203 100%);
+      }
+
+      /* Master Camera (One-Take coordinate space) */
+      #camera {
+        position: absolute;
+        width: 1920px;
+        height: 1080px;
+        top: 0;
+        left: 0;
+        transform-origin: 50% 50%;
+        will-change: transform;
+      }
+
+      /* Global Header Watermark */
+      .brand-bar {
+        position: absolute;
+        top: 48px;
+        left: 64px;
+        right: 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 50;
+      }
+
+      .brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .logo-pill {
+        background: var(--accent);
+        color: #070709;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 800;
+        font-size: 16px;
+        padding: 6px 14px;
+        border-radius: 6px;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 15px;
+        color: var(--text-muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .status-pill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent);
+      }
+
+      /* Scene Viewports inside Camera */
+      .scene {
+        position: absolute;
+        width: 1920px;
+        height: 1080px;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 120px;
+      }
+
+      /* Typography Helpers */
+      .serif-display {
+        font-family: 'Instrument Serif', serif;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+
+      .mono-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      /* SCENE 1: AGE 9 */
+      #scene-age9 {
+        left: 0;
+        top: 0;
+      }
+
+      .terminal-box {
+        width: 900px;
+        background: rgba(17, 17, 22, 0.85);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(16px);
+      }
+
+      .terminal-bar {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .dot { width: 12px; height: 12px; border-radius: 50%; }
+      .dot-red { background: #FF5F56; }
+      .dot-yellow { background: #FFBD2E; }
+      .dot-green { background: #27C93F; }
+
+      .terminal-content {
+        padding: 32px 36px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #E2E8F0;
+      }
+
+      .terminal-hero-type {
+        margin-top: 40px;
+        text-align: center;
+      }
+
+      .age-badge {
+        display: inline-block;
+        font-size: 130px;
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        color: var(--accent);
+        text-shadow: 0 0 60px rgba(198, 255, 61, 0.3);
+      }
+
+      .age-sub {
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 10px;
+      }
+
+      /* SCENE 2: AGE 16 (SPARKER KIT) */
+      #scene-age16 {
+        left: 1920px;
+        top: 0;
+      }
+
+      .card-matrix {
+        display: flex;
+        gap: 32px;
+        width: 1400px;
+        align-items: center;
+      }
+
+      .metric-card-primary {
+        flex: 1.2;
+        background: rgba(18, 18, 24, 0.85);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 56px 64px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+      }
+
+      .metric-card-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--accent);
+      }
+
+      .giant-metric {
+        font-size: 108px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        color: var(--accent);
+        line-height: 1;
+        margin: 16px 0;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* SCENE 3: AGE 17 (IIT DELHI MUN) */
+      #scene-age17 {
+        left: 1920px;
+        top: 1080px;
+      }
+
+      .mun-container {
+        width: 1300px;
+        background: rgba(17, 17, 22, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 64px 80px;
+        position: relative;
+        backdrop-filter: blur(24px);
+        text-align: left;
+      }
+
+      .mun-title {
+        font-size: 78px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: #FFFFFF;
+        margin: 12px 0 24px 0;
+      }
+
+      .mun-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        margin-top: 36px;
+      }
+
+      .mun-stat-box {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 24px 28px;
+      }
+
+      .mun-stat-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 44px;
+        font-weight: 800;
+        color: var(--cyan);
+      }
+
+      .mun-stat-label {
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-top: 6px;
+      }
+
+      /* SCENE 4: AGE 18 (FORBES 30U30 & OPEN SOURCE) */
+      #scene-age18 {
+        left: 0;
+        top: 1080px;
+      }
+
+      .ecosystem-grid {
+        width: 1400px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 36px;
+      }
+
+      .eco-card {
+        background: rgba(17, 17, 22, 0.85);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 44px;
+        backdrop-filter: blur(20px);
+      }
+
+      /* SCENE 5: AGE 19 (12K USERS, HARVARD, AMAZON ML) */
+      #scene-age19 {
+        left: 960px;
+        top: 2160px;
+      }
+
+      .scale-stage {
+        width: 1500px;
+        display: flex;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .portrait-frame {
+        width: 380px;
+        height: 480px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid var(--border);
+        box-shadow: 0 0 60px rgba(0, 240, 255, 0.15);
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .portrait-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .portrait-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 60%, rgba(7, 7, 9, 0.9) 100%);
+      }
+
+      .scale-details {
+        flex: 1;
+      }
+
+      .stat-giant-12k {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 104px;
+        font-weight: 900;
+        color: var(--accent);
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+
+      .pill-row {
+        display: flex;
+        gap: 12px;
+        margin: 24px 0;
+        flex-wrap: wrap;
+      }
+
+      .country-pill {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* SCENE 6: FINALE CLIMAX (OPENSCION, AUTCY, LAKSHYA) */
+      #scene-climax {
+        left: 960px;
+        top: 3240px;
+      }
+
+      .climax-container {
+        width: 1500px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .flagship-duo {
+        display: flex;
+        gap: 32px;
+        width: 100%;
+        margin-bottom: 40px;
+      }
+
+      .flagship-card {
+        flex: 1;
+        background: rgba(17, 17, 22, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: left;
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .flagship-card.openscion {
+        border-color: rgba(198, 255, 61, 0.3);
+      }
+
+      .flagship-card.autcy {
+        border-color: rgba(0, 240, 255, 0.3);
+      }
+
+      .flagship-title {
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 10px 0 16px 0;
+      }
+
+      .climax-name {
+        font-family: 'Instrument Serif', serif;
+        font-size: 128px;
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+        text-shadow: 0 0 80px rgba(255, 255, 255, 0.2);
+      }
+
+      .climax-punchline {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        margin-top: 16px;
+        text-transform: uppercase;
+      }
+
+      /* THUNDER FLASH OVERLAY */
+      #thunder-overlay {
+        position: absolute;
+        inset: 0;
+        background: #FFFFFF;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 100;
+        mix-blend-mode: overlay;
+      }
+
+      /* KINETIC WORDS */
+      .kinetic-drop {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Inter', sans-serif;
+        font-size: 160px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        opacity: 0;
+        z-index: 95;
+        pointer-events: none;
+        text-shadow: 0 0 100px var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="38"
+      data-width="1920"
+      data-height="1080"
+      data-motion-blur="on"
+      data-layout-allow-overflow="true"
+      data-layout-allow-overlap="true"
+    >
+      <!-- Audio Soundtrack (AC/DC Thunderstruck + Studio Voiceover Mix) -->
+      <audio
+        id="soundtrack"
+        src="assets/soundtrack.mp3"
+        data-start="0"
+        data-duration="38"
+        data-volume="1.0"
+      ></audio>
+
+      <!-- Flashes & Kinetic Overlays -->
+      <div id="thunder-overlay" data-layout-allow-overlap="true"></div>
+      <div id="word-thunder" class="kinetic-drop" data-layout-allow-overlap="true">THUNDER.</div>
+      <div id="word-scale" class="kinetic-drop" data-layout-allow-overlap="true">SCALE.</div>
+      <div id="word-now" class="kinetic-drop" data-layout-allow-overlap="true">NOW.</div>
+
+      <!-- Persistent UI Header -->
+      <div class="brand-bar" data-layout-allow-overlap="true">
+        <div class="brand-logo">
+          <div class="logo-pill">GIT LOG --LAKSHYA</div>
+          <div class="brand-title">Wispr Flow × Emergent</div>
+        </div>
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          <span>HEAD → autcy, openscion</span>
+        </div>
+      </div>
+
+      <!-- Continuous Camera Space -->
+      <div id="camera" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+
+        <!-- ==============================================
+             BEAT 1: AGE 9 — FIRST COMMIT (0.0s - 4.4s)
+             ============================================== -->
+        <div id="scene-age9" class="scene clip" data-start="0" data-duration="4.6" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+          <div class="terminal-box" id="tbox">
+            <div class="terminal-bar">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span style="margin-left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted);">
+                lakshya@core ~ zsh
+              </span>
+            </div>
+            <div class="terminal-content">
+              <div style="color: var(--text-muted); margin-bottom: 8px;"># Day 1 of 10-year shipping journey</div>
+              <div><span style="color: var(--accent);">$</span> <span id="typed-cmd">git commit -m "start writing code" --author="Lakshya"</span></div>
+              <div id="cmd-out" style="color: #A0AEC0; margin-top: 10px; opacity: 0;">
+                [main (root-commit) 9a1c0de] 1st commit at age 9. 1 file changed.
+              </div>
+            </div>
+          </div>
+
+          <div class="terminal-hero-type" id="hero-age9">
+            <div class="mono-tag" style="margin-bottom: 8px;">ORIGIN STORY</div>
+            <div class="age-badge">AGE 9</div>
+            <div class="age-sub">Ten Years of Shipping Code</div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             BEAT 2: AGE 16 — SPARKER KIT (4.4s - 10.4s)
+             ============================================== -->
+        <div id="scene-age16" class="scene clip" data-start="4.2" data-duration="6.5" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+          <div class="card-matrix">
+            <div class="metric-card-primary" id="card-sparker">
+              <div class="mono-tag">FOUNDER AT 16 · SPARKER KIT</div>
+              <div class="giant-metric" id="count-sparker">₹40,000</div>
+              <div style="font-size: 26px; font-weight: 700; color: #FFFFFF;">
+                Revenue in 10 Days
+              </div>
+              <div style="font-size: 18px; color: var(--text-muted); margin-top: 10px; line-height: 1.5;">
+                Won 10-Day Entrepreneurship Hackathon sprint.<br>
+                Ideation → Sales → Profit in a single run.
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 24px; flex: 0.8;">
+              <div style="background: rgba(17, 17, 22, 0.85); border: 1px solid var(--border); border-radius: 18px; padding: 36px; backdrop-filter: blur(16px);">
+                <div class="mono-tag" style="color: var(--cyan);">NET PROFIT</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 52px; font-weight: 800; color: #FFFFFF; margin: 8px 0;">
+                  ₹20,000
+                </div>
+                <div style="font-size: 15px; color: var(--text-muted);">50% margin in 10-day hackathon</div>
+              </div>
+              <div style="background: rgba(17, 17, 22, 0.85); border: 1px solid var(--border); border-radius: 18px; padding: 36px; backdrop-filter: blur(16px);">
+                <div class="mono-tag" style="color: #F6AD55;">LEADERSHIP SPRINT</div>
+                <div style="font-size: 22px; font-weight: 700; color: #FFFFFF; margin-top: 8px;">
+                  Peer Product Mentorship
+                </div>
+                <div style="font-size: 15px; color: var(--text-muted); margin-top: 6px;">
+                  Mentored school peers on unit economics & distribution
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             BEAT 3: AGE 17 — DIRECTOR GENERAL IITD MUN (10.4s - 15.0s)
+             ============================================== -->
+        <div id="scene-age17" class="scene clip" data-start="10.2" data-duration="4.8" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+          <div class="mun-container" id="mun-card">
+            <div class="mono-tag" style="color: var(--accent);">DIPLOMACY & SCALE · AGE 17</div>
+            <div class="mun-title">Director General, IIT Delhi MUN</div>
+            <div style="font-size: 22px; color: var(--text-muted); max-width: 900px; line-height: 1.5;">
+              Led Secretariat for flagship 2024 summit. Chaired and mediated international committees under intense policy deadlocks.
+            </div>
+
+            <div class="mun-grid">
+              <div class="mun-stat-box">
+                <div class="mun-stat-num" id="mun-delegates">200+</div>
+                <div class="mun-stat-label">Delegates Chaired</div>
+              </div>
+              <div class="mun-stat-box">
+                <div class="mun-stat-num" style="color: var(--accent);">3</div>
+                <div class="mun-stat-label">Conflicted Blocs Reconciled</div>
+              </div>
+              <div class="mun-stat-box">
+                <div class="mun-stat-num" style="color: #FFFFFF;">100%</div>
+                <div class="mun-stat-label">Working Papers Adopted</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             BEAT 5: AGE 18 — FORBES 30U30 & OPEN SOURCE (15.2s - 22.0s)
+             ============================================== -->
+        <div id="scene-age18" class="scene clip" data-start="15.2" data-duration="7.0" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+          <div class="ecosystem-grid">
+            <div class="eco-card" id="eco-left">
+              <div class="mono-tag" style="color: var(--cyan);">NEWTON SCHOOL OF TECHNOLOGY · GPA 8.91</div>
+              <div style="font-size: 42px; font-weight: 800; color: #FFFFFF; margin: 16px 0 20px 0; line-height: 1.15;">
+                Interviewed Forbes 30 Under 30 Founders
+              </div>
+              <div style="font-size: 18px; color: var(--text-muted); line-height: 1.6;">
+                Hosted masterclasses and panels with senior executives from <span style="color: #FFFFFF; font-weight: 600;">Adani, IndiGo, Airtel, Upwork, and Everstream Analytics</span>.
+              </div>
+            </div>
+
+            <div class="eco-card" id="eco-right" style="border-color: rgba(198, 255, 61, 0.2);">
+              <div class="mono-tag">GLOBAL OPEN SOURCE RECOGNITION</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 64px; font-weight: 900; color: var(--accent); margin: 12px 0;">
+                TOP ~10%
+              </div>
+              <div style="font-size: 20px; font-weight: 700; color: #FFFFFF;">
+                Worldwide in Hacktoberfest & Google Big Code
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text-muted); margin-top: 14px;">
+                > 8,000+ lines merged across 10+ international repositories
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             BEAT 7: AGE 19 — 12,000+ USERS & HARVARD (22.2s - 29.5s)
+             ============================================== -->
+        <div id="scene-age19" class="scene clip" data-start="22.2" data-duration="7.5" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+          <div class="scale-stage">
+            <div class="portrait-frame" id="portrait-box">
+              <img src="assets/me_portrait.jpeg" alt="Lakshya Gupta" />
+              <div class="portrait-overlay"></div>
+              <div style="position: absolute; bottom: 20px; left: 24px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.1em;">LAKSHYA GUPTA</div>
+                <div style="font-size: 18px; font-weight: 700; color: #FFF;">Builder & Founder</div>
+              </div>
+            </div>
+
+            <div class="scale-details" id="scale-info">
+              <div class="mono-tag">DISTRIBUTION PROVEN · AGE 19</div>
+              <div class="stat-giant-12k" id="count-users">12,000+</div>
+              <div style="font-size: 26px; font-weight: 700; color: #FFFFFF; margin-top: 6px;">
+                Active Users Across 4 Countries
+              </div>
+
+              <div class="pill-row">
+                <div class="country-pill">🇮🇳 India</div>
+                <div class="country-pill">🇻🇳 Vietnam</div>
+                <div class="country-pill">🇮🇩 Indonesia</div>
+                <div class="country-pill">🇵🇭 Philippines</div>
+              </div>
+
+              <div style="display: flex; gap: 16px; margin-top: 20px;">
+                <div class="sel-card" id="card-harvard" style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; flex: 1;">
+                  <div class="mono-tag" style="font-size: 12px; color: var(--cyan);">SELECTION</div>
+                  <div style="font-size: 17px; font-weight: 700; color: #FFF; margin-top: 4px;">Harvard HPAIR '26</div>
+                  <div style="font-size: 13px; color: var(--text-muted);">Hanoi, 50+ Countries</div>
+                </div>
+                <div class="sel-card" id="card-amazon" style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; flex: 1;">
+                  <div class="mono-tag" style="font-size: 12px; color: var(--accent);">SELECTION</div>
+                  <div style="font-size: 17px; font-weight: 700; color: #FFF; margin-top: 4px;">Amazon ML Summer School '26</div>
+                  <div style="font-size: 13px; color: var(--text-muted);">Elite ML Residency</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             BEAT 9: FULL ROCK EXPLOSION / FINALE (29.5s - 38.0s)
+             ============================================== -->
+        <div id="scene-climax" class="scene clip" data-start="29.5" data-duration="8.5" data-layout-allow-overflow="true" data-layout-allow-overlap="true">
+          <div class="climax-container">
+
+            <!-- Dual Flagship Systems -->
+            <div class="flagship-duo" id="flagship-boxes">
+              <div class="flagship-card openscion">
+                <div class="mono-tag">FLAGSHIP 01 · OPEN SOURCE</div>
+                <div class="flagship-title" style="color: var(--accent);">OpenScion</div>
+                <div style="font-size: 18px; color: #FFFFFF; font-weight: 600;">Git for AI Agents · Git on Steroids</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-muted); margin-top: 10px;">
+                  316 merges/sec · 0-byte virtual clones · Cryptographic agent provenance
+                </div>
+              </div>
+
+              <div class="flagship-card autcy">
+                <div class="mono-tag" style="color: var(--cyan);">FLAGSHIP 02 · REVENUE CYCLE AGENTS</div>
+                <div class="flagship-title" style="color: var(--cyan);">Autcy</div>
+                <div style="font-size: 18px; color: #FFFFFF; font-weight: 600;">Intelligent Automation. Limitless Scale.</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-muted); margin-top: 10px;">
+                  Autonomous 24/7 revenue workforce: Receptionist, Outbound Voice & Lead pipelines
+                </div>
+              </div>
+            </div>
+
+            <!-- Grand Climax Title -->
+            <div id="climax-text-group">
+              <div class="climax-name">Lakshya Gupta</div>
+              <div class="climax-punchline">I'M JUST GETTING STARTED.</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-muted); margin-top: 14px; letter-spacing: 0.1em;">
+                BUILDING GROWTH FOR WISPR FLOW INDIA · 2026
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GSAP One-Take Camera Animation Script -->
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // ============================================
+      // 0.0s - 4.4s: BEAT 1 (Age 9 Terminal)
+      // ============================================
+      tl.set("#camera", { x: 0, y: 0, scale: 1 });
+      tl.fromTo("#tbox", { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power4.out" }, 0.2);
+      tl.to("#cmd-out", { opacity: 1, duration: 0.4, ease: "power2.out" }, 1.8);
+      tl.fromTo("#hero-age9", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.2)" }, 2.4);
+
+      // ============================================
+      // 4.2s - 4.8s: CAMERA GLIDE TO AGE 16 (Sparker Kit)
+      // ============================================
+      tl.to("#camera", { x: -1920, y: 0, scale: 1, duration: 0.65, ease: "power3.inOut" }, 4.2);
+      tl.fromTo("#card-sparker", { opacity: 0, scale: 0.92, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power4.out" }, 4.6);
+
+      // Sparker Kit Counter rapid tick
+      const sparkerObj = { val: 0 };
+      tl.to(sparkerObj, {
+        val: 40000,
+        duration: 1.4,
+        ease: "power2.out",
+        onUpdate: function() {
+          const el = document.getElementById("count-sparker");
+          if (el) el.innerText = "₹" + Math.round(sparkerObj.val).toLocaleString("en-IN");
+        }
+      }, 5.0);
+
+      // ============================================
+      // 10.2s - 10.8s: CAMERA GLIDE DOWN TO AGE 17 (IITD MUN)
+      // ============================================
+      tl.to("#camera", { x: -1920, y: -1080, scale: 1, duration: 0.65, ease: "power3.inOut" }, 10.2);
+      tl.fromTo("#mun-card", { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power4.out" }, 10.6);
+
+      // ============================================
+      // 14.5s - 15.3s: ⚡ FIRST THUNDER BEAT DROP
+      // ============================================
+      tl.to("#thunder-overlay", { opacity: 0.85, duration: 0.08, ease: "power4.in" }, 14.55);
+      tl.to("#thunder-overlay", { opacity: 0, duration: 0.35, ease: "power2.out" }, 14.65);
+      tl.fromTo("#word-thunder", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.15, ease: "expo.out" }, 14.6);
+      tl.to("#word-thunder", { opacity: 0, scale: 0.9, duration: 0.25, ease: "power3.in" }, 15.1);
+
+      // ============================================
+      // 15.2s - 15.8s: CAMERA GLIDE TO AGE 18 (Forbes & Open Source)
+      // ============================================
+      tl.to("#camera", { x: 0, y: -1080, scale: 1, duration: 0.65, ease: "power3.inOut" }, 15.2);
+      tl.fromTo("#eco-left", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.55, ease: "power4.out" }, 15.6);
+      tl.fromTo("#eco-right", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.55, ease: "power4.out" }, 15.8);
+
+      // ============================================
+      // 21.6s - 22.3s: ⚡ SECOND THUNDER BEAT DROP (SCALE)
+      // ============================================
+      tl.to("#thunder-overlay", { opacity: 0.9, duration: 0.08, ease: "power4.in" }, 21.75);
+      tl.to("#thunder-overlay", { opacity: 0, duration: 0.35, ease: "power2.out" }, 21.85);
+      tl.fromTo("#word-scale", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.15, ease: "expo.out" }, 21.78);
+      tl.to("#word-scale", { opacity: 0, scale: 0.85, duration: 0.25, ease: "power3.in" }, 22.2);
+
+      // ============================================
+      // 22.2s - 22.9s: CAMERA GLIDE TO AGE 19 (12k Users & Harvard)
+      // ============================================
+      tl.to("#camera", { x: -960, y: -2160, scale: 1, duration: 0.7, ease: "power3.inOut" }, 22.2);
+      tl.fromTo("#portrait-box", { opacity: 0, scale: 0.85, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.2)" }, 22.7);
+      tl.fromTo("#scale-info", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power4.out" }, 22.9);
+
+      // User count tick
+      const userObj = { val: 0 };
+      tl.to(userObj, {
+        val: 12000,
+        duration: 1.5,
+        ease: "power2.out",
+        onUpdate: function() {
+          const el = document.getElementById("count-users");
+          if (el) el.innerText = Math.round(userObj.val).toLocaleString("en-US") + "+";
+        }
+      }, 23.2);
+
+      // Staggered country pills reveal
+      tl.from(".country-pill", { opacity: 0, y: 15, stagger: 0.2, duration: 0.4, ease: "power2.out" }, 24.2);
+      tl.from("#card-harvard", { opacity: 0, scale: 0.94, duration: 0.5, ease: "back.out(1.2)" }, 25.4);
+      tl.from("#card-amazon", { opacity: 0, scale: 0.94, duration: 0.5, ease: "back.out(1.2)" }, 26.6);
+
+      // ============================================
+      // 28.8s - 29.5s: ⚡ THIRD THUNDER BEAT DROP (NOW)
+      // ============================================
+      tl.to("#thunder-overlay", { opacity: 0.95, duration: 0.08, ease: "power4.in" }, 28.95);
+      tl.to("#thunder-overlay", { opacity: 0, duration: 0.35, ease: "power2.out" }, 29.05);
+      tl.fromTo("#word-now", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.15, ease: "expo.out" }, 28.98);
+      tl.to("#word-now", { opacity: 0, scale: 0.8, duration: 0.25, ease: "power3.in" }, 29.4);
+
+      // ============================================
+      // 29.5s - 38.0s: ⚡💥 FULL ROCK EXPLOSION (OpenScion, Autcy, Climax)
+      // ============================================
+      tl.to("#camera", { x: -960, y: -3240, scale: 1, duration: 0.8, ease: "power4.inOut" }, 29.5);
+      tl.fromTo("#flagship-boxes", { opacity: 0, y: 40, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power4.out" }, 30.2);
+      tl.fromTo("#climax-text-group", { opacity: 0, scale: 0.88, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "back.out(1.3)" }, 32.2);
+
+      // End camera subtle zoom
+      tl.to("#camera", { scale: 1.04, duration: 5.0, ease: "sine.out" }, 33.0);
+
+      // Register timeline for HyperFrames
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

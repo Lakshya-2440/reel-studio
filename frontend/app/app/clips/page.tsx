@@ -73,7 +73,11 @@ export default function ClipsPage() {
 
       // Call backend batch render (or fallback)
       try {
-        await fetch("http://localhost:8000/clips/render-batch", { method: "POST" });
+        await fetch("http://localhost:8000/clips/render-batch", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ clips: activeProject.clips }),
+        });
       } catch {
         // Local public assets fallback
       }
